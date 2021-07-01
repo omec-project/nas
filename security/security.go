@@ -1,8 +1,8 @@
 package security
 
 import (
-	"github.com/free5gc/nas/logger"
-	"github.com/free5gc/nas/security/snow3g"
+	"github.com/omec-project/nas/logger"
+	"github.com/omec-project/nas/security/snow3g"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"

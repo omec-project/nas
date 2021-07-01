@@ -1,7 +1,7 @@
 package nasMessage
 
 import (
-	"github.com/free5gc/nas/nasType"
+	"github.com/omec-project/nas/nasType"
 	"bytes"
 	"encoding/binary"
 )

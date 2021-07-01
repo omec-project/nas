@@ -3,7 +3,7 @@ package version_test
 import (
 	"testing"
 
-	"github.com/free5gc/nas/version"
+	"github.com/omec-project/nas/version"
 	"github.com/stretchr/testify/assert"
 )
 

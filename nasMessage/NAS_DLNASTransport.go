@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"github.com/free5gc/nas/nasType"
+	"github.com/omec-project/nas/nasType"
 	"net"
 )
 

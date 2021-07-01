@@ -1,7 +1,7 @@
 package nas
 
 import (
-	"github.com/free5gc/nas/nasMessage"
+	"github.com/omec-project/nas/nasMessage"
 	"bytes"
 	"encoding/binary"
 	"fmt"

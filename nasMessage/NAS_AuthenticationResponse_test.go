@@ -3,13 +3,13 @@ package nasMessage_test
 import (
 	"bytes"
 
-	"github.com/free5gc/nas/logger"
+	"github.com/omec-project/nas/logger"
 
 	//"fmt"
 	"testing"
 
-	"github.com/free5gc/nas/nasMessage"
-	"github.com/free5gc/nas/nasType"
+	"github.com/omec-project/nas/nasMessage"
+	"github.com/omec-project/nas/nasType"
 
 	"reflect"
 
