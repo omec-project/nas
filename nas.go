@@ -1,15 +1,16 @@
 // SPDX-FileCopyrightText: 2021 Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+//
 
 package nas
 
 import (
-	"github.com/free5gc/nas/nasMessage"
 	"bytes"
 	"encoding/binary"
 	"fmt"
+
+	"github.com/free5gc/nas/nasMessage"
 )
 
 // Message TODO：description

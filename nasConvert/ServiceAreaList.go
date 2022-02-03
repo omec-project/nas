@@ -1,15 +1,16 @@
 // SPDX-FileCopyrightText: 2021 Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+//
 
 package nasConvert
 
 import (
+	"encoding/hex"
+
 	"github.com/free5gc/nas/logger"
 	"github.com/free5gc/nas/nasMessage"
 	"github.com/free5gc/openapi/models"
-	"encoding/hex"
 )
 
 // TS 24.501 9.11.3.49
