@@ -1,20 +1,21 @@
 // SPDX-FileCopyrightText: 2021 Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+//
 
 package nasConvert
 
 import (
-	"github.com/free5gc/nas/logger"
-	"github.com/free5gc/nas/nasMessage"
-	"github.com/free5gc/nas/nasType"
-	"github.com/free5gc/openapi/models"
 	"encoding/hex"
 	"fmt"
 	"math/bits"
 	"strconv"
 	"strings"
+
+	"github.com/free5gc/nas/logger"
+	"github.com/free5gc/nas/nasMessage"
+	"github.com/free5gc/nas/nasType"
+	"github.com/free5gc/openapi/models"
 )
 
 func GetTypeOfIdentity(buf byte) uint8 {

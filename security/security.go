@@ -1,17 +1,18 @@
 // SPDX-FileCopyrightText: 2021 Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+//
 
 package security
 
 import (
-	"github.com/free5gc/nas/logger"
-	"github.com/free5gc/nas/security/snow3g"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"
 	"fmt"
+
+	"github.com/free5gc/nas/logger"
+	"github.com/free5gc/nas/security/snow3g"
 
 	"github.com/aead/cmac"
 )
