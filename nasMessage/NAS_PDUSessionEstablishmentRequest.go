@@ -1,10 +1,10 @@
 package nasMessage
 
 import (
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasType"
 	"bytes"
 	"encoding/binary"
+	"github.com/free5gc/nas/logger"
+	"github.com/free5gc/nas/nasType"
 )
 
 type PDUSessionEstablishmentRequest struct {
