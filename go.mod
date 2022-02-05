@@ -8,7 +8,6 @@ require (
 	github.com/free5gc/CommonConsumerTestData v1.0.0
 	github.com/free5gc/logger_conf v1.0.0
 	github.com/free5gc/logger_util v1.0.0
-	github.com/free5gc/nas v1.0.0
 	github.com/free5gc/openapi v1.0.0
 	github.com/free5gc/util_3gpp v1.0.0
 	github.com/sirupsen/logrus v1.7.0

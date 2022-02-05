@@ -1,3 +1,8 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasType
 
 // ReplayedS1UESecurityCapabilities 9.11.3.48A

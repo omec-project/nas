@@ -1,10 +1,16 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasConvert
 
 import (
+	"encoding/hex"
+
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/free5gc/openapi/models"
-	"encoding/hex"
 )
 
 // TS 24.501 9.11.3.49

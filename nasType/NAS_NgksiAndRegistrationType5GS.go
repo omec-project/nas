@@ -1,3 +1,8 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasType
 
 // NgksiAndRegistrationType5GS 9.11.3.7 9.11.3.32

@@ -1,13 +1,19 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasConvert
 
 import (
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasMessage"
 	"bytes"
 	"encoding/binary"
 	"fmt"
 	"net"
 	"strconv"
+
+	"github.com/omec-project/nas/logger"
+	"github.com/omec-project/nas/nasMessage"
 )
 
 type ProtocolOrContainerUnit struct {

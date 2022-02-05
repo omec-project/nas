@@ -1,11 +1,16 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasMessage
 
 import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"github.com/omec-project/nas/nasType"
 	"net"
+	"github.com/omec-project/nas/nasType"
 )
 
 type DLNASTransport struct {
@@ -62,7 +67,7 @@ func (a *DLNASTransport) EncodeDLNASTransport(buffer *bytes.Buffer) {
 
 func (a *DLNASTransport) DecodeDLNASTransport(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	fmt.Println("a  before ", a)
+	//fmt.Println("a  before ", a)
 	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
 	binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
 	binary.Read(buffer, binary.BigEndian, &a.DLNASTRANSPORTMessageIdentity.Octet)
@@ -70,39 +75,39 @@ func (a *DLNASTransport) DecodeDLNASTransport(byteArray *[]byte) {
 	binary.Read(buffer, binary.BigEndian, &a.PayloadContainer.Len)
 	a.PayloadContainer.SetLen(a.PayloadContainer.GetLen())
 	binary.Read(buffer, binary.BigEndian, &a.PayloadContainer.Buffer)
-	fmt.Println("Protocol Des ", a.ExtendedProtocolDiscriminator)
-	fmt.Println("Message identity ", a.DLNASTRANSPORTMessageIdentity)
-	fmt.Println("payload container type ", a.SpareHalfOctetAndPayloadContainerType)
-	fmt.Println("payload container len ", a.PayloadContainer.Len)
+	//fmt.Println("Protocol Des ", a.ExtendedProtocolDiscriminator)
+	//fmt.Println("Message identity ", a.DLNASTRANSPORTMessageIdentity)
+	//fmt.Println("payload container type ", a.SpareHalfOctetAndPayloadContainerType)
+	//fmt.Println("payload container len ", a.PayloadContainer.Len)
 	if a.SpareHalfOctetAndPayloadContainerType.Octet == uint8(1) {
-		fmt.Println("*****")
-		fmt.Println("buf ", a.PayloadContainer.Buffer)
+		//fmt.Println("*****")
+		//fmt.Println("buf ", a.PayloadContainer.Buffer)
 		esmMsg := bytes.NewBuffer(a.PayloadContainer.Buffer)
-		fmt.Println("\n")
+		//fmt.Println("\n")
 		var pd uint8
 		binary.Read(esmMsg, binary.BigEndian, &pd)
-		fmt.Println("Protocol Des ", pd)
+		//fmt.Println("Protocol Des ", pd)
 		binary.Read(esmMsg, binary.BigEndian, &pd)
-		fmt.Println("PDU Session Id ", pd)
+		//fmt.Println("PDU Session Id ", pd)
 		binary.Read(esmMsg, binary.BigEndian, &pd)
-		fmt.Println("PTI ", pd)
+		//fmt.Println("PTI ", pd)
 		binary.Read(esmMsg, binary.BigEndian, &pd)
-		fmt.Println("msg type ", pd)
+		//fmt.Println("msg type ", pd)
 		binary.Read(esmMsg, binary.BigEndian, &pd)
-		fmt.Println("session type , ssc mode ", pd)
+		//fmt.Println("session type , ssc mode ", pd)
 		var len uint16
 		binary.Read(esmMsg, binary.BigEndian, &len)
-		fmt.Println("qos len  ", len)
+		//fmt.Println("qos len  ", len)
 		var qos [9]uint8
 		binary.Read(esmMsg, binary.BigEndian, &qos)
-		fmt.Println("qos ", qos)
+		//fmt.Println("qos ", qos)
 		var ambr_len uint8
 		binary.Read(esmMsg, binary.BigEndian, &ambr_len)
-		fmt.Println("ambr len  ", ambr_len)
+		//fmt.Println("ambr len  ", ambr_len)
 		var ambr [6]uint8
 		binary.Read(esmMsg, binary.BigEndian, &ambr)
-		fmt.Println("ambr ", ambr)
-		fmt.Println("remaining bytes *****", esmMsg.Len())
+		//fmt.Println("ambr ", ambr)
+		//fmt.Println("remaining bytes *****", esmMsg.Len())
 		for esmMsg.Len() > 0 {
 			var ieiN uint8
 			binary.Read(esmMsg, binary.BigEndian, &ieiN)
@@ -111,17 +116,17 @@ func (a *DLNASTransport) DecodeDLNASTransport(byteArray *[]byte) {
 			case 89:
 				var cause uint8
 				binary.Read(esmMsg, binary.BigEndian, &cause)
-				fmt.Println("59 - gsm cause = ", cause)
+				//fmt.Println("59 - gsm cause = ", cause)
 			case 41:
 				var iplen uint8
 				binary.Read(esmMsg, binary.BigEndian, &iplen)
-				fmt.Println("length of ip address = ", iplen)
+				//fmt.Println("length of ip address = ", iplen)
 				var iptype uint8
 				binary.Read(esmMsg, binary.BigEndian, &iptype)
-				fmt.Println("type of address = ", iptype)
+				//fmt.Println("type of address = ", iptype)
 				var ipaddr [4]uint8
 				binary.Read(esmMsg, binary.BigEndian, &ipaddr)
-				fmt.Println("ip address = ", ipaddr)
+				//fmt.Println("ip address = ", ipaddr)
 				ip := net.IPv4(ipaddr[0], ipaddr[1], ipaddr[2], ipaddr[3])
 				a.Ipaddr = ip.String()
 				fmt.Println("ip address in string ", a.Ipaddr)

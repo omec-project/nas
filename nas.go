@@ -1,10 +1,16 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nas
 
 import (
-	"github.com/omec-project/nas/nasMessage"
 	"bytes"
 	"encoding/binary"
 	"fmt"
+
+	"github.com/omec-project/nas/nasMessage"
 )
 
 // Message TODO：description

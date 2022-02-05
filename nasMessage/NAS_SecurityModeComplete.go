@@ -1,9 +1,15 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasMessage
 
 import (
-	"github.com/omec-project/nas/nasType"
 	"bytes"
 	"encoding/binary"
+
+	"github.com/omec-project/nas/nasType"
 )
 
 type SecurityModeComplete struct {

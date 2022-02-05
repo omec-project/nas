@@ -1,3 +1,8 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasType
 
 // SSCMode 9.11.4.16

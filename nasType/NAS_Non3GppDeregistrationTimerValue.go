@@ -1,3 +1,8 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasType
 
 // Non3GppDeregistrationTimerValue 9.11.2.4

@@ -1,15 +1,21 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasConvert
 
 import (
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasMessage"
-	"github.com/omec-project/nas/nasType"
-	"github.com/free5gc/openapi/models"
 	"encoding/hex"
 	"fmt"
 	"math/bits"
 	"strconv"
 	"strings"
+
+	"github.com/omec-project/nas/logger"
+	"github.com/omec-project/nas/nasMessage"
+	"github.com/omec-project/nas/nasType"
+	"github.com/free5gc/openapi/models"
 )
 
 func GetTypeOfIdentity(buf byte) uint8 {
