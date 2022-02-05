@@ -1,8 +1,8 @@
 package nasConvert
 
 import (
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasMessage"
+	"github.com/free5gc/nas/logger"
+	"github.com/free5gc/nas/nasMessage"
 	"bytes"
 	"encoding/binary"
 	"fmt"
