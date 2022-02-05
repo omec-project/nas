@@ -1,10 +1,16 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasMessage
 
 import (
-	"github.com/free5gc/nas/logger"
-	"github.com/free5gc/nas/nasType"
 	"bytes"
 	"encoding/binary"
+
+	"github.com/free5gc/nas/logger"
+	"github.com/free5gc/nas/nasType"
 )
 
 type PDUSessionEstablishmentRequest struct {

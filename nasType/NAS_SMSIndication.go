@@ -1,3 +1,8 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package nasType
 
 // SMSIndication 9.10.3.50A

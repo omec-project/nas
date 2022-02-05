@@ -1,3 +1,8 @@
+// Copyright 2019 free5GC.org
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 package security
 
 // TS 33.501 Annex A.8 Algorithm distinguisher For Knas_int Knas_enc
