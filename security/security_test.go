@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/free5gc/CommonConsumerTestData/AMF/TestAmf/TestNeaNia"
-	"github.com/free5gc/nas/security"
+	"github.com/omec-project/nas/security"
 )
 
 func TestNEA1(t *testing.T) {

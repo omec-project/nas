@@ -1,4 +1,4 @@
-module github.com/free5gc/nas
+module github.com/omec-project/nas
 
 go 1.14
 

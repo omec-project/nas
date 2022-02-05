@@ -8,7 +8,7 @@ package nasType_test
 import (
 	"testing"
 
-	"github.com/free5gc/nas/nasType"
+	"github.com/omec-project/nas/nasType"
 
 	"github.com/stretchr/testify/assert"
 )

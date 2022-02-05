@@ -11,9 +11,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/free5gc/nas"
-	"github.com/free5gc/nas/nasMessage"
-	"github.com/free5gc/nas/nasType"
+	"github.com/omec-project/nas"
+	"github.com/omec-project/nas/nasMessage"
+	"github.com/omec-project/nas/nasType"
 
 	"github.com/stretchr/testify/assert"
 )
