@@ -10,7 +10,7 @@ import (
 
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
-	"github.com/free5gc/openapi/models"
+	"github.com/omec-project/openapi/models"
 )
 
 // TS 24.501 9.11.3.49

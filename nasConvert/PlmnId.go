@@ -10,7 +10,7 @@ import (
 	"strconv"
 
 	"github.com/omec-project/nas/logger"
-	"github.com/free5gc/openapi/models"
+	"github.com/omec-project/openapi/models"
 )
 
 func PlmnIDToNas(plmnID models.PlmnId) []uint8 {
