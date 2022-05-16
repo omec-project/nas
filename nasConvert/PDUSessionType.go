@@ -7,7 +7,7 @@ package nasConvert
 
 import (
 	"github.com/omec-project/nas/nasMessage"
-	"github.com/free5gc/openapi/models"
+	"github.com/omec-project/openapi/models"
 )
 
 func PDUSessionTypeToModels(nasPduSessType uint8) (pduSessType models.PduSessionType) {

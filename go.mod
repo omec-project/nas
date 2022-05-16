@@ -8,9 +8,9 @@ require (
 	github.com/free5gc/CommonConsumerTestData v1.0.0
 	github.com/free5gc/logger_conf v1.0.0
 	github.com/free5gc/logger_util v1.0.0
-	github.com/free5gc/openapi v1.0.0
 	github.com/free5gc/util_3gpp v1.0.0
+	github.com/omec-project/openapi v1.0.100-dev
 	github.com/sirupsen/logrus v1.7.0
 	github.com/smartystreets/goconvey v1.6.4
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 )
