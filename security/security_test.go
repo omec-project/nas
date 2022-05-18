@@ -9,7 +9,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/free5gc/CommonConsumerTestData/AMF/TestAmf/TestNeaNia"
+	"github.com/omec-project/CommonConsumerTestData/AMF/TestAmf/TestNeaNia"
 	"github.com/omec-project/nas/security"
 )
 
