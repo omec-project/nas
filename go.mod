@@ -7,7 +7,6 @@ replace github.com/omec-project/nas => ./
 require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
-	github.com/omec-project/CommonConsumerTestData v1.0.104-dev
 	github.com/omec-project/logger_conf v1.0.100-dev
 	github.com/omec-project/logger_util v1.0.100-dev
 	github.com/omec-project/openapi v1.2.99
