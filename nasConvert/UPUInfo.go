@@ -10,7 +10,7 @@ import (
 	"fmt"
 
 	"github.com/omec-project/nas/logger"
-	"github.com/free5gc/openapi/models"
+	"github.com/omec-project/openapi/models"
 )
 
 //  subclause 9.11.3.53A in 3GPP TS 24.501.

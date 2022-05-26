@@ -9,8 +9,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/free5gc/logger_conf"
-	"github.com/free5gc/logger_util"
+	"github.com/omec-project/logger_conf"
+	"github.com/omec-project/logger_util"
 
 	formatter "github.com/antonfisher/nested-logrus-formatter"
 	"github.com/sirupsen/logrus"
