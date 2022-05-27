@@ -2,8 +2,6 @@ module github.com/omec-project/nas
 
 go 1.14
 
-replace github.com/omec-project/nas => ./
-
 require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
