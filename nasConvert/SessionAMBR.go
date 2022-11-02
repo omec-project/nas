@@ -22,7 +22,7 @@ func ModelsToSessionAMBR(ambr *models.Ambr) (sessAmbr nasType.SessionAMBR) {
 	fmt.Println(ambr)
 
 	uplink := strings.Split(ambr.Uplink, " ")
-	if bitRate, err := strconv.ParseInt(uplink[0], 10, 16); err != nil {
+	if bitRate, err := strconv.ParseUint(uplink[0], 10, 16); err != nil {
 		logger.ConvertLog.Warnf("uplink AMBR parse failed: %+v", err)
 	} else {
 		var bitRateBytes [2]byte
@@ -32,7 +32,7 @@ func ModelsToSessionAMBR(ambr *models.Ambr) (sessAmbr nasType.SessionAMBR) {
 	sessAmbr.SetUnitForSessionAMBRForUplink(strToAMBRUnit(uplink[1]))
 
 	downlink := strings.Split(ambr.Downlink, " ")
-	if bitRate, err := strconv.ParseInt(downlink[0], 10, 16); err != nil {
+	if bitRate, err := strconv.ParseUint(downlink[0], 10, 16); err != nil {
 		logger.ConvertLog.Warnf("downlink AMBR parse failed: %+v", err)
 	} else {
 		var bitRateBytes [2]byte
