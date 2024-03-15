@@ -5,10 +5,10 @@ go 1.21
 require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
-	github.com/omec-project/logger_conf v1.1.1-0.20240213150911-6ea2670f1fc0
-	github.com/omec-project/logger_util v1.1.0
-	github.com/omec-project/openapi v1.1.0
-	github.com/omec-project/util_3gpp v1.1.1
+	github.com/omec-project/logger_conf v1.1.1
+	github.com/omec-project/logger_util v1.2.0
+	github.com/omec-project/openapi v1.2.0
+	github.com/omec-project/util_3gpp v1.2.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/stretchr/testify v1.9.0
@@ -27,6 +27,7 @@ require (
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
+	github.com/kr/pretty v0.3.1 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
