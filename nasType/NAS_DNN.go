@@ -6,7 +6,7 @@
 package nasType
 
 import (
-	"github.com/omec-project/util_3gpp"
+	"github.com/omec-project/util/util_3gpp"
 )
 
 // DNN 9.11.2.1A
