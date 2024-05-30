@@ -9,8 +9,8 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"net"
 	"github.com/omec-project/nas/nasType"
+	"net"
 )
 
 type DLNASTransport struct {
