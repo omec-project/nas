@@ -224,7 +224,7 @@ linters:
     - ineffassign
     - typecheck
     # Additional
-    - lll
+    # - lll
     - godox
     # - gomnd
     #- maligned
@@ -235,6 +235,7 @@ linters:
     - gci
     - misspell
     - gofumpt
+    - whitespace
     - noctx
     - dogsled
     - asciicheck
