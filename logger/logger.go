@@ -56,7 +56,7 @@ func SetLogLevel(level logrus.Level) {
 	log.SetLevel(level)
 }
 
-func SetReportCaller(bool bool) {
-	NasLog.Infoln("set report call :", bool)
-	log.SetReportCaller(bool)
+func SetReportCaller(set bool) {
+	NasLog.Infoln("set report call :", set)
+	log.SetReportCaller(set)
 }

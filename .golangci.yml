@@ -236,6 +236,8 @@ linters:
     - misspell
     - gofumpt
     - whitespace
+    # - unconvert
+    - predeclared
     - noctx
     - dogsled
     - asciicheck
