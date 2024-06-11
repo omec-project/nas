@@ -229,9 +229,14 @@ linters:
     # - gomnd
     #- maligned
     #- nestif
-    #- goconst
+    - goconst
     #- gocognit
     - nakedret
+    - misspell
+    - noctx
+    - dogsled
+    - asciicheck
+
   #disable-all: false
   fast: true
 issues:
