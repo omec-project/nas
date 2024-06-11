@@ -16,7 +16,6 @@ import (
 )
 
 func TestRequestedNssaiToModels(t *testing.T) {
-
 	testCases := []struct {
 		name         string
 		requestNssai nasType.RequestedNSSAI

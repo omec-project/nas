@@ -77,7 +77,6 @@ func GetRegistrationRequest(
 }
 
 func GetPduSessionEstablishmentRequest(pduSessionId uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionEstablishmentRequest)
@@ -93,13 +92,11 @@ func GetPduSessionEstablishmentRequest(pduSessionId uint8) []byte {
 	pduSessionEstablishmentRequest.IntegrityProtectionMaximumDataRate.
 		SetMaximumDataRatePerUEForUserPlaneIntegrityProtectionForUpLink(0xff)
 
-	pduSessionEstablishmentRequest.PDUSessionType =
-		nasType.NewPDUSessionType(nasMessage.PDUSessionEstablishmentRequestPDUSessionTypeType)
-	pduSessionEstablishmentRequest.PDUSessionType.SetPDUSessionTypeValue(uint8(0x01)) //IPv4 type
+	pduSessionEstablishmentRequest.PDUSessionType = nasType.NewPDUSessionType(nasMessage.PDUSessionEstablishmentRequestPDUSessionTypeType)
+	pduSessionEstablishmentRequest.PDUSessionType.SetPDUSessionTypeValue(uint8(0x01)) // IPv4 type
 
-	pduSessionEstablishmentRequest.ExtendedProtocolConfigurationOptions =
-		nasType.NewExtendedProtocolConfigurationOptions(
-			nasMessage.PDUSessionEstablishmentRequestExtendedProtocolConfigurationOptionsType)
+	pduSessionEstablishmentRequest.ExtendedProtocolConfigurationOptions = nasType.NewExtendedProtocolConfigurationOptions(
+		nasMessage.PDUSessionEstablishmentRequestExtendedProtocolConfigurationOptionsType)
 	protocolConfigurationOptions := nasConvert.NewProtocolConfigurationOptions()
 	protocolConfigurationOptions.AddIPAddressAllocationViaNASSignallingUL()
 	protocolConfigurationOptions.AddDNSServerIPv4AddressRequest()
@@ -122,8 +119,8 @@ func GetPduSessionEstablishmentRequest(pduSessionId uint8) []byte {
 }
 
 func GetUlNasTransport_PduSessionEstablishmentRequest(pduSessionId uint8, requestType uint8, dnnString string,
-	sNssai *models.Snssai) []byte {
-
+	sNssai *models.Snssai,
+) []byte {
 	pduSessionEstablishmentRequest := GetPduSessionEstablishmentRequest(pduSessionId)
 
 	m := nas.NewMessage()
@@ -177,8 +174,8 @@ func GetUlNasTransport_PduSessionEstablishmentRequest(pduSessionId uint8, reques
 }
 
 func GetUlNasTransport_PduSessionModificationRequest(pduSessionId uint8, requestType uint8, dnnString string,
-	sNssai *models.Snssai) []byte {
-
+	sNssai *models.Snssai,
+) []byte {
 	pduSessionModificationRequest := GetPduSessionModificationRequest(pduSessionId)
 
 	m := nas.NewMessage()
@@ -232,7 +229,6 @@ func GetUlNasTransport_PduSessionModificationRequest(pduSessionId uint8, request
 }
 
 func GetPduSessionModificationRequest(pduSessionId uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionModificationRequest)
@@ -259,8 +255,8 @@ func GetPduSessionModificationRequest(pduSessionId uint8) []byte {
 
 	return data.Bytes()
 }
-func GetPduSessionModificationComplete(pduSessionId uint8) []byte {
 
+func GetPduSessionModificationComplete(pduSessionId uint8) []byte {
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionModificationComplete)
@@ -282,8 +278,8 @@ func GetPduSessionModificationComplete(pduSessionId uint8) []byte {
 
 	return data.Bytes()
 }
-func GetPduSessionModificationCommandReject(pduSessionId uint8) []byte {
 
+func GetPduSessionModificationCommandReject(pduSessionId uint8) []byte {
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionModificationCommandReject)
@@ -307,7 +303,6 @@ func GetPduSessionModificationCommandReject(pduSessionId uint8) []byte {
 }
 
 func GetPduSessionReleaseRequest(pduSessionId uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionReleaseRequest)
@@ -331,7 +326,6 @@ func GetPduSessionReleaseRequest(pduSessionId uint8) []byte {
 }
 
 func GetPduSessionReleaseComplete(pduSessionId uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionReleaseComplete)
@@ -355,7 +349,6 @@ func GetPduSessionReleaseComplete(pduSessionId uint8) []byte {
 }
 
 func GetPduSessionReleaseReject(pduSessionId uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionReleaseReject)
@@ -379,7 +372,6 @@ func GetPduSessionReleaseReject(pduSessionId uint8) []byte {
 }
 
 func GetPduSessionAuthenticationComplete(pduSessionId uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypePDUSessionAuthenticationComplete)
@@ -405,7 +397,6 @@ func GetPduSessionAuthenticationComplete(pduSessionId uint8) []byte {
 }
 
 func GetUlNasTransport_PduSessionCommonData(pduSessionId uint8, types string) []byte {
-
 	var payload []byte
 	switch types {
 	case PDUSesModiReq:
@@ -453,7 +444,6 @@ func GetUlNasTransport_PduSessionCommonData(pduSessionId uint8, types string) []
 }
 
 func GetIdentityResponse(mobileIdentity nasType.MobileIdentity) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeIdentityResponse)
@@ -478,7 +468,6 @@ func GetIdentityResponse(mobileIdentity nasType.MobileIdentity) []byte {
 }
 
 func GetNotificationResponse(pDUSessionStatus []uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeNotificationResponse)
@@ -504,7 +493,6 @@ func GetNotificationResponse(pDUSessionStatus []uint8) []byte {
 }
 
 func GetConfigurationUpdateComplete() []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeConfigurationUpdateComplete)
@@ -527,7 +515,6 @@ func GetConfigurationUpdateComplete() []byte {
 }
 
 func GetServiceRequest(serviceType uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeServiceRequest)
@@ -568,7 +555,6 @@ func GetServiceRequest(serviceType uint8) []byte {
 }
 
 func GetAuthenticationResponse(authenticationResponseParam []uint8, eapMsg string) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeAuthenticationResponse)
@@ -607,7 +593,6 @@ func GetAuthenticationResponse(authenticationResponseParam []uint8, eapMsg strin
 }
 
 func GetAuthenticationFailure(cause5GMM uint8, authenticationFailureParam []uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeAuthenticationFailure)
@@ -639,7 +624,6 @@ func GetAuthenticationFailure(cause5GMM uint8, authenticationFailureParam []uint
 }
 
 func GetRegistrationComplete(sorTransparentContainer []uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeRegistrationComplete)
@@ -671,7 +655,6 @@ func GetRegistrationComplete(sorTransparentContainer []uint8) []byte {
 
 // TS 24.501 8.2.26.
 func GetSecurityModeComplete(nasMessageContainer []uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeSecurityModeComplete)
@@ -711,7 +694,6 @@ func GetSecurityModeComplete(nasMessageContainer []uint8) []byte {
 }
 
 func GetSecurityModeReject(cause5GMM uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeSecurityModeReject)
@@ -737,8 +719,8 @@ func GetSecurityModeReject(cause5GMM uint8) []byte {
 }
 
 func GetDeregistrationRequest(accessType uint8, switchOff uint8, ngKsi uint8,
-	mobileIdentity5GS nasType.MobileIdentity5GS) []byte {
-
+	mobileIdentity5GS nasType.MobileIdentity5GS,
+) []byte {
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeDeregistrationRequestUEOriginatingDeregistration)
@@ -771,7 +753,6 @@ func GetDeregistrationRequest(accessType uint8, switchOff uint8, ngKsi uint8,
 }
 
 func GetDeregistrationAccept() []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeDeregistrationAcceptUETerminatedDeregistration)
@@ -796,7 +777,6 @@ func GetDeregistrationAccept() []byte {
 }
 
 func GetStatus5GMM(cause uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GmmMessage = nas.NewGmmMessage()
 	m.GmmHeader.SetMessageType(nas.MsgTypeStatus5GMM)
@@ -820,7 +800,6 @@ func GetStatus5GMM(cause uint8) []byte {
 }
 
 func GetStatus5GSM(pduSessionId uint8, cause uint8) []byte {
-
 	m := nas.NewMessage()
 	m.GsmMessage = nas.NewGsmMessage()
 	m.GsmHeader.SetMessageType(nas.MsgTypeStatus5GSM)
@@ -844,7 +823,6 @@ func GetStatus5GSM(pduSessionId uint8, cause uint8) []byte {
 }
 
 func GetUlNasTransport_Status5GSM(pduSessionId uint8, cause uint8) []byte {
-
 	payload := GetStatus5GSM(pduSessionId, cause)
 
 	m := nas.NewMessage()
@@ -876,7 +854,6 @@ func GetUlNasTransport_Status5GSM(pduSessionId uint8, cause uint8) []byte {
 }
 
 func GetUlNasTransport_PduSessionReleaseRequest(pduSessionId uint8) []byte {
-
 	pduSessionReleaseRequest := GetPduSessionReleaseRequest(pduSessionId)
 
 	m := nas.NewMessage()
@@ -908,8 +885,8 @@ func GetUlNasTransport_PduSessionReleaseRequest(pduSessionId uint8) []byte {
 }
 
 func GetUlNasTransport_PduSessionReleaseComplete(pduSessionId uint8, requestType uint8, dnnString string,
-	sNssai *models.Snssai) []byte {
-
+	sNssai *models.Snssai,
+) []byte {
 	pduSessionReleaseRequest := GetPduSessionReleaseComplete(pduSessionId)
 
 	m := nas.NewMessage()

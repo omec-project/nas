@@ -27,7 +27,6 @@ func GetTypeOfIdentity(buf byte) uint8 {
 // "suci-0-${mcc}-${mnc}-${routingIndentifier}-${protectionScheme}-${homeNetworkPublicKeyIdentifier}-${schemeOutput}"
 // suci(nai) = "nai-${naiString}"
 func SuciToString(buf []byte) (suci string, plmnId string) {
-
 	var mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier, schemeOutput string
 
 	supiFormat := (buf[0] & 0xf0) >> 4
@@ -85,8 +84,10 @@ func SuciToString(buf []byte) (suci string, plmnId string) {
 		schemeOutput = hex.EncodeToString(buf[8:])
 	}
 
-	suci = strings.Join([]string{"suci", "0", mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier,
-		schemeOutput}, "-")
+	suci = strings.Join([]string{
+		"suci", "0", mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier,
+		schemeOutput,
+	}, "-")
 	return suci, plmnId
 }
 
@@ -100,7 +101,6 @@ func NaiToString(buf []byte) (nai string) {
 
 // nasType: TS 24.501 9.11.3.4
 func GutiToString(buf []byte) (guami models.Guami, guti string) {
-
 	plmnID := PlmnIDToString(buf[1:4])
 	amfID := hex.EncodeToString(buf[4:7])
 	tmsi5G := hex.EncodeToString(buf[7:])
@@ -183,7 +183,6 @@ func GutiToNas(guti string) nasType.GUTI5G {
 
 // PEI: ^(imei-[0-9]{15}|imeisv-[0-9]{16}|.+)$
 func PeiToString(buf []byte) string {
-
 	var prefix string
 
 	typeOfIdentity := buf[0] & 0x07

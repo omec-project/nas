@@ -234,6 +234,7 @@ linters:
     - nakedret
     - gci
     - misspell
+    - gofumpt
     - noctx
     - dogsled
     - asciicheck
