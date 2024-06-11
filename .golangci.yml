@@ -232,6 +232,7 @@ linters:
     - goconst
     #- gocognit
     - nakedret
+    - gci
     - misspell
     - noctx
     - dogsled
