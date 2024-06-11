@@ -51,8 +51,10 @@ type Fsm struct {
 	r [3]uint32
 }
 
-var lfsr Lfsr
-var fsm Fsm
+var (
+	lfsr Lfsr
+	fsm  Fsm
+)
 
 func mulx(V, c byte) byte {
 	if V&0x80 != 0 {

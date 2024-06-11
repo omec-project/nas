@@ -224,14 +224,24 @@ linters:
     - ineffassign
     - typecheck
     # Additional
-    - lll
+    # - lll
     - godox
     # - gomnd
     #- maligned
     #- nestif
-    #- goconst
+    - goconst
     #- gocognit
     - nakedret
+    - gci
+    - misspell
+    - gofumpt
+    - whitespace
+    # - unconvert
+    - predeclared
+    - noctx
+    - dogsled
+    - asciicheck
+
   #disable-all: false
   fast: true
 issues:

@@ -11,7 +11,6 @@ import (
 )
 
 func AmfIdToNas(amfId string) (amfRegionId uint8, amfSetId uint16, amfPointer uint8) {
-
 	amfIdBytes, err := hex.DecodeString(amfId)
 	if err != nil {
 		log.Printf("amfId decode failed: %+v", err)
@@ -24,7 +23,6 @@ func AmfIdToNas(amfId string) (amfRegionId uint8, amfSetId uint16, amfPointer ui
 }
 
 func AmfIdToModels(amfRegionId uint8, amfSetId uint16, amfPointer uint8) (amfId string) {
-
 	tmpBytes := []uint8{amfRegionId, uint8(amfSetId>>2) & 0xff, uint8(amfSetId&0x03) + amfPointer&0x3f}
 	amfId = hex.EncodeToString(tmpBytes)
 	return

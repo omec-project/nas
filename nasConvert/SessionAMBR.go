@@ -18,7 +18,6 @@ import (
 )
 
 func ModelsToSessionAMBR(ambr *models.Ambr) (sessAmbr nasType.SessionAMBR) {
-
 	fmt.Println(ambr)
 
 	uplink := strings.Split(ambr.Uplink, " ")

@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/security"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -33,7 +32,6 @@ func TestSetterGetter(t *testing.T) {
 		assert.Equal(t, testCase.overflow, count.Overflow(), "Overflow() Failed")
 		assert.Equal(t, testCase.sqn, count.SQN(), "SQN() Failed")
 	}
-
 }
 
 func TestAddOne(t *testing.T) {

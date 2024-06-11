@@ -9,18 +9,19 @@ import (
 	"os"
 	"time"
 
+	formatter "github.com/antonfisher/nested-logrus-formatter"
 	"github.com/omec-project/util/logger"
 	"github.com/omec-project/util/logger_conf"
-
-	formatter "github.com/antonfisher/nested-logrus-formatter"
 	"github.com/sirupsen/logrus"
 )
 
-var log *logrus.Logger
-var NasLog *logrus.Entry
-var NasMsgLog *logrus.Entry
-var ConvertLog *logrus.Entry
-var SecurityLog *logrus.Entry
+var (
+	log         *logrus.Logger
+	NasLog      *logrus.Entry
+	NasMsgLog   *logrus.Entry
+	ConvertLog  *logrus.Entry
+	SecurityLog *logrus.Entry
+)
 
 func init() {
 	log = logrus.New()
@@ -34,12 +35,12 @@ func init() {
 		FieldsOrder:     []string{"component", "category"},
 	}
 
-	free5gcLogHook, err := logger.NewFileHook(logger_conf.Free5gcLogFile, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	free5gcLogHook, err := logger.NewFileHook(logger_conf.Free5gcLogFile, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0o666)
 	if err == nil {
 		log.Hooks.Add(free5gcLogHook)
 	}
 
-	selfLogHook, err := logger.NewFileHook(logger_conf.LibLogDir+"nas.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	selfLogHook, err := logger.NewFileHook(logger_conf.LibLogDir+"nas.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0o666)
 	if err == nil {
 		log.Hooks.Add(selfLogHook)
 	}
@@ -55,7 +56,7 @@ func SetLogLevel(level logrus.Level) {
 	log.SetLevel(level)
 }
 
-func SetReportCaller(bool bool) {
-	NasLog.Infoln("set report call :", bool)
-	log.SetReportCaller(bool)
+func SetReportCaller(set bool) {
+	NasLog.Infoln("set report call :", set)
+	log.SetReportCaller(set)
 }

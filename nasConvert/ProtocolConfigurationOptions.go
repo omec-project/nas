@@ -44,7 +44,6 @@ func NewProtocolOrContainerUnit() (pcu *ProtocolOrContainerUnit) {
 }
 
 func NewProtocolConfigurationOptions() (pco *ProtocolConfigurationOptions) {
-
 	pco = &ProtocolConfigurationOptions{
 		ProtocolOrContainerList: make([]*ProtocolOrContainerUnit, 0),
 	}
@@ -53,7 +52,6 @@ func NewProtocolConfigurationOptions() (pco *ProtocolConfigurationOptions) {
 }
 
 func (protocolConfigurationOptions *ProtocolConfigurationOptions) Marshal() []byte {
-
 	var metaInfo uint8
 	var extension uint8 = 1
 	var spare uint8 = 0
@@ -66,7 +64,6 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) Marshal() []by
 	}
 
 	for _, containerUnit := range protocolConfigurationOptions.ProtocolOrContainerList {
-
 		if err := binary.Write(buffer, binary.BigEndian, &containerUnit.ProtocolOrContainerID); err != nil {
 			logger.ConvertLog.Warnf("Write protocolOrContainerID failed: %+v", err)
 		}
@@ -96,7 +93,6 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) UnMarshal(data
 	var curContainer *ProtocolOrContainerUnit
 
 	for numOfBytes > 0 {
-
 		switch readingState {
 		case ReadingID:
 			curContainer = NewProtocolOrContainerUnit()
@@ -170,7 +166,6 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddIPAddressAl
 }
 
 func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddDNSServerIPv4Address(dnsIP net.IP) (err error) {
-
 	if dnsIP.To4() == nil {
 		err = fmt.Errorf("The DNS IP should be IPv4 in AddDNSServerIPv4Address!")
 		return
@@ -222,7 +217,6 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddPCSCFIPv4Ad
 }
 
 func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddDNSServerIPv6Address(dnsIP net.IP) (err error) {
-
 	if dnsIP.To16() == nil {
 		err = fmt.Errorf("The DNS IP should be IPv6 in AddDNSServerIPv6Address!")
 		return
@@ -251,11 +245,9 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddIPv4LinkMTU
 	protocolOrContainerUnit.ProtocolOrContainerID = nasMessage.IPv4LinkMTUDL
 	protocolOrContainerUnit.LengthOfContents = 2
 	logger.ConvertLog.Traceln("LengthOfContents: ", protocolOrContainerUnit.LengthOfContents)
-	protocolOrContainerUnit.Contents =
-		append(protocolOrContainerUnit.Contents, []byte{uint8(mtu >> 8), uint8(mtu & 0xff)}...)
+	protocolOrContainerUnit.Contents = append(protocolOrContainerUnit.Contents, []byte{uint8(mtu >> 8), uint8(mtu & 0xff)}...)
 	logger.ConvertLog.Traceln("Contents: ", protocolOrContainerUnit.Contents)
 
-	protocolConfigurationOptions.ProtocolOrContainerList =
-		append(protocolConfigurationOptions.ProtocolOrContainerList, protocolOrContainerUnit)
+	protocolConfigurationOptions.ProtocolOrContainerList = append(protocolConfigurationOptions.ProtocolOrContainerList, protocolOrContainerUnit)
 	return
 }
