@@ -144,12 +144,6 @@ func TestNasTypeUESecurityCapabilityGetSetEA4_5G(t *testing.T) {
 	}
 }
 
-type nasTypeUESecurityCapabilityEA5_5G struct {
-	inLen uint8
-	in    uint8
-	out   uint8
-}
-
 var nasTypeUESecurityCapabilityEA5_5GTable = []nasTypeUESecurityCapabilityEA4_5G{
 	{2, 0x01, 0x01},
 }
@@ -302,12 +296,6 @@ func TestNasTypeUESecurityCapabilityGetSetIA4_5G(t *testing.T) {
 
 		assert.Equal(t, table.out, a.GetIA4_5G())
 	}
-}
-
-type nasTypeUESecurityCapabilityIA5_5G struct {
-	inLen uint8
-	in    uint8
-	out   uint8
 }
 
 var nasTypeUESecurityCapabilityIA5_5GTable = []nasTypeUESecurityCapabilityIA4_5G{
@@ -622,12 +610,6 @@ func TestNasTypeUESecurityCapabilityGetSetEIA4(t *testing.T) {
 
 		assert.Equal(t, table.out, a.GetEIA4())
 	}
-}
-
-type nasTypeUESecurityCapabilityEIA5 struct {
-	inLen uint8
-	in    uint8
-	out   uint8
 }
 
 var nasTypeUESecurityCapabilityEIA5Table = []nasTypeUESecurityCapabilityEIA4{

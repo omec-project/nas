@@ -304,12 +304,6 @@ func TestNasTypeAllowedPDUSessionStatusGetSetPSI11(t *testing.T) {
 	}
 }
 
-type nasTypePSI10 struct {
-	inLen uint8
-	in    uint8
-	out   uint8
-}
-
 var nasTypePSI10Table = []nasTypePSI11{
 	{2, 0x01, 0x01},
 }

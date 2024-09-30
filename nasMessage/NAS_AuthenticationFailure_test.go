@@ -25,12 +25,6 @@ type nasMessageAuthenticationFailureData struct {
 	inAuthenticationFailureMessageIdentity  uint8
 	in5GMMCause                             nasType.Cause5GMM
 	inAuthenticationFailureParameter        nasType.AuthenticationFailureParameter
-	outExtendedProtocolDiscriminator        uint8
-	outSecurityHeader                       uint8
-	outSpareHalfOctet                       uint8
-	outAuthenticationFailureMessageIdentity uint8
-	out5GMMCause                            nasType.Cause5GMM
-	outAuthenticationFailureParameter       nasType.AuthenticationFailureParameter
 }
 
 var nasMessageAuthenticationFailureTable = []nasMessageAuthenticationFailureData{

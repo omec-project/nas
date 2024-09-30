@@ -19,20 +19,12 @@ func TestNasTypeNewUEStatus(t *testing.T) {
 	assert.NotNil(t, a)
 }
 
-var nasTypeUEStatusIeiTable = []NasTypeIeiData{
-	{nasMessage.RegistrationRequestUEStatusType, nasMessage.RegistrationRequestUEStatusType},
-}
-
 func TestNasTypeUEStatusGetSetIei(t *testing.T) {
 	a := nasType.NewUEStatus(nasMessage.RegistrationRequestUEStatusType)
 	for _, table := range nasTypeRegistrationAcceptNetworkFeatureSupport5GSTable {
 		a.SetIei(table.in)
 		assert.Equal(t, table.out, a.GetIei())
 	}
-}
-
-var nasTypeUEStatusLenTable = []NasTypeLenuint8Data{
-	{2, 2},
 }
 
 func TestNasTypeUEStatusGetSetLen(t *testing.T) {

@@ -20,13 +20,13 @@ func NASEncrypt(AlgoID uint8, KnasEnc [16]byte, Count uint32, Bearer uint8,
 	Direction uint8, payload []byte,
 ) error {
 	if Bearer > 0x1f {
-		return fmt.Errorf("Bearer is beyond 5 bits")
+		return fmt.Errorf("bearer is beyond 5 bits")
 	}
 	if Direction > 1 {
-		return fmt.Errorf("Direction is beyond 1 bits")
+		return fmt.Errorf("direction is beyond 1 bits")
 	}
 	if payload == nil {
-		return fmt.Errorf("Nas Payload is nil")
+		return fmt.Errorf("nas Payload is nil")
 	}
 
 	switch AlgoID {
@@ -53,9 +53,9 @@ func NASEncrypt(AlgoID uint8, KnasEnc [16]byte, Count uint32, Bearer uint8,
 		return nil
 	case AlgCiphering128NEA3:
 		logger.SecurityLog.Debugln("Use NEA3")
-		return fmt.Errorf("NEA3 not implement yet.")
+		return fmt.Errorf("NEA3 not implement yet")
 	default:
-		return fmt.Errorf("Unknown Algorithm Identity[%d]", AlgoID)
+		return fmt.Errorf("unknown Algorithm Identity[%d]", AlgoID)
 	}
 }
 
@@ -63,13 +63,13 @@ func NASMacCalculate(AlgoID uint8, KnasInt [16]uint8, Count uint32,
 	Bearer uint8, Direction uint8, msg []byte,
 ) ([]byte, error) {
 	if Bearer > 0x1f {
-		return nil, fmt.Errorf("Bearer is beyond 5 bits")
+		return nil, fmt.Errorf("bearer is beyond 5 bits")
 	}
 	if Direction > 1 {
-		return nil, fmt.Errorf("Direction is beyond 1 bits")
+		return nil, fmt.Errorf("direction is beyond 1 bits")
 	}
 	if msg == nil {
-		return nil, fmt.Errorf("Nas Payload is nil")
+		return nil, fmt.Errorf("nas Payload is nil")
 	}
 
 	switch AlgoID {
@@ -84,9 +84,9 @@ func NASMacCalculate(AlgoID uint8, KnasInt [16]uint8, Count uint32,
 		return NIA2(KnasInt, Count, Bearer, Direction, msg)
 	case AlgIntegrity128NIA3:
 		logger.SecurityLog.Debugf("Use NIA3")
-		return nil, fmt.Errorf("NIA3 not implement yet.")
+		return nil, fmt.Errorf("NIA3 not implement yet")
 	default:
-		return nil, fmt.Errorf("Unknown Algorithm Identity[%d]", AlgoID)
+		return nil, fmt.Errorf("unknown Algorithm Identity[%d]", AlgoID)
 	}
 }
 
