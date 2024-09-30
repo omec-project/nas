@@ -183,7 +183,7 @@ func (a *Message) PlainNasDecode(byteArray *[]byte) error {
 	case nasMessage.Epd5GSSessionManagementMessage:
 		return a.GsmMessageDecode(byteArray)
 	}
-	return fmt.Errorf("Extended Protocol Discriminator[%d] is not allowed in Nas Message Deocde", epd)
+	return fmt.Errorf("extended Protocol Discriminator[%d] is not allowed in Nas Message Deocde", epd)
 }
 
 func (a *Message) PlainNasEncode() ([]byte, error) {

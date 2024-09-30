@@ -303,12 +303,6 @@ func TestNasTypeS1UENetworkCapabilityGetSetEIA4(t *testing.T) {
 	}
 }
 
-type nasTypeS1UENetworkCapabilityEIA5 struct {
-	inLen uint8
-	in    uint8
-	out   uint8
-}
-
 var nasTypeS1UENetworkCapabilityEIA5Table = []nasTypeS1UENetworkCapabilityEIA4{
 	{7, 0x01, 0x01},
 }
@@ -461,12 +455,6 @@ func TestNasTypeS1UENetworkCapabilityGetSetUEA4(t *testing.T) {
 
 		assert.Equal(t, table.out, a.GetUEA4())
 	}
-}
-
-type nasTypeS1UENetworkCapabilityUEA5 struct {
-	inLen uint8
-	in    uint8
-	out   uint8
 }
 
 var nasTypeS1UENetworkCapabilityUEA5Table = []nasTypeS1UENetworkCapabilityUEA4{
@@ -623,12 +611,6 @@ func TestNasTypeS1UENetworkCapabilityGetSetUIA4(t *testing.T) {
 	}
 }
 
-type nasTypeS1UENetworkCapabilityUIA5 struct {
-	inLen uint8
-	in    uint8
-	out   uint8
-}
-
 var nasTypeS1UENetworkCapabilityUIA5Table = []nasTypeS1UENetworkCapabilityUIA4{
 	{7, 0x01, 0x01},
 }
@@ -761,12 +743,6 @@ func TestNasTypeS1UENetworkCapabilityGetSetACCCSFB(t *testing.T) {
 
 		assert.Equal(t, table.out, a.GetACCCSFB())
 	}
-}
-
-type nasTypeS1UENetworkCapabilityLPP struct {
-	inLen uint8
-	in    uint8
-	out   uint8
 }
 
 var nasTypeS1UENetworkCapabilityLPPTable = []nasTypeS1UENetworkCapabilityACCCSFB{
@@ -903,12 +879,6 @@ func TestNasTypeS1UENetworkCapabilityGetSetERwoPDN(t *testing.T) {
 	}
 }
 
-type nasTypeS1UENetworkCapabilityS1UData struct {
-	inLen uint8
-	in    uint8
-	out   uint8
-}
-
 var nasTypeS1UENetworkCapabilityS1UDataTable = []nasTypeS1UENetworkCapabilityERwoPDN{
 	{7, 0x01, 0x01},
 }
@@ -1041,12 +1011,6 @@ func TestNasTypeS1UENetworkCapabilityGetSetSGC(t *testing.T) {
 
 		assert.Equal(t, table.out, a.GetSGC())
 	}
-}
-
-type nasTypeS1UENetworkCapabilityN1mode struct {
-	inLen uint8
-	in    uint8
-	out   uint8
 }
 
 var nasTypeS1UENetworkCapabilityN1modeTable = []nasTypeS1UENetworkCapabilitySGC{

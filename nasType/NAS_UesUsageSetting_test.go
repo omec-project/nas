@@ -19,20 +19,12 @@ func TestNasTypeNewUesUsageSetting(t *testing.T) {
 	assert.NotNil(t, a)
 }
 
-var nasTypeUesUsageSettingIeiTable = []NasTypeIeiData{
-	{nasMessage.RegistrationRequestUesUsageSettingType, nasMessage.RegistrationRequestUesUsageSettingType},
-}
-
 func TestNasTypeUesUsageSettingGetSetIei(t *testing.T) {
 	a := nasType.NewUesUsageSetting(nasMessage.RegistrationRequestUesUsageSettingType)
 	for _, table := range nasTypeRegistrationAcceptNetworkFeatureSupport5GSTable {
 		a.SetIei(table.in)
 		assert.Equal(t, table.out, a.GetIei())
 	}
-}
-
-var nasTypeUesUsageSettingLenTable = []NasTypeLenuint8Data{
-	{2, 2},
 }
 
 func TestNasTypeUesUsageSettingGetSetLen(t *testing.T) {

@@ -167,13 +167,13 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddIPAddressAl
 
 func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddDNSServerIPv4Address(dnsIP net.IP) (err error) {
 	if dnsIP.To4() == nil {
-		err = fmt.Errorf("The DNS IP should be IPv4 in AddDNSServerIPv4Address!")
+		err = fmt.Errorf("the DNS IP should be IPv4 in AddDNSServerIPv4Address")
 		return
 	}
 	dnsIP = dnsIP.To4()
 
 	if len(dnsIP) != net.IPv4len {
-		err = fmt.Errorf("The length of DNS IPv4 is wrong!")
+		err = fmt.Errorf("the length of DNS IPv4 is wrong")
 		return
 	}
 
@@ -193,13 +193,13 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddDNSServerIP
 
 func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddPCSCFIPv4Address(pcscfIP net.IP) (err error) {
 	if pcscfIP.To4() == nil {
-		err = fmt.Errorf("The P-CSCF IP should be IPv4!")
+		err = fmt.Errorf("the P-CSCF IP should be IPv4")
 		return
 	}
 	pcscfIP = pcscfIP.To4()
 
 	if len(pcscfIP) != net.IPv4len {
-		err = fmt.Errorf("The length of P-CSCF IP IPv4 is wrong!")
+		err = fmt.Errorf("the length of P-CSCF IP IPv4 is wrong")
 		return
 	}
 
@@ -218,12 +218,12 @@ func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddPCSCFIPv4Ad
 
 func (protocolConfigurationOptions *ProtocolConfigurationOptions) AddDNSServerIPv6Address(dnsIP net.IP) (err error) {
 	if dnsIP.To16() == nil {
-		err = fmt.Errorf("The DNS IP should be IPv6 in AddDNSServerIPv6Address!")
+		err = fmt.Errorf("the DNS IP should be IPv6 in AddDNSServerIPv6Address")
 		return
 	}
 
 	if len(dnsIP) != net.IPv6len {
-		err = fmt.Errorf("The length of DNS IPv6 is wrong!")
+		err = fmt.Errorf("the length of DNS IPv6 is wrong")
 		return
 	}
 

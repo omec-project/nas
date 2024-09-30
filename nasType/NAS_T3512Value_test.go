@@ -19,20 +19,12 @@ func TestNasTypeNewT3512Value(t *testing.T) {
 	assert.NotNil(t, a)
 }
 
-var nasTypeT3512ValueIeiTable = []NasTypeIeiData{
-	{nasMessage.RegistrationAcceptT3512ValueType, nasMessage.RegistrationAcceptT3512ValueType},
-}
-
 func TestNasTypeT3512ValueGetSetIei(t *testing.T) {
 	a := nasType.NewT3512Value(nasMessage.RegistrationAcceptT3512ValueType)
 	for _, table := range nasTypeRegistrationAcceptNetworkFeatureSupport5GSTable {
 		a.SetIei(table.in)
 		assert.Equal(t, table.out, a.GetIei())
 	}
-}
-
-var nasTypeT3512ValueLenTable = []NasTypeLenuint8Data{
-	{2, 2},
 }
 
 func TestNasTypeT3512ValueGetSetLen(t *testing.T) {

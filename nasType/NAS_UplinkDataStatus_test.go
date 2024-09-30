@@ -304,12 +304,6 @@ func TestNasTypeUplinkDataStatusGetSetPSI11(t *testing.T) {
 	}
 }
 
-type nasTypeUplinkDataStatusPSI10 struct {
-	inLen uint8
-	in    uint8
-	out   uint8
-}
-
 var nasTypeUplinkDataStatusPSI10Table = []nasTypeUplinkDataStatusPSI11{
 	{2, 0x01, 0x01},
 }

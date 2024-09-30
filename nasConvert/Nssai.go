@@ -79,7 +79,7 @@ func snssaiToModels(lengthOfSnssaiContents uint8, buf []byte) (models.MappingOfS
 		}
 		return snssai, nil
 	default:
-		return snssai, fmt.Errorf("Invalid length of S-NSSAI contents: %d", lengthOfSnssaiContents)
+		return snssai, fmt.Errorf("invalid length of S-NSSAI contents: %d", lengthOfSnssaiContents)
 	}
 }
 

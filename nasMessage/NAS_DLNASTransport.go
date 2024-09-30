@@ -108,33 +108,33 @@ func (a *DLNASTransport) DecodeDLNASTransport(byteArray *[]byte) {
 		binary.Read(esmMsg, binary.BigEndian, &ambr)
 		//fmt.Println("ambr ", ambr)
 		//fmt.Println("remaining bytes *****", esmMsg.Len())
-		for esmMsg.Len() > 0 {
-			var ieiN uint8
-			binary.Read(esmMsg, binary.BigEndian, &ieiN)
-			// fmt.Println("type", tmpIeiN)
-			switch ieiN {
-			case 89:
-				var cause uint8
-				binary.Read(esmMsg, binary.BigEndian, &cause)
-				//fmt.Println("59 - gsm cause = ", cause)
-			case 41:
-				var iplen uint8
-				binary.Read(esmMsg, binary.BigEndian, &iplen)
-				//fmt.Println("length of ip address = ", iplen)
-				var iptype uint8
-				binary.Read(esmMsg, binary.BigEndian, &iptype)
-				//fmt.Println("type of address = ", iptype)
-				var ipaddr [4]uint8
-				binary.Read(esmMsg, binary.BigEndian, &ipaddr)
-				//fmt.Println("ip address = ", ipaddr)
-				ip := net.IPv4(ipaddr[0], ipaddr[1], ipaddr[2], ipaddr[3])
-				a.Ipaddr = ip.String()
-				fmt.Println("ip address in string ", a.Ipaddr)
-				break // we just need ip address nothing more
-			default:
-				break
+		forLoop:
+			for esmMsg.Len() > 0 {
+				var ieiN uint8
+				binary.Read(esmMsg, binary.BigEndian, &ieiN)
+				// fmt.Println("type", tmpIeiN)
+				switch ieiN {
+				case 89:
+					var cause uint8
+					binary.Read(esmMsg, binary.BigEndian, &cause)
+					//fmt.Println("59 - gsm cause = ", cause)
+				case 41:
+					var iplen uint8
+					binary.Read(esmMsg, binary.BigEndian, &iplen)
+					//fmt.Println("length of ip address = ", iplen)
+					var iptype uint8
+					binary.Read(esmMsg, binary.BigEndian, &iptype)
+					//fmt.Println("type of address = ", iptype)
+					var ipaddr [4]uint8
+					binary.Read(esmMsg, binary.BigEndian, &ipaddr)
+					//fmt.Println("ip address = ", ipaddr)
+					ip := net.IPv4(ipaddr[0], ipaddr[1], ipaddr[2], ipaddr[3])
+					a.Ipaddr = ip.String()
+					fmt.Println("ip address", a.Ipaddr)
+					break forLoop // we just need ip address nothing more
+				default:
+				}
 			}
-		}
 
 	}
 

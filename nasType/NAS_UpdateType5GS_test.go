@@ -19,20 +19,12 @@ func TestNasTypeNewUpdateType5GS(t *testing.T) {
 	assert.NotNil(t, a)
 }
 
-var nasTypeUpdateType5GSIeiTable = []NasTypeIeiData{
-	{nasMessage.RegistrationRequestUpdateType5GSType, nasMessage.RegistrationRequestUpdateType5GSType},
-}
-
 func TestNasTypeUpdateType5GSGetSetIei(t *testing.T) {
 	a := nasType.NewUpdateType5GS(nasMessage.RegistrationRequestUpdateType5GSType)
 	for _, table := range nasTypeRegistrationAcceptNetworkFeatureSupport5GSTable {
 		a.SetIei(table.in)
 		assert.Equal(t, table.out, a.GetIei())
 	}
-}
-
-var nasTypeUpdateType5GSLenTable = []NasTypeLenuint8Data{
-	{2, 2},
 }
 
 func TestNasTypeUpdateType5GSGetSetLen(t *testing.T) {
