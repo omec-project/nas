@@ -7,7 +7,6 @@ package nasMessage_test
 
 import (
 	"bytes"
-	"fmt"
 	"reflect"
 	"testing"
 
@@ -240,13 +239,10 @@ func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
 
 		buff := new(bytes.Buffer)
 		a.EncodeRegistrationRequest(buff)
-		fmt.Println("Encode: ", a)
 
 		data := make([]byte, buff.Len())
 		buff.Read(data)
-		//fmt.Println(data)
 		b.DecodeRegistrationRequest(&data)
-		fmt.Println("Decode: ", b)
 
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")

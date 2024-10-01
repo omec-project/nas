@@ -60,13 +60,12 @@ func TestNasTypeNewAuthenticationRejectMessage(t *testing.T) {
 
 		buff := new(bytes.Buffer)
 		a.EncodeAuthenticationReject(buff)
-		//fmt.Println("Encode: ", buff)
 		logger.NasMsgLog.Debugln(a)
 
 		data := make([]byte, buff.Len())
 		buff.Read(data)
 		b.DecodeAuthenticationReject(&data)
-		logger.NasMsgLog.Debugln("Decode: ", data)
+		logger.NasMsgLog.Debugln("decode:", data)
 		logger.NasMsgLog.Infoln(b)
 
 		if reflect.DeepEqual(a, b) != true {

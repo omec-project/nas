@@ -9,7 +9,6 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/hex"
-	"fmt"
 
 	"github.com/omec-project/nas"
 	"github.com/omec-project/nas/logger"
@@ -70,7 +69,7 @@ func GetRegistrationRequest(
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -112,7 +111,7 @@ func GetPduSessionEstablishmentRequest(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -167,7 +166,7 @@ func GetUlNasTransport_PduSessionEstablishmentRequest(pduSessionId uint8, reques
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -222,7 +221,7 @@ func GetUlNasTransport_PduSessionModificationRequest(pduSessionId uint8, request
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -250,7 +249,7 @@ func GetPduSessionModificationRequest(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -273,7 +272,7 @@ func GetPduSessionModificationComplete(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -296,7 +295,7 @@ func GetPduSessionModificationCommandReject(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -319,7 +318,7 @@ func GetPduSessionReleaseRequest(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -342,7 +341,7 @@ func GetPduSessionReleaseComplete(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -365,7 +364,7 @@ func GetPduSessionReleaseReject(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -390,7 +389,7 @@ func GetPduSessionAuthenticationComplete(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -437,7 +436,7 @@ func GetUlNasTransport_PduSessionCommonData(pduSessionId uint8, types string) []
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -461,7 +460,7 @@ func GetIdentityResponse(mobileIdentity nasType.MobileIdentity) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -486,7 +485,7 @@ func GetNotificationResponse(pDUSessionStatus []uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -508,7 +507,7 @@ func GetConfigurationUpdateComplete() []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -548,7 +547,7 @@ func GetServiceRequest(serviceType uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -586,7 +585,7 @@ func GetAuthenticationResponse(authenticationResponseParam []uint8, eapMsg strin
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -617,7 +616,7 @@ func GetAuthenticationFailure(cause5GMM uint8, authenticationFailureParam []uint
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -647,7 +646,7 @@ func GetRegistrationComplete(sorTransparentContainer []uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -687,7 +686,7 @@ func GetSecurityModeComplete(nasMessageContainer []uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -712,7 +711,7 @@ func GetSecurityModeReject(cause5GMM uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -746,7 +745,7 @@ func GetDeregistrationRequest(accessType uint8, switchOff uint8, ngKsi uint8,
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -770,7 +769,7 @@ func GetDeregistrationAccept() []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -793,7 +792,7 @@ func GetStatus5GMM(cause uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -816,7 +815,7 @@ func GetStatus5GSM(pduSessionId uint8, cause uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GsmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -847,7 +846,7 @@ func GetUlNasTransport_Status5GSM(pduSessionId uint8, cause uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -878,7 +877,7 @@ func GetUlNasTransport_PduSessionReleaseRequest(pduSessionId uint8) []byte {
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()
@@ -933,7 +932,7 @@ func GetUlNasTransport_PduSessionReleaseComplete(pduSessionId uint8, requestType
 	data := new(bytes.Buffer)
 	err := m.GmmMessageEncode(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.NasMsgLog.Errorln(err.Error())
 	}
 
 	return data.Bytes()

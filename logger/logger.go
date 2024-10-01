@@ -1,62 +1,62 @@
 // Copyright 2019 free5GC.org
+// SPDX-FileCopyrightText: 2024 Intel Corporation
 //
 // SPDX-License-Identifier: Apache-2.0
-//
 
 package logger
 
 import (
-	"os"
-	"time"
-
-	formatter "github.com/antonfisher/nested-logrus-formatter"
-	"github.com/omec-project/util/logger"
-	"github.com/omec-project/util/logger_conf"
-	"github.com/sirupsen/logrus"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 var (
-	log         *logrus.Logger
-	NasLog      *logrus.Entry
-	NasMsgLog   *logrus.Entry
-	ConvertLog  *logrus.Entry
-	SecurityLog *logrus.Entry
+	log         *zap.Logger
+	NasLog      *zap.SugaredLogger
+	NasMsgLog   *zap.SugaredLogger
+	ConvertLog  *zap.SugaredLogger
+	SecurityLog *zap.SugaredLogger
+	atomicLevel zap.AtomicLevel
 )
 
 func init() {
-	log = logrus.New()
-	log.SetReportCaller(false)
-
-	log.Formatter = &formatter.Formatter{
-		TimestampFormat: time.RFC3339,
-		TrimMessages:    true,
-		NoFieldsSpace:   true,
-		HideKeys:        true,
-		FieldsOrder:     []string{"component", "category"},
+	atomicLevel = zap.NewAtomicLevelAt(zap.InfoLevel)
+	config := zap.Config{
+		Level:            atomicLevel,
+		Development:      false,
+		Encoding:         "console",
+		EncoderConfig:    zap.NewProductionEncoderConfig(),
+		OutputPaths:      []string{"stdout"},
+		ErrorOutputPaths: []string{"stderr"},
 	}
 
-	free5gcLogHook, err := logger.NewFileHook(logger_conf.Free5gcLogFile, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0o666)
-	if err == nil {
-		log.Hooks.Add(free5gcLogHook)
+	config.EncoderConfig.TimeKey = "timestamp"
+	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	config.EncoderConfig.LevelKey = "level"
+	config.EncoderConfig.EncodeLevel = zapcore.CapitalLevelEncoder
+	config.EncoderConfig.CallerKey = "caller"
+	config.EncoderConfig.EncodeCaller = zapcore.ShortCallerEncoder
+	config.EncoderConfig.MessageKey = "message"
+	config.EncoderConfig.StacktraceKey = ""
+
+	var err error
+	log, err = config.Build()
+	if err != nil {
+		panic(err)
 	}
 
-	selfLogHook, err := logger.NewFileHook(logger_conf.LibLogDir+"nas.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0o666)
-	if err == nil {
-		log.Hooks.Add(selfLogHook)
-	}
-
-	NasLog = log.WithFields(logrus.Fields{"component": "LIB", "category": "NAS"})
-	NasMsgLog = log.WithFields(logrus.Fields{"component": "NAS", "category": "Message"})
-	ConvertLog = log.WithFields(logrus.Fields{"component": "NAS", "category": "Convert"})
-	SecurityLog = log.WithFields(logrus.Fields{"component": "NAS", "category": "Security"})
+	NasLog = log.Sugar().With("component", "LIB", "category", "NAS")
+	NasMsgLog = log.Sugar().With("component", "NAS", "category", "Message")
+	ConvertLog = log.Sugar().With("component", "NAS", "category", "Convert")
+	SecurityLog = log.Sugar().With("component", "NAS", "category", "Security")
 }
 
-func SetLogLevel(level logrus.Level) {
-	NasLog.Infoln("set log level :", level)
-	log.SetLevel(level)
+func GetLogger() *zap.Logger {
+	return log
 }
 
-func SetReportCaller(set bool) {
-	NasLog.Infoln("set report call :", set)
-	log.SetReportCaller(set)
+// SetLogLevel: set the log level (panic|fatal|error|warn|info|debug)
+func SetLogLevel(level zapcore.Level) {
+	NasLog.Infoln("set log level:", level)
+	atomicLevel.SetLevel(level)
 }

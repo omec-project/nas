@@ -21,12 +21,12 @@ func UpuInfoToNas(upuInfo models.UpuInfo) []uint8 {
 	buf = append(buf, upuInfoGetHeader(upuInfo.UpuRegInd, upuInfo.UpuAckInd))
 	// Set UPU-MAC-IAUSF
 	if byteArray, err := hex.DecodeString(upuInfo.UpuMacIausf); err != nil {
-		logger.ConvertLog.Warnf("Decode upuInfo.UpuMacIausf failed: %+v", err)
+		logger.ConvertLog.Warnf("decode upuInfo.UpuMacIausf failed: %+v", err)
 	} else {
 		buf = append(buf, byteArray...)
 		// Set Counter UPU
-		if computerUpuByteArray, errUpu := hex.DecodeString(upuInfo.CounterUpu); err != nil {
-			logger.ConvertLog.Warnf("Decode upuInfo.CounterUpu failed: %+v", errUpu)
+		if computerUpuByteArray, errUpu := hex.DecodeString(upuInfo.CounterUpu); errUpu != nil {
+			logger.ConvertLog.Warnf("decode upuInfo.CounterUpu failed: %+v", errUpu)
 		} else {
 			buf = append(buf, computerUpuByteArray...)
 		}
@@ -37,7 +37,7 @@ func UpuInfoToNas(upuInfo models.UpuInfo) []uint8 {
 		if data.SecPacket != "" {
 			buf = append(buf, 0x01)
 			if byteArrayTmp, err := hex.DecodeString(data.SecPacket); err != nil {
-				logger.ConvertLog.Warnf("Decode data.SecPacket failed: %+v", err)
+				logger.ConvertLog.Warnf("decode data.SecPacket failed: %+v", err)
 			} else {
 				byteArray = byteArrayTmp
 			}

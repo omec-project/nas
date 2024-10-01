@@ -31,10 +31,10 @@ func NASEncrypt(AlgoID uint8, KnasEnc [16]byte, Count uint32, Bearer uint8,
 
 	switch AlgoID {
 	case AlgCiphering128NEA0:
-		logger.SecurityLog.Debugf("Use NEA0")
+		logger.SecurityLog.Debugln("use NEA0")
 		return nil
 	case AlgCiphering128NEA1:
-		logger.SecurityLog.Debugln("Use NEA1")
+		logger.SecurityLog.Debugln("use NEA1")
 		output, err := NEA1(KnasEnc, Count, uint32(Bearer), uint32(Direction), payload, uint32(len(payload))*8)
 		if err != nil {
 			return err
@@ -43,7 +43,7 @@ func NASEncrypt(AlgoID uint8, KnasEnc [16]byte, Count uint32, Bearer uint8,
 		copy(payload, output)
 		return nil
 	case AlgCiphering128NEA2:
-		logger.SecurityLog.Debugln("Use NEA2")
+		logger.SecurityLog.Debugln("use NEA2")
 		output, err := NEA2(KnasEnc, Count, Bearer, Direction, payload)
 		if err != nil {
 			return err
@@ -52,7 +52,7 @@ func NASEncrypt(AlgoID uint8, KnasEnc [16]byte, Count uint32, Bearer uint8,
 		copy(payload, output)
 		return nil
 	case AlgCiphering128NEA3:
-		logger.SecurityLog.Debugln("Use NEA3")
+		logger.SecurityLog.Debugln("use NEA3")
 		return fmt.Errorf("NEA3 not implement yet")
 	default:
 		return fmt.Errorf("unknown Algorithm Identity[%d]", AlgoID)
@@ -74,16 +74,16 @@ func NASMacCalculate(AlgoID uint8, KnasInt [16]uint8, Count uint32,
 
 	switch AlgoID {
 	case AlgIntegrity128NIA0:
-		logger.SecurityLog.Warningln("Integrity NIA0 is emergency.")
+		logger.SecurityLog.Warnln("integrity NIA0 is emergency.")
 		return nil, nil
 	case AlgIntegrity128NIA1:
-		logger.SecurityLog.Debugf("Use NIA1")
+		logger.SecurityLog.Debugln("use NIA1")
 		return NIA1(KnasInt, Count, Bearer, uint32(Direction), msg, uint64(len(msg))*8)
 	case AlgIntegrity128NIA2:
-		logger.SecurityLog.Debugf("Use NIA2")
+		logger.SecurityLog.Debugln("use NIA2")
 		return NIA2(KnasInt, Count, Bearer, Direction, msg)
 	case AlgIntegrity128NIA3:
-		logger.SecurityLog.Debugf("Use NIA3")
+		logger.SecurityLog.Debugln("use NIA3")
 		return nil, fmt.Errorf("NIA3 not implement yet")
 	default:
 		return nil, fmt.Errorf("unknown Algorithm Identity[%d]", AlgoID)
