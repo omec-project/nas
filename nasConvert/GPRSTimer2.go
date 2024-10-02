@@ -16,7 +16,7 @@ func GPRSTimer2ToNas(timerValue int) (timerValueNas uint8) {
 
 	if timerValue <= 64 {
 		if timerValue%2 != 0 {
-			logger.ConvertLog.Error("timer Value is not multiples of 2 seconds")
+			logger.ConvertLog.Errorln("timer Value is not multiples of 2 seconds")
 			return
 		}
 		timerValueNas = uint8(timerValue / 2)
@@ -26,7 +26,7 @@ func GPRSTimer2ToNas(timerValue int) (timerValueNas uint8) {
 			timerValueNas = (timerValueNas | 0x20) + t
 		} else {
 			if t%6 != 0 {
-				logger.ConvertLog.Error("timer Value is not multiples of decihours")
+				logger.ConvertLog.Errorln("timer Value is not multiples of decihours")
 				return
 			}
 			t = t / 6

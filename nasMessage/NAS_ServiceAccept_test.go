@@ -91,13 +91,12 @@ func TestNasTypeNewServiceAcceptMessage(t *testing.T) {
 
 		buff := new(bytes.Buffer)
 		a.EncodeServiceAccept(buff)
-		logger.NasMsgLog.Debugln("Encode: ", a)
+		logger.NasMsgLog.Debugln("encode:", a)
 
 		data := make([]byte, buff.Len())
 		buff.Read(data)
-		logger.NasMsgLog.Debugln(data)
 		b.DecodeServiceAccept(&data)
-		logger.NasMsgLog.Debugln("Dncode: ", b)
+		logger.NasMsgLog.Debugln("decode:", b)
 
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")

@@ -7,13 +7,14 @@ package nasConvert
 
 import (
 	"encoding/hex"
-	"log"
+
+	"github.com/omec-project/nas/logger"
 )
 
 func AmfIdToNas(amfId string) (amfRegionId uint8, amfSetId uint16, amfPointer uint8) {
 	amfIdBytes, err := hex.DecodeString(amfId)
 	if err != nil {
-		log.Printf("amfId decode failed: %+v", err)
+		logger.ConvertLog.Errorf("amfId decode failed: %+v", err)
 	}
 
 	amfRegionId = uint8(amfIdBytes[0])

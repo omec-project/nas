@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/logger"
 
-	//"fmt"
 	"testing"
 
 	"github.com/omec-project/nas"

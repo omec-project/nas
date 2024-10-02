@@ -78,10 +78,6 @@ func TestNasTypeNewPDUSessionReleaseCompleteMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln(data)
 		b.DecodePDUSessionReleaseComplete(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
-		//fmt.Println(a.Cause5GSM)
-		//fmt.Println(b.Cause5GSM)
-		//fmt.Println(a.ExtendedProtocolConfigurationOptions)
-		//fmt.Println(b.ExtendedProtocolConfigurationOptions)
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}

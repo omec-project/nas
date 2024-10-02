@@ -73,13 +73,11 @@ func (a *PDUSessionEstablishmentReject) DecodePDUSessionEstablishmentReject(byte
 		var ieiN uint8
 		var tmpIeiN uint8
 		binary.Read(buffer, binary.BigEndian, &ieiN)
-		// fmt.Println(ieiN)
 		if ieiN >= 0x80 {
 			tmpIeiN = (ieiN & 0xf0) >> 4
 		} else {
 			tmpIeiN = ieiN
 		}
-		// fmt.Println("type", tmpIeiN)
 		switch tmpIeiN {
 		case PDUSessionEstablishmentRejectBackoffTimerValueType:
 			a.BackoffTimerValue = nasType.NewBackoffTimerValue(ieiN)

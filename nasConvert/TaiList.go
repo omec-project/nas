@@ -36,7 +36,7 @@ func TaiListToNas(taiList []models.Tai) []uint8 {
 
 		for _, tai := range taiList {
 			if tacBytes, err := hex.DecodeString(tai.Tac); err != nil {
-				logger.ConvertLog.Warnf("Decode tac failed: %+v", err)
+				logger.ConvertLog.Warnf("decode tac failed: %+v", err)
 			} else {
 				taiListNas = append(taiListNas, tacBytes...)
 			}
@@ -45,7 +45,7 @@ func TaiListToNas(taiList []models.Tai) []uint8 {
 		for _, tai := range taiList {
 			plmnNas := PlmnIDToNas(*tai.PlmnId)
 			if tacBytes, err := hex.DecodeString(tai.Tac); err != nil {
-				logger.ConvertLog.Warnf("Decode tac failed: %+v", err)
+				logger.ConvertLog.Warnf("decode tac failed: %+v", err)
 			} else {
 				taiListNas = append(taiListNas, plmnNas...)
 				taiListNas = append(taiListNas, tacBytes...)

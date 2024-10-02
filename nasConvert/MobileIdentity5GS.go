@@ -174,7 +174,7 @@ func GutiToNas(guti string) nasType.GUTI5G {
 	gutiNas.SetAMFSetID(amfSetId)
 	gutiNas.SetAMFPointer(amfPointer)
 	if tmsiBytes, err := hex.DecodeString(tmsi); err != nil {
-		logger.ConvertLog.Warnf("Decode TMSI failed: %+v", err)
+		logger.ConvertLog.Warnf("decode TMSI failed: %+v", err)
 	} else {
 		copy(gutiNas.Octet[7:11], tmsiBytes[:])
 	}

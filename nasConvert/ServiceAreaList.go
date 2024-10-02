@@ -35,7 +35,7 @@ func PartialServiceAreaListToNas(plmnID models.PlmnId, serviceAreaRestriction mo
 	for _, area := range serviceAreaRestriction.Areas {
 		for _, tac := range area.Tacs {
 			if tacBytes, err := hex.DecodeString(tac); err != nil {
-				logger.ConvertLog.Warnf("Decode tac failed: %+v", err)
+				logger.ConvertLog.Warnf("decode tac failed: %+v", err)
 			} else {
 				partialServiceAreaList = append(partialServiceAreaList, tacBytes...)
 			}
