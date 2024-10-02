@@ -5,7 +5,7 @@ name: GitHub release
 on:
   push:
     branches:
-      - main
+      - master
     tags:
       - v*
 
