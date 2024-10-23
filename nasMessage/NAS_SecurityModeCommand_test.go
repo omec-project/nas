@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -84,7 +83,6 @@ func TestNasTypeNewSecurityModeCommand(t *testing.T) {
 }
 
 func TestNasTypeNewSecurityModeCommandMessage(t *testing.T) {
-
 	for i, table := range nasMessageSecurityModeCommandTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewSecurityModeCommand(0)

@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewNegotiatedDRXParameters(t *testing.T) {
 	a := nasType.NewNegotiatedDRXParameters(nasMessage.RegistrationAcceptNegotiatedDRXParametersType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeNegotiatedDRXParametersRegistrationRequestAdditionalGUTITable = []NasTypeIeiData{
@@ -71,12 +69,13 @@ type testNegotiatedDRXParametersDataTemplate struct {
 }
 
 var testNegotiatedDRXParametersTestTable = []testNegotiatedDRXParametersDataTemplate{
-	{nasMessage.RegistrationAcceptNegotiatedDRXParametersType, 2, 0x0f,
-		nasMessage.RegistrationAcceptNegotiatedDRXParametersType, 2, 0x0f},
+	{
+		nasMessage.RegistrationAcceptNegotiatedDRXParametersType, 2, 0x0f,
+		nasMessage.RegistrationAcceptNegotiatedDRXParametersType, 2, 0x0f,
+	},
 }
 
 func TestNasTypeNegotiatedDRXParameters(t *testing.T) {
-
 	for i, table := range testNegotiatedDRXParametersTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewNegotiatedDRXParameters(nasMessage.RegistrationAcceptNegotiatedDRXParametersType)

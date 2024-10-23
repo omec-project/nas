@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -53,7 +52,6 @@ var RegistrationRejectMessageIdentityTable = []RegistrationRejectMessageIdentity
 }
 
 func TestNasTypeRegistrationRejectMessageIdentity(t *testing.T) {
-
 	for _, table := range RegistrationRejectMessageIdentityTable {
 
 		a := nasType.NewRegistrationRejectMessageIdentity()

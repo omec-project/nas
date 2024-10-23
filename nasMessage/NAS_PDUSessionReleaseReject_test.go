@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -49,7 +48,6 @@ func TestNasTypeNewPDUSessionReleaseReject(t *testing.T) {
 }
 
 func TestNasTypeNewPDUSessionReleaseRejectMessage(t *testing.T) {
-
 	for i, table := range nasMessagePDUSessionReleaseRejectTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewPDUSessionReleaseReject(0)

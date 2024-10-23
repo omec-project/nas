@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewAuthenticationParameterAUTN(t *testing.T) {
 	a := nasType.NewAuthenticationParameterAUTN(nasMessage.AuthenticationRequestAuthenticationParameterAUTNType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeAuthenticationResultAuthenticationParameterAUTNTable = []NasTypeIeiData{
@@ -81,7 +79,6 @@ var authenticationParameterAUTNTestTable = []testAuthenticationParameterAUTNData
 }
 
 func TestNasTypeAuthenticationParameterAUTN(t *testing.T) {
-
 	for i, table := range authenticationParameterAUTNTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewAuthenticationParameterAUTN(nasMessage.AuthenticationRequestAuthenticationParameterAUTNType)

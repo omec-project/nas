@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -89,6 +88,7 @@ type testRegistrationResult5GSDataTemplate struct {
 var registrationResult5GSTestData = []nasType.RegistrationResult5GS{
 	{nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType, 1, 0x05},
 }
+
 var registrationResult5GSExpectedData = []nasType.RegistrationResult5GS{
 	{nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType, 1, 0x0f},
 }

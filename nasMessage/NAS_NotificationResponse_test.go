@@ -7,16 +7,12 @@ package nasMessage_test
 
 import (
 	"bytes"
-
-	"github.com/omec-project/nas/logger"
-
+	"reflect"
 	"testing"
 
+	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
-	"reflect"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -48,7 +44,6 @@ func TestNasTypeNewNotificationResponse(t *testing.T) {
 }
 
 func TestNasTypeNewNotificationResponseMessage(t *testing.T) {
-
 	for i, table := range nasMessageNotificationResponseTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewNotificationResponse(0)

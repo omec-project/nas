@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewPDUSessionReactivationResult(t *testing.T) {
 	a := nasType.NewPDUSessionReactivationResult(nasMessage.ServiceAcceptPDUSessionReactivationResultType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypePDUSessionReactivationResultServiceAcceptPDUSessionReactivationResultTypeTable = []NasTypeIeiData{
@@ -420,8 +418,12 @@ type testPDUSessionReactivationResultDataTemplate struct {
 }
 
 var PDUSessionReactivationResultTable = []testPDUSessionReactivationResultDataTemplate{
-	{nasMessage.ServiceAcceptPDUSessionReactivationResultType, 5, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, []uint8{0xff, 0xff, 0xff},
-		nasMessage.ServiceAcceptPDUSessionReactivationResultType, 5, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, []uint8{0xff, 0xff, 0xff}},
+	{
+		nasMessage.ServiceAcceptPDUSessionReactivationResultType, 5, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+		[]uint8{0xff, 0xff, 0xff},
+		nasMessage.ServiceAcceptPDUSessionReactivationResultType, 5, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+		[]uint8{0xff, 0xff, 0xff},
+	},
 }
 
 func TestNasTypePDUSessionReactivationResult(t *testing.T) {
@@ -466,5 +468,4 @@ func TestNasTypePDUSessionReactivationResult(t *testing.T) {
 		assert.Equal(t, table.outPSI15, a.GetPSI15())
 		assert.Equal(t, table.outSpare, a.GetSpare())
 	}
-
 }

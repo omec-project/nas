@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewCapability5GSM(t *testing.T) {
 	a := nasType.NewCapability5GSM(nasMessage.PDUSessionModificationRequestCapability5GSMType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypePDUSessionModificationRequestCapability5GSMTypeTable = []NasTypeIeiData{
@@ -123,7 +121,6 @@ var capability5GSMTestTable = []testCapability5GSMDataTemplate{
 }
 
 func TestNasTypeCapability5GSM(t *testing.T) {
-
 	for i, table := range capability5GSMTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewCapability5GSM(nasMessage.PDUSessionModificationRequestCapability5GSMType)

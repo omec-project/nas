@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -88,7 +87,6 @@ var registrationType5GSAndNgksiTestTable = []testRegistrationType5GSAndNgksiData
 }
 
 func TestNasTypeRegistrationType5GSAndNgksi(t *testing.T) {
-
 	for _, table := range registrationType5GSAndNgksiTestTable {
 		a := nasType.NewNgksiAndRegistrationType5GS()
 

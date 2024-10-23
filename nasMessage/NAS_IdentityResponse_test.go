@@ -7,17 +7,13 @@ package nasMessage_test
 
 import (
 	"bytes"
-
-	"github.com/omec-project/nas/logger"
-
+	"reflect"
 	"testing"
 
 	"github.com/omec-project/nas"
+	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
-	"reflect"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -49,7 +45,6 @@ func TestNasTypeNewIdentityResponse(t *testing.T) {
 }
 
 func TestNasTypeNewIdentityResponseMessage(t *testing.T) {
-
 	for i, table := range nasMessageIdentityResponseTable {
 		logger.NasMsgLog.Infoln("Test Cnt:", i)
 		a := nasMessage.NewIdentityResponse(0)

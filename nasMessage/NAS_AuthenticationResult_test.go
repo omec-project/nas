@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -35,14 +34,16 @@ var aBBATestData = []nasType.ABBA{
 }
 
 var nasMessageAuthenticationResultTable = []nasMessageAuthenticationResultData{
-	{inExtendedProtocolDiscriminator: nasMessage.Epd5GSSessionManagementMessage,
-		inSecurityHeaderType:  0x01,
-		inMessageType:         nas.MsgTypeAuthenticationResult,
-		inTsc:                 0x01,
-		inNASKeySetIdentifier: 0x01,
-		inEAPLen:              0x02,
-		inEAPMessage:          []uint8{0x10, 0x11},
-		inABBA:                aBBATestData[0]},
+	{
+		inExtendedProtocolDiscriminator: nasMessage.Epd5GSSessionManagementMessage,
+		inSecurityHeaderType:            0x01,
+		inMessageType:                   nas.MsgTypeAuthenticationResult,
+		inTsc:                           0x01,
+		inNASKeySetIdentifier:           0x01,
+		inEAPLen:                        0x02,
+		inEAPMessage:                    []uint8{0x10, 0x11},
+		inABBA:                          aBBATestData[0],
+	},
 	/*{inExtendedProtocolDiscriminator: nasMessage.Epd5GSSessionManagementMessage,
 	inSecurityHeaderType:  0x01,
 	inMessageType:         nas.MsgTypeAuthenticationResult,
@@ -59,7 +60,6 @@ func TestNasTypeNewAuthenticationResult(t *testing.T) {
 }
 
 func TestNasTypeNewAuthenticationResultMessage(t *testing.T) {
-
 	for i, table := range nasMessageAuthenticationResultTable {
 		logger.NasMsgLog.Infoln("Test Cnt:", i)
 		a := nasMessage.NewAuthenticationResult(0)

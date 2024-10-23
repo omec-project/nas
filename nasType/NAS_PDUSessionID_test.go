@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewPDUSessionID(t *testing.T) {
 	a := nasType.NewPDUSessionID()
 	assert.NotNil(t, a)
-
 }
 
 var nasTypePDUSessionIDULNASTransportOldPDUSessionIDTypeTable = []NasTypeIeiData{
@@ -59,7 +57,6 @@ var testPDUSessionIDTestTable = []testPDUSessionIDDataTemplate{
 }
 
 func TestNasTypePDUSessionID(t *testing.T) {
-
 	for i, table := range testPDUSessionIDTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewPDUSessionID()

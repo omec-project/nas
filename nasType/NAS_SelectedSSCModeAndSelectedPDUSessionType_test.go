@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -70,7 +69,6 @@ var SelectedSSCModeAndSelectedPDUSessionTypeTable = []SelectedSSCModeAndSelected
 }
 
 func TestNasTypeSelectedSSCModeAndSelectedPDUSessionType(t *testing.T) {
-
 	for _, table := range SelectedSSCModeAndSelectedPDUSessionTypeTable {
 
 		a := nasType.NewSelectedSSCModeAndSelectedPDUSessionType()

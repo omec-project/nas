@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewRequestedNSSAI(t *testing.T) {
 	a := nasType.NewRequestedNSSAI(nasMessage.RegistrationRequestRequestedNSSAIType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeAuthenticationResultRequestedNSSAITable = []NasTypeIeiData{
@@ -81,7 +79,6 @@ var RequestedNSSAITestTable = []testRequestedNSSAIDataTemplate{
 }
 
 func TestNasTypeRequestedNSSAI(t *testing.T) {
-
 	for i, table := range RequestedNSSAITestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewRequestedNSSAI(nasMessage.RegistrationRequestRequestedNSSAIType)

@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewNetworkFeatureSupport5GS(t *testing.T) {
 	a := nasType.NewNetworkFeatureSupport5GS(nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeNetworkFeatureSupport5GSRegistrationAcceptNetworkFeatureSupport5GSTypeTable = []NasTypeIeiData{
@@ -223,12 +221,13 @@ type testNetworkFeatureSupport5GSDataTemplate struct {
 }
 
 var testNetworkFeatureSupport5GSTestTable = []testNetworkFeatureSupport5GSDataTemplate{
-	{nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType, 2, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-		nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType, 2, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01},
+	{
+		nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType, 2, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+		nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType, 2, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+	},
 }
 
 func TestNasTypeNetworkFeatureSupport5GS(t *testing.T) {
-
 	for i, table := range testNetworkFeatureSupport5GSTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewNetworkFeatureSupport5GS(nasMessage.RegistrationAcceptNetworkFeatureSupport5GSType)

@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewSNSSAI(t *testing.T) {
 	a := nasType.NewSNSSAI(nasMessage.PDUSessionEstablishmentAcceptSNSSAIType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeServiceRequestSNSSAITable = []NasTypeIeiData{

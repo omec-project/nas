@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -60,6 +59,7 @@ type testT3502ValueDataTemplate struct {
 var T3502ValueTestData = []nasType.T3502Value{
 	{nasMessage.RegistrationRejectT3502ValueType, 1, 0x05},
 }
+
 var T3502ValueExpectedData = []nasType.T3502Value{
 	{nasMessage.RegistrationRejectT3502ValueType, 1, 0x05},
 }

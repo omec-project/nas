@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewLADNIndication(t *testing.T) {
 	a := nasType.NewLADNIndication(nasMessage.RegistrationRequestLADNIndicationType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeRegistrationRequestLADNIndicationTable = []NasTypeIeiData{
@@ -73,12 +71,15 @@ type testLADNIndicationDataTemplate struct {
 }
 
 var testLADNIndicationTestTable = []testLADNIndicationDataTemplate{
-	{nasMessage.RegistrationRequestLADNIndicationType, 2, []uint8{0xff, 0xff},
-		nasMessage.RegistrationRequestLADNIndicationType, 2, []uint8{0xff, 0xff}},
+	{
+		nasMessage.RegistrationRequestLADNIndicationType, 2,
+		[]uint8{0xff, 0xff},
+		nasMessage.RegistrationRequestLADNIndicationType, 2,
+		[]uint8{0xff, 0xff},
+	},
 }
 
 func TestNasTypeLADNIndication(t *testing.T) {
-
 	for i, table := range testLADNIndicationTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewLADNIndication(nasMessage.RegistrationRequestLADNIndicationType)

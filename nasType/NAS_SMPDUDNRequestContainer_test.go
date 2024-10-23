@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewSMPDUDNRequestContainer(t *testing.T) {
 	a := nasType.NewSMPDUDNRequestContainer(nasMessage.PDUSessionEstablishmentRequestSMPDUDNRequestContainerType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeSMPDUDNRequestContainerTable = []NasTypeIeiData{
@@ -81,7 +79,6 @@ var SMPDUDNRequestContainerTestTable = []testSMPDUDNRequestContainerDataTemplate
 }
 
 func TestNasTypeSMPDUDNRequestContainer(t *testing.T) {
-
 	for i, table := range SMPDUDNRequestContainerTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewSMPDUDNRequestContainer(nasMessage.PDUSessionEstablishmentRequestSMPDUDNRequestContainerType)

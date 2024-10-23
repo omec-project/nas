@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -40,8 +39,10 @@ type nasTypeNSSAIInclusionMode struct {
 }
 
 var nasTypeNSSAIInclusionModeTable = []nasTypeNSSAIInclusionMode{
-	{RegistrationAcceptNSSAIInclusionModeTypeIeiInput, 0x03,
-		0x0A, 0x03},
+	{
+		RegistrationAcceptNSSAIInclusionModeTypeIeiInput, 0x03,
+		0x0A, 0x03,
+	},
 }
 
 func TestNasTypeNSSAIInclusionMode(t *testing.T) {

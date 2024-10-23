@@ -183,7 +183,7 @@ func (a *Message) PlainNasDecode(byteArray *[]byte) error {
 	case nasMessage.Epd5GSSessionManagementMessage:
 		return a.GsmMessageDecode(byteArray)
 	}
-	return fmt.Errorf("extended Protocol Discriminator[%d] is not allowed in Nas Message Deocde", epd)
+	return fmt.Errorf("extended Protocol Discriminator[%d] is not allowed in Nas Message Decode", epd)
 }
 
 func (a *Message) PlainNasEncode() ([]byte, error) {
@@ -288,7 +288,7 @@ func (a *Message) GmmMessageDecode(byteArray *[]byte) error {
 		a.GmmMessage.DLNASTransport = nasMessage.NewDLNASTransport(MsgTypeDLNASTransport)
 		a.GmmMessage.DecodeDLNASTransport(byteArray)
 	default:
-		return fmt.Errorf("NAS decode Fail: MsgType[%d] doesn't exist in GMM Message", a.GmmMessage.GmmHeader.GetMessageType())
+		return fmt.Errorf("NAS decode fail: MsgType[%d] does not exist in GMM Message", a.GmmMessage.GmmHeader.GetMessageType())
 	}
 	return nil
 }
@@ -352,7 +352,7 @@ func (a *Message) GmmMessageEncode(buffer *bytes.Buffer) error {
 	case MsgTypeDLNASTransport:
 		a.GmmMessage.EncodeDLNASTransport(buffer)
 	default:
-		return fmt.Errorf("NAS Encode Fail: MsgType[%d] doesn't exist in GMM Message", a.GmmMessage.GmmHeader.GetMessageType())
+		return fmt.Errorf("NAS encode fail: MsgType[%d] does not exist in GMM Message", a.GmmMessage.GmmHeader.GetMessageType())
 	}
 	return nil
 }
@@ -450,7 +450,7 @@ func (a *Message) GsmMessageDecode(byteArray *[]byte) error {
 		a.GsmMessage.Status5GSM = nasMessage.NewStatus5GSM(MsgTypeStatus5GSM)
 		a.GsmMessage.DecodeStatus5GSM(byteArray)
 	default:
-		return fmt.Errorf("NAS Decode Fail: MsgType[%d] doesn't exist in GSM Message", a.GsmMessage.GsmHeader.GetMessageType())
+		return fmt.Errorf("NAS decode fail: MsgType[%d] does not exist in GSM Message", a.GsmMessage.GsmHeader.GetMessageType())
 	}
 	return nil
 }
@@ -490,7 +490,7 @@ func (a *Message) GsmMessageEncode(buffer *bytes.Buffer) error {
 	case MsgTypeStatus5GSM:
 		a.GsmMessage.EncodeStatus5GSM(buffer)
 	default:
-		return fmt.Errorf("NAS Encode Fail: MsgType[%d] doesn't exist in GSM Message", a.GsmMessage.GsmHeader.GetMessageType())
+		return fmt.Errorf("NAS encode fail: MsgType[%d] does not exist in GSM Message", a.GsmMessage.GsmHeader.GetMessageType())
 	}
 	return nil
 }

@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewUplinkDataStatus(t *testing.T) {
 	a := nasType.NewUplinkDataStatus(nasMessage.ServiceRequestUplinkDataStatusType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeServiceRequestUplinkDataStatusTable = []NasTypeIeiData{

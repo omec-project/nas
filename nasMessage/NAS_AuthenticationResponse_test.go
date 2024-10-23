@@ -7,16 +7,12 @@ package nasMessage_test
 
 import (
 	"bytes"
-
-	"github.com/omec-project/nas/logger"
-
+	"reflect"
 	"testing"
 
+	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
-	"reflect"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -35,8 +31,8 @@ var nasMessageAuthenticationResponseTable = []nasMessageAuthenticationResponseDa
 		inSecurityHeader:                        0x08,
 		inSpareHalfOctet:                        0x01,
 		inAuthenticationResponseMessageIdentity: 0x01,
-		inAuthenticationResponseParameter:       nasType.AuthenticationResponseParameter{nasMessage.AuthenticationResponseAuthenticationResponseParameterType, 16, [16]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
-		inEAPMessage:                            nasType.EAPMessage{nasMessage.AuthenticationResponseEAPMessageType, 2, []uint8{0x01, 0x01}},
+		inAuthenticationResponseParameter:       nasType.AuthenticationResponseParameter{Iei: nasMessage.AuthenticationResponseAuthenticationResponseParameterType, Len: 16, Octet: [16]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
+		inEAPMessage:                            nasType.EAPMessage{Iei: nasMessage.AuthenticationResponseEAPMessageType, Len: 2, Buffer: []uint8{0x01, 0x01}},
 	},
 }
 

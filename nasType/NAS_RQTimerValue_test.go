@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -80,7 +79,6 @@ var rQTimerValueTestTable = []testRQTimerValueDataTemplate{
 }
 
 func TestNasTypeRQTimerValue(t *testing.T) {
-
 	for _, table := range rQTimerValueTestTable {
 		a := nasType.NewRQTimerValue(nasMessage.PDUSessionEstablishmentAcceptRQTimerValueType)
 

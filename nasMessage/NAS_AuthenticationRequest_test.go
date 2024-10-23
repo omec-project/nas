@@ -7,14 +7,12 @@ package nasMessage_test
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
-	"reflect"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -41,10 +39,10 @@ var nasMessageAuthenticationRequestTable = []nasMessageAuthenticationRequestData
 		inTsc:                                  0x01,
 		inNASKeySetIdentifier:                  0x07,
 		inSpareHalfOctet2:                      0x07,
-		inABBA:                                 nasType.ABBA{0, 2, []byte{0x00, 0x00}},
-		inAuthenticationParameterRAND:          nasType.AuthenticationParameterRAND{nasMessage.AuthenticationRequestAuthenticationParameterRANDType, [16]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
-		inAuthenticationParameterAUTN:          nasType.AuthenticationParameterAUTN{nasMessage.AuthenticationRequestAuthenticationParameterAUTNType, 16, [16]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
-		inEAPMessage:                           nasType.EAPMessage{nasMessage.AuthenticationRequestEAPMessageType, 2, []byte{0x00, 0x00}},
+		inABBA:                                 nasType.ABBA{Iei: 0, Len: 2, Buffer: []byte{0x00, 0x00}},
+		inAuthenticationParameterRAND:          nasType.AuthenticationParameterRAND{Iei: nasMessage.AuthenticationRequestAuthenticationParameterRANDType, Octet: [16]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
+		inAuthenticationParameterAUTN:          nasType.AuthenticationParameterAUTN{Iei: nasMessage.AuthenticationRequestAuthenticationParameterAUTNType, Len: 16, Octet: [16]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
+		inEAPMessage:                           nasType.EAPMessage{Iei: nasMessage.AuthenticationRequestEAPMessageType, Len: 2, Buffer: []byte{0x00, 0x00}},
 	},
 }
 

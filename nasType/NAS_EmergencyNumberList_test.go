@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewEmergencyNumberList(t *testing.T) {
 	a := nasType.NewEmergencyNumberList(nasMessage.RegistrationAcceptEmergencyNumberListType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeRegistrationAcceptEmergencyNumberListIeiTable = []NasTypeIeiData{
@@ -119,7 +117,6 @@ var emergencyNumberListTestTable = []testEmergencyNumberListDataTemplate{
 }
 
 func TestNasTypeEmergencyNumberList(t *testing.T) {
-
 	for i, table := range emergencyNumberListTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewEmergencyNumberList(0)

@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -53,7 +52,6 @@ var accessTypeAndSpareHalfOctetTable = []AccessTypeAndSpareHalfOctetTestDataTemp
 }
 
 func TestNasTypeAccessTypeAndSpareHalfOctet(t *testing.T) {
-
 	for i, table := range accessTypeAndSpareHalfOctetTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewSpareHalfOctetAndAccessType()

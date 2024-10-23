@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -53,7 +52,6 @@ var PTITable = []PTITestDataTemplate{
 }
 
 func TestNasTypePTI(t *testing.T) {
-
 	for _, table := range PTITable {
 
 		a := nasType.NewPTI()

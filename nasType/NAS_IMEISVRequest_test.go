@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -58,12 +57,13 @@ type testIMEISVRequestDataTemplate struct {
 }
 
 var iMEISVRequestTestTable = []testIMEISVRequestDataTemplate{
-	{SecurityModeCommandIMEISVRequestTypeIeiInput, 0x07,
-		0x0E, 0x07},
+	{
+		SecurityModeCommandIMEISVRequestTypeIeiInput, 0x07,
+		0x0E, 0x07,
+	},
 }
 
 func TestNasTypeIMEISVRequest(t *testing.T) {
-
 	for _, table := range iMEISVRequestTestTable {
 		a := nasType.NewIMEISVRequest(SecurityModeCommandIMEISVRequestTypeIeiInput)
 

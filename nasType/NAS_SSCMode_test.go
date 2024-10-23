@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -84,7 +83,6 @@ var SSCModeTable = []SSCModeTestDataTemplate{
 }
 
 func TestNasTypeSSCMode(t *testing.T) {
-
 	for _, table := range SSCModeTable {
 
 		a := nasType.NewSSCMode(nasMessage.PDUSessionEstablishmentRequestSSCModeType)

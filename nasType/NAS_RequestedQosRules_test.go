@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewRequestedQosRules(t *testing.T) {
 	a := nasType.NewRequestedQosRules(nasMessage.PDUSessionModificationRequestRequestedQosRulesType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeAuthenticationResultRequestedQosRulesTable = []NasTypeIeiData{
@@ -81,7 +79,6 @@ var RequestedQosRulesTestTable = []testRequestedQosRulesDataTemplate{
 }
 
 func TestNasTypeRequestedQosRules(t *testing.T) {
-
 	for i, table := range RequestedQosRulesTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewRequestedQosRules(nasMessage.PDUSessionModificationRequestRequestedQosRulesType)

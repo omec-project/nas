@@ -7,24 +7,22 @@ package nasMessage_test
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
-	"reflect"
-
 	"github.com/stretchr/testify/assert"
 )
 
 type nasMessageAuthenticationFailureData struct {
-	inExtendedProtocolDiscriminator         uint8
-	inSecurityHeader                        uint8
-	inSpareHalfOctet                        uint8
-	inAuthenticationFailureMessageIdentity  uint8
-	in5GMMCause                             nasType.Cause5GMM
-	inAuthenticationFailureParameter        nasType.AuthenticationFailureParameter
+	inExtendedProtocolDiscriminator        uint8
+	inSecurityHeader                       uint8
+	inSpareHalfOctet                       uint8
+	inAuthenticationFailureMessageIdentity uint8
+	in5GMMCause                            nasType.Cause5GMM
+	inAuthenticationFailureParameter       nasType.AuthenticationFailureParameter
 }
 
 var nasMessageAuthenticationFailureTable = []nasMessageAuthenticationFailureData{
@@ -33,16 +31,16 @@ var nasMessageAuthenticationFailureTable = []nasMessageAuthenticationFailureData
 		inSecurityHeader:                       0x08,
 		inSpareHalfOctet:                       0x01,
 		inAuthenticationFailureMessageIdentity: 0x01,
-		in5GMMCause:                            nasType.Cause5GMM{0, 0xff},
-		inAuthenticationFailureParameter:       nasType.AuthenticationFailureParameter{nasMessage.AuthenticationFailureAuthenticationFailureParameterType, 14, [14]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
+		in5GMMCause:                            nasType.Cause5GMM{Iei: 0, Octet: 0xff},
+		inAuthenticationFailureParameter:       nasType.AuthenticationFailureParameter{Iei: nasMessage.AuthenticationFailureAuthenticationFailureParameterType, Len: 14, Octet: [14]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
 	},
 	{
 		inExtendedProtocolDiscriminator:        0x01,
 		inSecurityHeader:                       0x08,
 		inSpareHalfOctet:                       0x01,
 		inAuthenticationFailureMessageIdentity: 0x01,
-		in5GMMCause:                            nasType.Cause5GMM{0, 0xff},
-		inAuthenticationFailureParameter:       nasType.AuthenticationFailureParameter{0x30, 14, [14]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
+		in5GMMCause:                            nasType.Cause5GMM{Iei: 0, Octet: 0xff},
+		inAuthenticationFailureParameter:       nasType.AuthenticationFailureParameter{Iei: 0x30, Len: 14, Octet: [14]uint8{0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}},
 	},
 }
 

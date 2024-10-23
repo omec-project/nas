@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewMobileIdentity5GS(t *testing.T) {
 	a := nasType.NewMobileIdentity5GS(nasMessage.RegistrationRequestAdditionalGUTIType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeMobileIdentity5GSRegistrationRequestAdditionalGUTITable = []NasTypeIeiData{
@@ -73,12 +71,15 @@ type testMobileIdentity5GSDataTemplate struct {
 }
 
 var testMobileIdentity5GSTestTable = []testMobileIdentity5GSDataTemplate{
-	{nasMessage.RegistrationRequestAdditionalGUTIType, 2, []uint8{0xff, 0xff},
-		nasMessage.RegistrationRequestAdditionalGUTIType, 2, []uint8{0xff, 0xff}},
+	{
+		nasMessage.RegistrationRequestAdditionalGUTIType, 2,
+		[]uint8{0xff, 0xff},
+		nasMessage.RegistrationRequestAdditionalGUTIType, 2,
+		[]uint8{0xff, 0xff},
+	},
 }
 
 func TestNasTypeMobileIdentity5GS(t *testing.T) {
-
 	for i, table := range testMobileIdentity5GSTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewMobileIdentity5GS(nasMessage.RegistrationRequestAdditionalGUTIType)

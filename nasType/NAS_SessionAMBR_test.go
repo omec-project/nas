@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewSessionAMBR(t *testing.T) {
 	a := nasType.NewSessionAMBR(nasMessage.PDUSessionModificationCommandSessionAMBRType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeSessionAMBRPDUSessionEstablishmentAcceptSessionAMBRTypeTable = []NasTypeIeiData{
@@ -138,7 +136,6 @@ var sessionAMBRTable = []testSessionAMBRDataTemplate{
 }
 
 func TestNasTypeSessionAMBR(t *testing.T) {
-
 	for i, table := range sessionAMBRTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewSessionAMBR(nasMessage.PDUSessionModificationCommandSessionAMBRType)

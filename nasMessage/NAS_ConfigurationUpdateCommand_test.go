@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -132,7 +131,6 @@ func TestNasTypeNewConfigurationUpdateCommand(t *testing.T) {
 }
 
 func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
-
 	for i, table := range nasMessageConfigurationUpdateCommandTable {
 		logger.NasMsgLog.Infoln("Test Cnt:", i)
 		a := nasMessage.NewConfigurationUpdateCommand(0)
