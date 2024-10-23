@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewAuthorizedQosRules(t *testing.T) {
 	a := nasType.NewAuthorizedQosRules(nasMessage.PDUSessionModificationCommandAuthorizedQosRulesType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeAuthenticationRequestAuthorizedQosRulesIeiTable = []NasTypeIeiData{
@@ -69,11 +67,11 @@ type testAuthorizedQosRulesDataTemplate struct {
 }
 
 var AuthorizedQosRulesTestData = []nasType.AuthorizedQosRules{
-	{nasMessage.PDUSessionModificationCommandAuthorizedQosRulesType, 2, []byte{0x00, 0x00}}, //AuthenticationResult
+	{nasMessage.PDUSessionModificationCommandAuthorizedQosRulesType, 2, []byte{0x00, 0x00}}, // AuthenticationResult
 }
 
 var AuthorizedQosRulesExpectedData = []nasType.AuthorizedQosRules{
-	{nasMessage.PDUSessionModificationCommandAuthorizedQosRulesType, 2, []byte{0x00, 0x00}}, //AuthenticationResult
+	{nasMessage.PDUSessionModificationCommandAuthorizedQosRulesType, 2, []byte{0x00, 0x00}}, // AuthenticationResult
 }
 
 var AuthorizedQosRulesTestTable = []testAuthorizedQosRulesDataTemplate{
@@ -81,10 +79,9 @@ var AuthorizedQosRulesTestTable = []testAuthorizedQosRulesDataTemplate{
 }
 
 func TestNasTypeAuthorizedQosRules(t *testing.T) {
-
 	for i, table := range AuthorizedQosRulesTestTable {
 		t.Logf("Test Cnt:%d", i)
-		a := nasType.NewAuthorizedQosRules(0) //AuthenticationResult
+		a := nasType.NewAuthorizedQosRules(0) // AuthenticationResult
 
 		a.SetIei(table.in.GetIei())
 		a.SetLen(table.in.Len)

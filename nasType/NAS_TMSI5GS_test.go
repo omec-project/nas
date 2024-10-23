@@ -9,14 +9,12 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewTMSI5GS(t *testing.T) {
 	a := nasType.NewTMSI5GS(0x01)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeServiceRequestTMSI5GSTable = []NasTypeIeiData{

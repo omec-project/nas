@@ -9,14 +9,12 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewExtendedProtocolConfigurationOptions(t *testing.T) {
 	a := nasType.NewExtendedProtocolConfigurationOptions(0x7B)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeRegistrationAcceptExtendedProtocolConfigurationOptionsIeiTable = []NasTypeIeiData{

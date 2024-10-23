@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewOperatordefinedAccessCategoryDefinitions(t *testing.T) {
 	a := nasType.NewOperatordefinedAccessCategoryDefinitions(nasMessage.ConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeOperatordefinedAccessCategoryDefinitionsConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsTypeTable = []NasTypeIeiData{
@@ -73,12 +71,15 @@ type testOperatordefinedAccessCategoryDefinitionsDataTemplate struct {
 }
 
 var testOperatordefinedAccessCategoryDefinitionsTestTable = []testOperatordefinedAccessCategoryDefinitionsDataTemplate{
-	{nasMessage.ConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsType, 2, []uint8{0x0f, 0x0f},
-		nasMessage.ConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsType, 2, []uint8{0x0f, 0x0f}},
+	{
+		nasMessage.ConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsType, 2,
+		[]uint8{0x0f, 0x0f},
+		nasMessage.ConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsType, 2,
+		[]uint8{0x0f, 0x0f},
+	},
 }
 
 func TestNasTypeOperatordefinedAccessCategoryDefinitions(t *testing.T) {
-
 	for i, table := range testOperatordefinedAccessCategoryDefinitionsTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewOperatordefinedAccessCategoryDefinitions(nasMessage.ConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsType)

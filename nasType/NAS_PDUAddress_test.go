@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewPDUAddress(t *testing.T) {
 	a := nasType.NewPDUAddress(nasMessage.PDUSessionEstablishmentAcceptPDUAddressType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypePDUAddressPDUSessionEstablishmentAcceptPDUAddressTypeTable = []NasTypeIeiData{
@@ -94,12 +92,15 @@ type testPDUAddressDataTemplate struct {
 }
 
 var testPDUAddressTestTable = []testPDUAddressDataTemplate{
-	{nasMessage.PDUSessionEstablishmentAcceptPDUAddressType, 12, 0x07, [12]uint8{0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f},
-		nasMessage.PDUSessionEstablishmentAcceptPDUAddressType, 12, 0x07, [12]uint8{0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f}},
+	{
+		nasMessage.PDUSessionEstablishmentAcceptPDUAddressType, 12, 0x07,
+		[12]uint8{0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f},
+		nasMessage.PDUSessionEstablishmentAcceptPDUAddressType, 12, 0x07,
+		[12]uint8{0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f},
+	},
 }
 
 func TestNasTypePDUAddress(t *testing.T) {
-
 	for i, table := range testPDUAddressTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewPDUAddress(nasMessage.PDUSessionEstablishmentAcceptPDUAddressType)

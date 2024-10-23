@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -54,7 +53,6 @@ func TestNasTypeNewDeregistrationRequestUETerminatedDeregistration(t *testing.T)
 }
 
 func TestNasTypeNewDeregistrationRequestUETerminatedDeregistrationMessage(t *testing.T) {
-
 	for i, table := range nasMessageDeregistrationRequestUETerminatedDeregistrationTable {
 		logger.NasMsgLog.Infoln("Test Cnt:", i)
 		a := nasMessage.NewDeregistrationRequestUETerminatedDeregistration(0)

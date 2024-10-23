@@ -7,14 +7,12 @@ package nasMessage_test
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
-	"reflect"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -32,7 +30,7 @@ var nasMessageAuthenticationRejectTable = []nasMessageAuthenticationRejectData{
 		inSecurityHeader:                      0x01,
 		inSpareHalfOctet:                      0x01,
 		inAuthenticationRejectMessageIdentity: 0x01,
-		inEAPMessage:                          nasType.EAPMessage{nasMessage.AuthenticationRejectEAPMessageType, 2, []byte{0x00, 0x00}},
+		inEAPMessage:                          nasType.EAPMessage{Iei: nasMessage.AuthenticationRejectEAPMessageType, Len: 2, Buffer: []byte{0x00, 0x00}},
 	},
 }
 

@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -62,7 +61,6 @@ func TestNasTypeNewPDUSessionReleaseCommand(t *testing.T) {
 }
 
 func TestNasTypeNewPDUSessionReleaseCommandMessage(t *testing.T) {
-
 	for i, table := range nasMessagePDUSessionReleaseCommandTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewPDUSessionReleaseCommand(0)
@@ -95,8 +93,8 @@ func TestNasTypeNewPDUSessionReleaseCommandMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln(data)
 		b.DecodePDUSessionReleaseCommand(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
-		//logger.NasMsgLog.Debugln(a.Cause5GSM)
-		//logger.NasMsgLog.Debugln(b.Cause5GSM)
+		// logger.NasMsgLog.Debugln(a.Cause5GSM)
+		// logger.NasMsgLog.Debugln(b.Cause5GSM)
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}

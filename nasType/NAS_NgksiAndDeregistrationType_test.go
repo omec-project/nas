@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -117,12 +116,13 @@ type testNgksiAndDeregistrationTypeDataTemplate struct {
 }
 
 var NgksiAndDeregistrationTypeTestTable = []testNgksiAndDeregistrationTypeDataTemplate{
-	{0x01, 0x07, 0x01, 0x01, 0x03,
-		0x01, 0x07, 0x01, 0x01, 0x03},
+	{
+		0x01, 0x07, 0x01, 0x01, 0x03,
+		0x01, 0x07, 0x01, 0x01, 0x03,
+	},
 }
 
 func TestNasTypeNgksiAndDeregistrationType(t *testing.T) {
-
 	for _, table := range NgksiAndDeregistrationTypeTestTable {
 		a := nasType.NewNgksiAndDeregistrationType()
 

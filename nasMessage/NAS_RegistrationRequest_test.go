@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -161,7 +160,6 @@ func TestNasTypeNewRegistrationRequest(t *testing.T) {
 }
 
 func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
-
 	for i, table := range nasMessageRegistrationRequestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewRegistrationRequest(0)

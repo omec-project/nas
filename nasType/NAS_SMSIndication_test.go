@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -67,7 +66,6 @@ var SMSIndicationTable = []SMSIndicationTestDataTemplate{
 }
 
 func TestNasTypeSMSIndication(t *testing.T) {
-
 	for _, table := range SMSIndicationTable {
 
 		a := nasType.NewSMSIndication(nasMessage.ConfigurationUpdateCommandSMSIndicationType)

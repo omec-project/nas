@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -81,7 +80,6 @@ func TestNasTypeNewULNASTransport(t *testing.T) {
 }
 
 func TestNasTypeNewULNASTransportMessage(t *testing.T) {
-
 	for i, table := range nasMessageULNASTransportTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewULNASTransport(0)

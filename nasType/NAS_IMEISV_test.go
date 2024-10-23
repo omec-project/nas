@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewIMEISV(t *testing.T) {
 	a := nasType.NewIMEISV(nasMessage.SecurityModeCompleteIMEISVType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeSecurityModeCompleteIMEISVTypeTable = []NasTypeIeiData{
@@ -158,12 +156,13 @@ type testIMEISVDataTemplate struct {
 }
 
 var iMEISVTestTable = []testIMEISVDataTemplate{
-	{nasMessage.SecurityModeCompleteIMEISVType, 2, 0x01, 0x01, 0x01, 0x01, 0x01,
-		nasMessage.SecurityModeCompleteIMEISVType, 2, 0x01, 0x01, 0x01, 0x01, 0x01},
+	{
+		nasMessage.SecurityModeCompleteIMEISVType, 2, 0x01, 0x01, 0x01, 0x01, 0x01,
+		nasMessage.SecurityModeCompleteIMEISVType, 2, 0x01, 0x01, 0x01, 0x01, 0x01,
+	},
 }
 
 func TestNasTypeIMEISV(t *testing.T) {
-
 	for i, table := range iMEISVTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewIMEISV(nasMessage.SecurityModeCompleteIMEISVType)

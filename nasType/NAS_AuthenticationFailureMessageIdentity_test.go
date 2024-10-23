@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -53,7 +52,6 @@ var authenticationFailureMessageIdentityTable = []AuthenticationFailureMessageId
 }
 
 func TestNasTypeAuthenticationFailureMessageIdentity(t *testing.T) {
-
 	for i, table := range authenticationFailureMessageIdentityTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewAuthenticationFailureMessageIdentity()

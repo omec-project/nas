@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewExtendedEmergencyNumberList(t *testing.T) {
 	a := nasType.NewExtendedEmergencyNumberList(nasMessage.RegistrationAcceptExtendedEmergencyNumberListType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeRegistrationAcceptExtendedEmergencyNumberListIeiTable = []NasTypeIeiData{

@@ -8,8 +8,9 @@ package nasMessage
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/omec-project/nas/nasType"
 	"net"
+
+	"github.com/omec-project/nas/nasType"
 )
 
 type DLNASTransport struct {
@@ -89,27 +90,27 @@ func (a *DLNASTransport) DecodeDLNASTransport(byteArray *[]byte) {
 		binary.Read(esmMsg, binary.BigEndian, &ambr_len)
 		var ambr [6]uint8
 		binary.Read(esmMsg, binary.BigEndian, &ambr)
-		forLoop:
-			for esmMsg.Len() > 0 {
-				var ieiN uint8
-				binary.Read(esmMsg, binary.BigEndian, &ieiN)
-				switch ieiN {
-				case 89:
-					var cause uint8
-					binary.Read(esmMsg, binary.BigEndian, &cause)
-				case 41:
-					var iplen uint8
-					binary.Read(esmMsg, binary.BigEndian, &iplen)
-					var iptype uint8
-					binary.Read(esmMsg, binary.BigEndian, &iptype)
-					var ipaddr [4]uint8
-					binary.Read(esmMsg, binary.BigEndian, &ipaddr)
-					ip := net.IPv4(ipaddr[0], ipaddr[1], ipaddr[2], ipaddr[3])
-					a.Ipaddr = ip.String()
-					break forLoop // we just need ip address nothing more
-				default:
-				}
+	forLoop:
+		for esmMsg.Len() > 0 {
+			var ieiN uint8
+			binary.Read(esmMsg, binary.BigEndian, &ieiN)
+			switch ieiN {
+			case 89:
+				var cause uint8
+				binary.Read(esmMsg, binary.BigEndian, &cause)
+			case 41:
+				var iplen uint8
+				binary.Read(esmMsg, binary.BigEndian, &iplen)
+				var iptype uint8
+				binary.Read(esmMsg, binary.BigEndian, &iptype)
+				var ipaddr [4]uint8
+				binary.Read(esmMsg, binary.BigEndian, &ipaddr)
+				ip := net.IPv4(ipaddr[0], ipaddr[1], ipaddr[2], ipaddr[3])
+				a.Ipaddr = ip.String()
+				break forLoop // we just need ip address nothing more
+			default:
 			}
+		}
 
 	}
 

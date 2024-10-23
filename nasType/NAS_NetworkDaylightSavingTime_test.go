@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewNetworkDaylightSavingTime(t *testing.T) {
 	a := nasType.NewNetworkDaylightSavingTime(nasMessage.ConfigurationUpdateCommandNetworkDaylightSavingTimeType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeNetworkDaylightSavingTimeConfigurationUpdateCommandNetworkDaylightSavingTimeable = []NasTypeIeiData{
@@ -71,12 +69,13 @@ type testNetworkDaylightSavingTimeDataTemplate struct {
 }
 
 var testNetworkDaylightSavingTimeTestTable = []testNetworkDaylightSavingTimeDataTemplate{
-	{nasMessage.ConfigurationUpdateCommandNetworkDaylightSavingTimeType, 2, 0x03,
-		nasMessage.ConfigurationUpdateCommandNetworkDaylightSavingTimeType, 2, 0x03},
+	{
+		nasMessage.ConfigurationUpdateCommandNetworkDaylightSavingTimeType, 2, 0x03,
+		nasMessage.ConfigurationUpdateCommandNetworkDaylightSavingTimeType, 2, 0x03,
+	},
 }
 
 func TestNasTypeNetworkDaylightSavingTime(t *testing.T) {
-
 	for i, table := range testNetworkDaylightSavingTimeTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewNetworkDaylightSavingTime(nasMessage.ConfigurationUpdateCommandNetworkDaylightSavingTimeType)

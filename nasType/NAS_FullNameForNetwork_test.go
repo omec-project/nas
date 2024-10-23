@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewFullNameForNetwork(t *testing.T) {
 	a := nasType.NewFullNameForNetwork(nasMessage.ConfigurationUpdateCommandFullNameForNetworkType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeConfigurationUpdateCommandFullNameForNetworkIeiTable = []NasTypeIeiData{
@@ -161,7 +159,6 @@ var fullNameForNetworkestTable = []testFullNameForNetworkDataTemplate{
 }
 
 func TestNasTypeFullNameForNetwork(t *testing.T) {
-
 	for i, table := range fullNameForNetworkestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewFullNameForNetwork(nasMessage.ConfigurationUpdateCommandFullNameForNetworkType)

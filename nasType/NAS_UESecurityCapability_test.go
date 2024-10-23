@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewUESecurityCapability(t *testing.T) {
 	a := nasType.NewUESecurityCapability(nasMessage.RegistrationRequestUESecurityCapabilityType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeServiceRequestUESecurityCapabilityTable = []NasTypeIeiData{

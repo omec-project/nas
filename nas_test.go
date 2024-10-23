@@ -46,6 +46,6 @@ func TestPlainNas(t *testing.T) {
 	buff, err1 := m.PlainNasEncode()
 	assert.Nil(t, err1)
 	if !reflect.DeepEqual(data, buff) {
-		t.Errorf("Expect : 0x%0x\nOuput: 0x%0x", data, buff)
+		t.Errorf("Expect : 0x%0x\nOutput: 0x%0x", data, buff)
 	}
 }

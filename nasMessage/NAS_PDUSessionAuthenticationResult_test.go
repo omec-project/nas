@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -52,7 +51,6 @@ func TestNasTypeNewPDUSessionAuthenticationResult(t *testing.T) {
 }
 
 func TestNasTypeNewPDUSessionAuthenticationResultMessage(t *testing.T) {
-
 	for i, table := range nasMessagePDUSessionAuthenticationResultTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewPDUSessionAuthenticationResult(0)

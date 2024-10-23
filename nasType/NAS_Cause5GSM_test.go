@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewCause5GSM(t *testing.T) {
 	a := nasType.NewCause5GSM(nasMessage.PDUSessionReleaseCompleteCause5GSMType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypePDUSessionReleaseCompleteCause5GSMTable = []NasTypeIeiData{
@@ -67,7 +65,6 @@ var cause5GSMTestTable = []testCause5GSMDataTemplate{
 }
 
 func TestNasTypeCause5GSM(t *testing.T) {
-
 	for i, table := range cause5GSMTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewCause5GSM(nasMessage.PDUSessionReleaseCompleteCause5GSMType)

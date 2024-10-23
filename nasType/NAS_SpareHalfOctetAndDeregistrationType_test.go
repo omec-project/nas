@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -90,7 +89,6 @@ var deregistrationTypeAndSpareHalfOctetTestTable = []testDeregistrationTypeAndSp
 }
 
 func TestNasTypeDeregistrationTypeAndSpareHalfOctet(t *testing.T) {
-
 	for _, table := range deregistrationTypeAndSpareHalfOctetTestTable {
 		a := nasType.NewSpareHalfOctetAndDeregistrationType()
 

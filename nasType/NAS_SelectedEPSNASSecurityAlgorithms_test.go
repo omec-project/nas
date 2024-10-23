@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -80,7 +79,6 @@ var SelectedEPSNASSecurityAlgorithmsTestTable = []testSelectedEPSNASSecurityAlgo
 }
 
 func TestNasTypeSelectedEPSNASSecurityAlgorithms(t *testing.T) {
-
 	for _, table := range SelectedEPSNASSecurityAlgorithmsTestTable {
 		a := nasType.NewSelectedEPSNASSecurityAlgorithms(nasMessage.SecurityModeCommandSelectedEPSNASSecurityAlgorithmsType)
 

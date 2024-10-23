@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -67,11 +66,11 @@ type testDNNDataTemplate struct {
 }
 
 var DNNTestData = []nasType.DNN{
-	{0, 7, []byte{0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74}}, //AuthenticationResult
+	{0, 7, []byte{0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74}}, // AuthenticationResult
 }
 
 var DNNExpectedTestData = []nasType.DNN{
-	{0, 8, []byte{0x07, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74}}, //AuthenticationResult
+	{0, 8, []byte{0x07, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74}}, // AuthenticationResult
 }
 
 var DNNTestTable = []testDNNDataTemplate{
@@ -79,10 +78,9 @@ var DNNTestTable = []testDNNDataTemplate{
 }
 
 func TestNasTypeDNN(t *testing.T) {
-
 	for i, table := range DNNTestTable {
 		t.Logf("Test Cnt:%d", i)
-		a := nasType.NewDNN(0) //AuthenticationResult
+		a := nasType.NewDNN(0) // AuthenticationResult
 
 		a.SetIei(table.in.GetIei())
 		a.SetLen(table.in.Len)

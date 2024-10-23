@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewNon3GppDeregistrationTimerValue(t *testing.T) {
 	a := nasType.NewNon3GppDeregistrationTimerValue(nasMessage.ServiceRejectT3346ValueType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeNon3GppDeregistrationTimerValueServiceRejectT3346ValueTypeTable = []NasTypeIeiData{
@@ -71,12 +69,13 @@ type testNon3GppDeregistrationTimerValueDataTemplate struct {
 }
 
 var testNon3GppDeregistrationTimerValueTestTable = []testNon3GppDeregistrationTimerValueDataTemplate{
-	{nasMessage.ServiceRejectT3346ValueType, 2, 0x0f,
-		nasMessage.ServiceRejectT3346ValueType, 2, 0x0f},
+	{
+		nasMessage.ServiceRejectT3346ValueType, 2, 0x0f,
+		nasMessage.ServiceRejectT3346ValueType, 2, 0x0f,
+	},
 }
 
 func TestNasTypeNon3GppDeregistrationTimerValue(t *testing.T) {
-
 	for i, table := range testNon3GppDeregistrationTimerValueTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewNon3GppDeregistrationTimerValue(nasMessage.ServiceRejectT3346ValueType)

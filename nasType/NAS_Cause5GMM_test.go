@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewCause5GMM(t *testing.T) {
 	a := nasType.NewCause5GMM(nasMessage.DeregistrationRequestUETerminatedDeregistrationCause5GMMType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeDeregistrationRequestUETerminatedDeregistrationCause5GMMTable = []NasTypeIeiData{
@@ -67,7 +65,6 @@ var cause5GMMTestTable = []testCause5GMMDataTemplate{
 }
 
 func TestNasTypeCause5GMM(t *testing.T) {
-
 	for i, table := range cause5GMMTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewCause5GMM(nasMessage.DeregistrationRequestUETerminatedDeregistrationCause5GMMType)

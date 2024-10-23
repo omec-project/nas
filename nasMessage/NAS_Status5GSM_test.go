@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -48,7 +47,6 @@ func TestNasTypeNewStatus5GSM(t *testing.T) {
 }
 
 func TestNasTypeNewStatus5GSMMessage(t *testing.T) {
-
 	for i, table := range nasMessageStatus5GSMTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewStatus5GSM(0)

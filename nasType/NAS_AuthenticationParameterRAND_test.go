@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewAuthenticationParameterRAND(t *testing.T) {
 	a := nasType.NewAuthenticationParameterRAND(nasMessage.AuthenticationRequestAuthenticationParameterRANDType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeAuthenticationRequestAuthenticationParameterRANDTable = []NasTypeIeiData{
@@ -67,7 +65,6 @@ var authenticationParameterRANDTestTable = []testAuthenticationParameterRANDData
 }
 
 func TestNasTypeAuthenticationParameterRAND(t *testing.T) {
-
 	for i, table := range authenticationParameterRANDTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewAuthenticationParameterRAND(nasMessage.AuthenticationRequestAuthenticationParameterRANDType)

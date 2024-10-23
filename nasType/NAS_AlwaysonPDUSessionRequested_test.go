@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -68,7 +67,6 @@ var alwaysonPDUSessionRequestedTestTable = []testAlwaysonPDUSessionRequestedData
 }
 
 func TestNasTypeAlwaysonPDUSessionRequested(t *testing.T) {
-
 	for _, table := range alwaysonPDUSessionRequestedTestTable {
 		a := nasType.NewAlwaysonPDUSessionRequested(AlwaysonPDUSessionRequestedIeiInput)
 

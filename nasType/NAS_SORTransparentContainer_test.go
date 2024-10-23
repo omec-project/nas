@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewSORTransparentContainer(t *testing.T) {
 	a := nasType.NewSORTransparentContainer(nasMessage.RegistrationAcceptSORTransparentContainerType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeSORTransparentContainerTable = []NasTypeIeiData{
@@ -86,7 +84,6 @@ var SORTransparentContainerTestTable = []testSORTransparentContainerDataTemplate
 }
 
 func TestNasTypeSORTransparentContainer(t *testing.T) {
-
 	for i, table := range SORTransparentContainerTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewSORTransparentContainer(nasMessage.RegistrationAcceptSORTransparentContainerType)

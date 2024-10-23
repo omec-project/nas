@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewNASMessageContainer(t *testing.T) {
 	a := nasType.NewNASMessageContainer(nasMessage.SecurityModeCompleteNASMessageContainerType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeNASMessageContainerRegistrationRequestAdditionalGUTITable = []NasTypeIeiData{
@@ -73,12 +71,15 @@ type testNASMessageContainerDataTemplate struct {
 }
 
 var testNASMessageContainerTestTable = []testNASMessageContainerDataTemplate{
-	{nasMessage.SecurityModeCompleteNASMessageContainerType, 2, []uint8{0xff, 0xff},
-		nasMessage.SecurityModeCompleteNASMessageContainerType, 2, []uint8{0xff, 0xff}},
+	{
+		nasMessage.SecurityModeCompleteNASMessageContainerType, 2,
+		[]uint8{0xff, 0xff},
+		nasMessage.SecurityModeCompleteNASMessageContainerType, 2,
+		[]uint8{0xff, 0xff},
+	},
 }
 
 func TestNasTypeNASMessageContainer(t *testing.T) {
-
 	for i, table := range testNASMessageContainerTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewNASMessageContainer(nasMessage.SecurityModeCompleteNASMessageContainerType)

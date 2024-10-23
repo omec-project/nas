@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -42,8 +41,10 @@ type nasTypeNoncurrentNativeNASKeySetIdentifier struct {
 }
 
 var nasTypeNoncurrentNativeNASKeySetIdentifierTable = []nasTypeNoncurrentNativeNASKeySetIdentifier{
-	{RegistrationRequestNoncurrentNativeNASKeySetIdentifierTypeIeiInput, 0x01, 0x01,
-		0x0C, 0x01, 0x01},
+	{
+		RegistrationRequestNoncurrentNativeNASKeySetIdentifierTypeIeiInput, 0x01, 0x01,
+		0x0C, 0x01, 0x01,
+	},
 }
 
 func TestNasTypeNoncurrentNativeNASKeySetIdentifier(t *testing.T) {

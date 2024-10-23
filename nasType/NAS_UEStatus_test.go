@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -77,6 +76,7 @@ type testUEStatusDataTemplate struct {
 var UEStatusTestData = []nasType.UEStatus{
 	{nasMessage.RegistrationRequestUEStatusType, 1, 0x05},
 }
+
 var UEStatusExpectedData = []nasType.UEStatus{
 	{nasMessage.RegistrationRequestUEStatusType, 1, 0x03},
 }

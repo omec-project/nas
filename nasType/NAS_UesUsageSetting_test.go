@@ -10,7 +10,6 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -60,6 +59,7 @@ type testUesUsageSettingDataTemplate struct {
 var UesUsageSettingTestData = []nasType.UesUsageSetting{
 	{nasMessage.RegistrationRequestUesUsageSettingType, 1, 0x01},
 }
+
 var UesUsageSettingExpectedData = []nasType.UesUsageSetting{
 	{nasMessage.RegistrationRequestUesUsageSettingType, 1, 0x01},
 }

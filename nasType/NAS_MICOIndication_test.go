@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -68,7 +67,6 @@ var mICOIndicationTestTable = []testMICOIndicationDataTemplate{
 }
 
 func TestNasTypeMICOIndication(t *testing.T) {
-
 	for _, table := range mICOIndicationTestTable {
 		a := nasType.NewMICOIndication(ConfigurationUpdateCommandMICOIndicationTypeIeiInput)
 

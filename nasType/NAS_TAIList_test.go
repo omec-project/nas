@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewTAIList(t *testing.T) {
 	a := nasType.NewTAIList(nasMessage.RegistrationAcceptTAIListType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeTAIListTable = []NasTypeIeiData{
@@ -81,7 +79,6 @@ var TAIListTestTable = []testTAIListDataTemplate{
 }
 
 func TestNasTypeTAIList(t *testing.T) {
-
 	for i, table := range TAIListTestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewTAIList(nasMessage.RegistrationAcceptTAIListType)

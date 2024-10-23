@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewPDUSessionStatus(t *testing.T) {
 	a := nasType.NewPDUSessionStatus(nasMessage.ServiceRequestPDUSessionStatusType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeServiceRequestPDUSessionStatusTable = []NasTypeIeiData{

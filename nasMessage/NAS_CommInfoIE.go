@@ -312,8 +312,7 @@ const (
 	InternetProtocolControlProtocolUL                             uint16 = 0x8021
 )
 
-//TS 24.008 10.5.6.3
-
+// TS 24.008 10.5.6.3
 const (
 	PCSCFIPv6AddressDL                                   uint16 = 0x0001
 	IMCNSubsystemSignalingFlagDL                         uint16 = 0x0002

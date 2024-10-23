@@ -10,14 +10,12 @@ import (
 
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewRejectedNSSAI(t *testing.T) {
 	a := nasType.NewRejectedNSSAI(nasMessage.RegistrationAcceptRejectedNSSAIType)
 	assert.NotNil(t, a)
-
 }
 
 var nasTypeAuthenticationResultRejectedNSSAITable = []NasTypeIeiData{
@@ -88,7 +86,6 @@ var RejectedNSSAITestTable = []testRejectedNSSAIDataTemplate{
 }
 
 func TestNasTypeRejectedNSSAI(t *testing.T) {
-
 	for i, table := range RejectedNSSAITestTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasType.NewRejectedNSSAI(nasMessage.RegistrationAcceptRejectedNSSAIType)

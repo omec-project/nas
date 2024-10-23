@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -47,7 +46,6 @@ func TestNasTypeNewSecurityProtected5GSNASMessage(t *testing.T) {
 }
 
 func TestNasTypeNewSecurityProtected5GSNASMessageMessage(t *testing.T) {
-
 	for i, table := range nasMessageSecurityProtected5GSNASMessageTable {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewSecurityProtected5GSNASMessage(0)
