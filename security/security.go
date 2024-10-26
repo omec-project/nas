@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2024 Intel Corporation
 // Copyright 2019 free5GC.org
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -14,6 +15,7 @@ import (
 	"github.com/aead/cmac"
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/security/snow3g"
+	"github.com/omec-project/nas/security/zuc"
 )
 
 func NASEncrypt(AlgoID uint8, KnasEnc [16]byte, Count uint32, Bearer uint8,
@@ -53,7 +55,13 @@ func NASEncrypt(AlgoID uint8, KnasEnc [16]byte, Count uint32, Bearer uint8,
 		return nil
 	case AlgCiphering128NEA3:
 		logger.SecurityLog.Debugln("use NEA3")
-		return fmt.Errorf("NEA3 not implement yet")
+		output, err := NEA3(KnasEnc, Count, Bearer, Direction, payload, uint32(len(payload))*8)
+		if err != nil {
+			return err
+		}
+		// Override payload with NEA3 output
+		copy(payload, output)
+		return nil
 	default:
 		return fmt.Errorf("unknown Algorithm Identity[%d]", AlgoID)
 	}
@@ -74,7 +82,7 @@ func NASMacCalculate(AlgoID uint8, KnasInt [16]uint8, Count uint32,
 
 	switch AlgoID {
 	case AlgIntegrity128NIA0:
-		logger.SecurityLog.Warnln("integrity NIA0 is emergency.")
+		logger.SecurityLog.Warnln("integrity NIA0 is emergency")
 		return nil, nil
 	case AlgIntegrity128NIA1:
 		logger.SecurityLog.Debugln("use NIA1")
@@ -84,7 +92,7 @@ func NASMacCalculate(AlgoID uint8, KnasInt [16]uint8, Count uint32,
 		return NIA2(KnasInt, Count, Bearer, Direction, msg)
 	case AlgIntegrity128NIA3:
 		logger.SecurityLog.Debugln("use NIA3")
-		return nil, fmt.Errorf("NIA3 not implement yet")
+		return NIA3(KnasInt, Count, Bearer, Direction, msg, uint32(len(msg))*8)
 	default:
 		return nil, fmt.Errorf("unknown Algorithm Identity[%d]", AlgoID)
 	}
@@ -122,9 +130,7 @@ func NEA1(ck [16]byte, countC, bearer, direction uint32, ibs []byte, length uint
 }
 
 // ibs: input bit stream, obs: output bit stream
-func NEA2(key [16]byte, count uint32, bearer uint8, direction uint8,
-	ibs []byte,
-) (obs []byte, err error) {
+func NEA2(key [16]byte, count uint32, bearer uint8, direction uint8, ibs []byte) (obs []byte, err error) {
 	// Couter[0..32] | BEARER[0..4] | DIRECTION[0] | 0^26 | 0^64
 	couterBlk := make([]byte, 16)
 	// First 32 bits are count
@@ -144,7 +150,43 @@ func NEA2(key [16]byte, count uint32, bearer uint8, direction uint8,
 	return obs, nil
 }
 
-func NEA3() {
+// NEA3 ibs: input bit stream, obs: output bit stream
+// Specification of the 3GPP Confidentiality and Integrity Algorithms 128-EEA3 & 128-EIA3.
+// Document 1: 128-EEA3 and 128-EIA3 Specification
+// https://www.gsma.com/security/wp-content/uploads/2019/05/EEA3_EIA3_specification_v1_8.pdf
+func NEA3(key [16]byte, count uint32, bearer uint8, direction uint8, ibs []byte, length uint32,
+) (obs []byte, err error) {
+	if length == 0 {
+		return nil, fmt.Errorf("length cannot be zero")
+	}
+
+	iv := make([]byte, 16)
+
+	for i := 0; i < 4; i++ {
+		iv[i] = byte((count >> (24 - 8*i)) & 0xFF)
+	}
+	iv[4] = ((bearer << 3) | ((direction & 1) << 2)) & 0xFC
+	copy(iv[8:], iv[:8])
+
+	l := (length + 31) / 32
+	z := zuc.Zuc(key[:], iv, l)
+
+	obs = make([]byte, len(ibs))
+
+	for i := 0; i < int(l); i++ {
+		for j := 0; j < 4 && (i*4+j) < int((length+7)/8); j++ {
+			obs[i*4+j] = ibs[i*4+j] ^ byte((z[i]>>(8*(3-j)))&0xff)
+		}
+	}
+
+	if length%8 != 0 {
+		obs[length/8] &= (uint8(0xff) << (8 - length%8))
+	}
+
+	for j := int(length/8 + 1); j < len(obs); j++ {
+		obs[j] = 0
+	}
+	return obs, nil
 }
 
 // mulx() is for NIA1()
@@ -236,5 +278,57 @@ func NIA2(key [16]byte, count uint32, bearer uint8, direction uint8, msg []byte)
 	return mac, nil
 }
 
-func NIA3() {
+// NIA3
+// Specification of the 3GPP Confidentiality and Integrity Algorithms 128-EEA3 & 128-EIA3.
+// Document 1: 128-EEA3 and 128-EIA3 Specification
+// https://www.gsma.com/security/wp-content/uploads/2019/05/EEA3_EIA3_specification_v1_8.pdf
+func NIA3(key [16]byte, count uint32, bearer uint8, direction uint8, msg []byte, length uint32,
+) (mac []byte, err error) {
+	if length == 0 {
+		return nil, fmt.Errorf("length cannot be zero")
+	}
+
+	var n, l, t, i uint32
+	iv := make([]byte, 16)
+
+	for i := 0; i < 4; i++ {
+		iv[i] = byte((count >> (24 - 8*i)) & 0xFF)
+	}
+
+	iv[4] = (bearer << 3) & 0xF8
+	iv[5], iv[6], iv[7] = 0, 0, 0
+	iv[8] = iv[0] ^ ((direction & 1) << 7)
+
+	for i := 9; i < 12; i++ {
+		iv[i] = iv[i-8]
+	}
+
+	iv[12] = iv[4]
+	iv[13] = iv[5]
+	iv[14] = iv[6] ^ ((direction & 1) << 7)
+	iv[15] = iv[7]
+
+	n = length + 64
+	l = (n + 31) / 32
+	z := zuc.Zuc(key[:], iv, l)
+
+	for i = 0; i < length; i++ {
+		if msg[i/8]&(1<<(7-(i%8))) != 0 { // GET_BIT
+			t ^= getWord(z, i)
+		}
+	}
+	t ^= getWord(z, length)
+	macValue := t ^ z[l-1]
+	mac = make([]byte, 4)
+	binary.BigEndian.PutUint32(mac, macValue)
+	return mac, nil
+}
+
+func getWord(data []uint32, i uint32) uint32 {
+	ti := i % 32
+	id := i / 32
+	if ti == 0 {
+		return data[id]
+	}
+	return (data[id] << ti) | (data[id+1] >> (32 - ti))
 }
