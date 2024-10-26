@@ -160,6 +160,7 @@ linters-settings:
     # enable or disable analyzers by name
     enable:
       - atomicalign
+      - fieldalignment
     enable-all: false
     disable:
       - shadow
@@ -206,27 +207,26 @@ linters:
   enable:
     - gofmt
     - govet
-    # - errcheck
+    - errcheck
     - staticcheck
     - unused
     - gosimple
     - ineffassign
     - typecheck
     # Additional
-    # - lll
+    - lll
     - godox
-    # - gomnd
-    #- maligned
-    #- nestif
+    # - mnd
+    - nestif
     - goconst
-    #- gocognit
+    - gocognit
     - nakedret
     - gci
     - misspell
     - gofumpt
-    # - whitespace
-    # - unconvert
-    # - predeclared
+    - whitespace
+    - unconvert
+    - predeclared
     - noctx
     - dogsled
     - asciicheck
@@ -240,6 +240,14 @@ issues:
   # excluded by default patterns execute `golangci-lint run --help`
   exclude:
   # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude-files:
+    - nas.go
+    - nas_test.go
+  exclude-dirs:
+    - nasConvert
+    - nasMessage
+    - nasType
+    - nasTestpacket
   exclude-rules:
     # Exclude some linters from running on tests files.
   # Independently from option `exclude` we use default exclude patterns,
