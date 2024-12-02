@@ -7,7 +7,7 @@ require (
 	github.com/omec-project/openapi v1.3.2
 	github.com/omec-project/util v1.2.6
 	github.com/smartystreets/goconvey v1.8.1
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	go.uber.org/zap v1.27.0
 )
 
