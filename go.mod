@@ -1,11 +1,11 @@
 module github.com/omec-project/nas
 
-go 1.23
+go 1.23.0
 
 require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
-	github.com/omec-project/openapi v1.3.3
-	github.com/omec-project/util v1.2.13
+	github.com/omec-project/openapi v1.3.4
+	github.com/omec-project/util v1.2.14
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/stretchr/testify v1.10.0
 	go.uber.org/zap v1.27.0
