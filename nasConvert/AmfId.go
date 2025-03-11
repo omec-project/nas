@@ -17,9 +17,9 @@ func AmfIdToNas(amfId string) (amfRegionId uint8, amfSetId uint16, amfPointer ui
 		logger.ConvertLog.Errorf("amfId decode failed: %+v", err)
 	}
 
-	amfRegionId = uint8(amfIdBytes[0])
+	amfRegionId = amfIdBytes[0]
 	amfSetId = uint16(amfIdBytes[1])<<2 + (uint16(amfIdBytes[2])&0x00c0)>>6
-	amfPointer = uint8(amfIdBytes[2]) & 0x3f
+	amfPointer = amfIdBytes[2] & 0x3f
 	return
 }
 
