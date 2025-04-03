@@ -211,19 +211,19 @@ func PeiToString(buf []byte) string {
 		digitStr = digitStr[:len(digitStr)-1] // remove the last digit
 	}
 
+	// Validation for IMEI and IMEISV
+	digitStrLen := len(digitStr)
+	if (prefix == "imei" && digitStrLen != 15) || (prefix == "imeisv" && digitStrLen != 16) {
+		logger.ConvertLog.Warnf("invalid %s length: %d", prefix, digitStrLen)
+		return ""
+	}
+
 	// Ensure all elements in digitStr are decimal digits
 	for _, char := range digitStr {
 		if char < '0' || char > '9' {
 			logger.ConvertLog.Warnf("invalid value in %s: %c", prefix, char)
 			return ""
 		}
-	}
-
-	// Validation for IMEI and IMEISV
-	digitStrLen := len(digitStr)
-	if (prefix == "imei" && digitStrLen != 15) || (prefix == "imeisv" && digitStrLen != 16) {
-		logger.ConvertLog.Warnf("invalid %s length: %d", prefix, digitStrLen)
-		return ""
 	}
 
 	// Validate TAC and SNR using the Luhn formula
