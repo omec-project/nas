@@ -183,13 +183,11 @@ func GutiToNas(guti string) nasType.GUTI5G {
 
 // PEI: ^(imei-[0-9]{15}|imeisv-[0-9]{16}|.+)$
 func PeiToString(buf []byte) string {
-	var prefix string
+	prefix := "imei"
 
 	typeOfIdentity := buf[0] & 0x07
-	if typeOfIdentity == 0x03 {
-		prefix = "imei-"
-	} else {
-		prefix = "imeisv-"
+	if typeOfIdentity != 0x03 {
+		prefix = "imeisv"
 	}
 
 	oddIndication := (buf[0] & 0x08) >> 3
@@ -213,5 +211,45 @@ func PeiToString(buf []byte) string {
 		digitStr = digitStr[:len(digitStr)-1] // remove the last digit
 	}
 
-	return prefix + digitStr
+	// Ensure all elements in digitStr are decimal digits
+	for _, char := range digitStr {
+		if char < '0' || char > '9' {
+			logger.ConvertLog.Warnf("invalid value in %s: %c", prefix, char)
+			return ""
+		}
+	}
+
+	// Validation for IMEI and IMEISV
+	digitStrLen := len(digitStr)
+	if (prefix == "imei" && digitStrLen != 15) || (prefix == "imeisv" && digitStrLen != 16) {
+		logger.ConvertLog.Warnf("invalid %s length: %d", prefix, digitStrLen)
+		return ""
+	}
+
+	// Validate TAC and SNR using the Luhn formula
+	if !isValidLuhn(digitStr[:14]) {
+		logger.ConvertLog.Warnf("invalid TAC/SNR in %s: %s", prefix, digitStr[:14])
+		return ""
+	}
+
+	return prefix + "-" + digitStr
+}
+
+// Validate a string using the Luhn formula
+func isValidLuhn(input string) bool {
+	sum := 0
+	alt := false
+	for i := len(input) - 1; i >= 0; i-- {
+		n := int(input[i] - '0')
+		if alt {
+			n *= 2
+			if n > 9 {
+				n -= 9
+			}
+		}
+		sum += n
+		alt = !alt
+	}
+	logger.ConvertLog.Debugf("Luhn sum is: %d", sum)
+	return sum%10 == 0
 }
