@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
-	github.com/omec-project/openapi v1.4.1
+	github.com/omec-project/openapi v1.5.0
 	github.com/omec-project/util v1.3.2
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/stretchr/testify v1.10.0
