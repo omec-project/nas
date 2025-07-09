@@ -175,6 +175,69 @@ const (
 	MsgTypeDLNASTransport                                   uint8 = 104
 )
 
+func MessageName(code uint8) string {
+	switch code {
+	case MsgTypeRegistrationRequest:
+		return "RegistrationRequest"
+	case MsgTypeRegistrationAccept:
+		return "RegistrationAccept"
+	case MsgTypeRegistrationComplete:
+		return "RegistrationComplete"
+	case MsgTypeRegistrationReject:
+		return "RegistrationReject"
+	case MsgTypeDeregistrationRequestUEOriginatingDeregistration:
+		return "DeregistrationRequestUEOriginatingDeregistration"
+	case MsgTypeDeregistrationAcceptUEOriginatingDeregistration:
+		return "DeregistrationAcceptUEOriginatingDeregistration"
+	case MsgTypeDeregistrationRequestUETerminatedDeregistration:
+		return "DeregistrationRequestUETerminatedDeregistration"
+	case MsgTypeDeregistrationAcceptUETerminatedDeregistration:
+		return "DeregistrationAcceptUETerminatedDeregistration"
+	case MsgTypeServiceRequest:
+		return "ServiceRequest"
+	case MsgTypeServiceReject:
+		return "ServiceReject"
+	case MsgTypeServiceAccept:
+		return "ServiceAccept"
+	case MsgTypeConfigurationUpdateCommand:
+		return "ConfigurationUpdateCommand"
+	case MsgTypeConfigurationUpdateComplete:
+		return "ConfigurationUpdateComplete"
+	case MsgTypeAuthenticationRequest:
+		return "AuthenticationRequest"
+	case MsgTypeAuthenticationResponse:
+		return "AuthenticationResponse"
+	case MsgTypeAuthenticationReject:
+		return "AuthenticationReject"
+	case MsgTypeAuthenticationFailure:
+		return "AuthenticationFailure"
+	case MsgTypeAuthenticationResult:
+		return "AuthenticationResult"
+	case MsgTypeIdentityRequest:
+		return "IdentityRequest"
+	case MsgTypeIdentityResponse:
+		return "IdentityResponse"
+	case MsgTypeSecurityModeCommand:
+		return "SecurityModeCommand"
+	case MsgTypeSecurityModeComplete:
+		return "SecurityModeComplete"
+	case MsgTypeSecurityModeReject:
+		return "SecurityModeReject"
+	case MsgTypeStatus5GMM:
+		return "Status5GMM"
+	case MsgTypeNotification:
+		return "Notification"
+	case MsgTypeNotificationResponse:
+		return "NotificationResponse"
+	case MsgTypeULNASTransport:
+		return "ULNASTransport"
+	case MsgTypeDLNASTransport:
+		return "DLNASTransport"
+	default:
+		return fmt.Sprintf("Unknown message type: %d", code)
+	}
+}
+
 func (a *Message) PlainNasDecode(byteArray *[]byte) error {
 	epd := GetEPD(*byteArray)
 	switch epd {
