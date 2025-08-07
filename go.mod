@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
-	github.com/omec-project/openapi v1.6.2
+	github.com/omec-project/openapi v1.6.3
 	github.com/omec-project/util v1.4.0
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/stretchr/testify v1.10.0
@@ -13,7 +13,7 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/golang-jwt/jwt/v5 v5.2.3 // indirect
+	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	github.com/kr/pretty v0.3.1 // indirect
