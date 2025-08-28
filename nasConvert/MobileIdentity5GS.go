@@ -189,6 +189,7 @@ func PeiToString(pei []byte) string {
 	}
 
 	const imei_prefix = "imei"
+	const imeisv_prefix = "imeisv"
 	var digits strings.Builder
 
 	prefix := ""
@@ -201,7 +202,7 @@ func PeiToString(pei []byte) string {
 	case 3:
 		prefix = imei_prefix
 	case 5:
-		prefix = "imeisv"
+		prefix = imeisv_prefix
 	case 6: // mac-address
 		logger.ConvertLog.Errorf("unsupported type of identity: %d", typeIdentity)
 		return prefix
@@ -242,7 +243,7 @@ func PeiToString(pei []byte) string {
 
 	// Validation for IMEI and IMEISV
 	digitStrLen := len(digitStr)
-	if (prefix == imei_prefix && digitStrLen != 15) || (prefix == "imeisv" && digitStrLen != 16) {
+	if (prefix == imei_prefix && digitStrLen != 15) || (prefix == imeisv_prefix && digitStrLen != 16) {
 		logger.ConvertLog.Errorf("invalid %s length: %d", prefix, digitStrLen)
 		return ""
 	}
