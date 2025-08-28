@@ -188,6 +188,7 @@ func PeiToString(pei []byte) string {
 		return ""
 	}
 
+	const imei_prefix = "imei"
 	var digits strings.Builder
 
 	prefix := ""
@@ -198,7 +199,7 @@ func PeiToString(pei []byte) string {
 	typeIdentity := lower & 0x07
 	switch typeIdentity {
 	case 3:
-		prefix = "imei"
+		prefix = imei_prefix
 	case 5:
 		prefix = "imeisv"
 	case 6: // mac-address
@@ -210,7 +211,7 @@ func PeiToString(pei []byte) string {
 	}
 
 	if upper <= 9 {
-		digits.WriteByte('0' + byte(upper))
+		digits.WriteByte('0' + upper)
 	} else {
 		logger.ConvertLog.Errorf("invalid value/character 0x%x", upper)
 		return ""
@@ -221,14 +222,14 @@ func PeiToString(pei []byte) string {
 		upper = (b & 0xF0) >> 4
 
 		if lower <= 9 {
-			digits.WriteByte('0' + byte(lower))
+			digits.WriteByte('0' + lower)
 		} else {
 			logger.ConvertLog.Errorf("invalid value/character 0x%x", lower)
 			return ""
 		}
 
 		if upper <= 9 {
-			digits.WriteByte('0' + byte(upper))
+			digits.WriteByte('0' + upper)
 		} else if i == len(pei)-2 && upper == 0x0f {
 			// last digit is filler
 		} else {
@@ -241,7 +242,7 @@ func PeiToString(pei []byte) string {
 
 	// Validation for IMEI and IMEISV
 	digitStrLen := len(digitStr)
-	if (prefix == "imei" && digitStrLen != 15) || (prefix == "imeisv" && digitStrLen != 16) {
+	if (prefix == imei_prefix && digitStrLen != 15) || (prefix == "imeisv" && digitStrLen != 16) {
 		logger.ConvertLog.Errorf("invalid %s length: %d", prefix, digitStrLen)
 		return ""
 	}
@@ -249,14 +250,14 @@ func PeiToString(pei []byte) string {
 	// Ensure all elements in digitStr are decimal digits
 	for _, char := range digitStr {
 		if char < '0' || char > '9' {
-			logger.ConvertLog.Warnf("invalid value in %s: %c", prefix, char)
+			logger.ConvertLog.Errorf("invalid value in %s: %c", prefix, char)
 			return ""
 		}
 	}
 
 	// Validate TAC and SNR using the Luhn formula
-	if (prefix == "imei") && !isValidLuhn(digitStr) {
-		logger.ConvertLog.Warnf("invalid TAC/SNR in %s: %s", prefix, digitStr)
+	if (prefix == imei_prefix) && !isValidLuhn(digitStr) {
+		logger.ConvertLog.Errorf("invalid TAC/SNR in %s: %s", prefix, digitStr)
 		return ""
 	}
 
