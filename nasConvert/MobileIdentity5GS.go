@@ -247,14 +247,6 @@ func PeiToString(pei []byte) string {
 		return ""
 	}
 
-	// Ensure all elements in digitStr are decimal digits
-	for _, char := range digitStr {
-		if char < '0' || char > '9' {
-			logger.ConvertLog.Errorf("invalid value in %s: %c", prefix, char)
-			return ""
-		}
-	}
-
 	// Validate TAC and SNR using the Luhn formula
 	if (prefix == imei_prefix) && !isValidLuhn(digitStr) {
 		logger.ConvertLog.Errorf("invalid TAC/SNR in %s: %s", prefix, digitStr)
