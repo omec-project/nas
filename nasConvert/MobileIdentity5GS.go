@@ -182,53 +182,75 @@ func GutiToNas(guti string) nasType.GUTI5G {
 }
 
 // PEI: ^(imei-[0-9]{15}|imeisv-[0-9]{16}|.+)$
-func PeiToString(buf []byte) string {
-	prefix := "imei"
-
-	typeOfIdentity := buf[0] & 0x07
-	if typeOfIdentity != 0x03 {
-		prefix = "imeisv"
-	}
-
-	oddIndication := (buf[0] & 0x08) >> 3
-
-	digit1 := (buf[0] & 0xf0)
-
-	tmpBytes := []byte{digit1}
-
-	for _, octet := range buf[1:] {
-		digitP := octet & 0x0f
-		digitP1 := octet & 0xf0
-
-		tmpBytes[len(tmpBytes)-1] += digitP
-		tmpBytes = append(tmpBytes, digitP1)
-	}
-
-	digitStr := hex.EncodeToString(tmpBytes)
-	digitStr = digitStr[:len(digitStr)-1] // remove the last digit
-
-	if oddIndication == 0 { // even digits
-		digitStr = digitStr[:len(digitStr)-1] // remove the last digit
-	}
-
-	// Validation for IMEI and IMEISV
-	digitStrLen := len(digitStr)
-	if (prefix == "imei" && digitStrLen != 15) || (prefix == "imeisv" && digitStrLen != 16) {
-		logger.ConvertLog.Warnf("invalid %s length: %d", prefix, digitStrLen)
+func PeiToString(pei []byte) string {
+	if len(pei) == 0 {
+		logger.ConvertLog.Errorln("empty PEI")
 		return ""
 	}
 
-	// Ensure all elements in digitStr are decimal digits
-	for _, char := range digitStr {
-		if char < '0' || char > '9' {
-			logger.ConvertLog.Warnf("invalid value in %s: %c", prefix, char)
+	const imei_prefix = "imei"
+	const imeisv_prefix = "imeisv"
+	var digits strings.Builder
+
+	prefix := ""
+
+	lower := pei[0] & 0x0F
+	upper := (pei[0] & 0xF0) >> 4
+
+	typeIdentity := lower & 0x07
+	switch typeIdentity {
+	case 3:
+		prefix = imei_prefix
+	case 5:
+		prefix = imeisv_prefix
+	case 6: // mac-address
+		logger.ConvertLog.Errorf("unsupported type of identity: %d", typeIdentity)
+		return prefix
+	default:
+		logger.ConvertLog.Errorf("invalid type of identity: %d", typeIdentity)
+		return prefix
+	}
+
+	if upper <= 9 {
+		digits.WriteByte('0' + upper)
+	} else {
+		logger.ConvertLog.Errorf("invalid value/character 0x%x", upper)
+		return ""
+	}
+
+	for i, b := range pei[1:] {
+		lower = b & 0x0F
+		upper = (b & 0xF0) >> 4
+
+		if lower <= 9 {
+			digits.WriteByte('0' + lower)
+		} else {
+			logger.ConvertLog.Errorf("invalid value/character 0x%x", lower)
+			return ""
+		}
+
+		if upper <= 9 {
+			digits.WriteByte('0' + upper)
+		} else if i == len(pei)-2 && upper == 0x0f {
+			// last digit is filler
+		} else {
+			logger.ConvertLog.Errorf("invalid value/character 0x%x", upper)
 			return ""
 		}
 	}
 
+	digitStr := digits.String()
+
+	// Validation for IMEI and IMEISV
+	digitStrLen := len(digitStr)
+	if (prefix == imei_prefix && digitStrLen != 15) || (prefix == imeisv_prefix && digitStrLen != 16) {
+		logger.ConvertLog.Errorf("invalid %s length: %d", prefix, digitStrLen)
+		return ""
+	}
+
 	// Validate TAC and SNR using the Luhn formula
-	if !isValidLuhn(digitStr[:14]) {
-		logger.ConvertLog.Warnf("invalid TAC/SNR in %s: %s", prefix, digitStr[:14])
+	if (prefix == imei_prefix) && !isValidLuhn(digitStr) {
+		logger.ConvertLog.Errorf("invalid TAC/SNR in %s: %s", prefix, digitStr)
 		return ""
 	}
 
@@ -239,17 +261,18 @@ func PeiToString(buf []byte) string {
 func isValidLuhn(input string) bool {
 	sum := 0
 	alt := false
-	for i := len(input) - 1; i >= 0; i-- {
-		n := int(input[i] - '0')
+	for _, char := range input[:14] {
+		n := int(char - '0')
 		if alt {
 			n *= 2
 			if n > 9 {
-				n -= 9
+				n = n/10 + n%10
 			}
 		}
 		sum += n
 		alt = !alt
 	}
-	logger.ConvertLog.Debugf("Luhn sum is: %d", sum)
-	return sum%10 == 0
+	cd := (10 - sum%10) % 10
+	logger.ConvertLog.Debugf("Luhn sum: %d, and cd: %d", sum, cd)
+	return cd == int(input[len(input)-1]-'0')
 }
