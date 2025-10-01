@@ -1,18 +1,18 @@
+// SPDX-FileCopyrightText: 2025 Intel Corporation
 // Copyright 2019 free5GC.org
 //
 // SPDX-License-Identifier: Apache-2.0
 //
 
-package nasConvert_test
+package nasConvert
 
 import (
+	"reflect"
 	"testing"
 
-	"github.com/omec-project/nas/nasConvert"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
 	"github.com/omec-project/openapi/models"
-	"github.com/smartystreets/goconvey/convey"
 )
 
 func TestRequestedNssaiToModels(t *testing.T) {
@@ -20,10 +20,11 @@ func TestRequestedNssaiToModels(t *testing.T) {
 		name         string
 		requestNssai nasType.RequestedNSSAI
 		expected     []models.MappingOfSnssai
+		expectError  bool
 	}{
 		{
-			"Test correctness",
-			nasType.RequestedNSSAI{
+			name: "Test correctness",
+			requestNssai: nasType.RequestedNSSAI{
 				Iei: nasMessage.RegistrationRequestRequestedNSSAIType,
 				Len: 25,
 				Buffer: []uint8{
@@ -34,7 +35,7 @@ func TestRequestedNssaiToModels(t *testing.T) {
 					0x08, 0x01, 0x11, 0x22, 0x33, 0x04, 0x01, 0x02, 0x03,
 				},
 			},
-			[]models.MappingOfSnssai{
+			expected: []models.MappingOfSnssai{
 				{
 					ServingSnssai: &models.Snssai{
 						Sst: 1,
@@ -74,32 +75,39 @@ func TestRequestedNssaiToModels(t *testing.T) {
 					},
 				},
 			},
+			expectError: false,
 		},
 		{
-			"Test error handling",
-			nasType.RequestedNSSAI{
+			name: "Test error handling",
+			requestNssai: nasType.RequestedNSSAI{
 				Iei: nasMessage.RegistrationRequestRequestedNSSAIType,
 				Len: 2,
 				Buffer: []uint8{
 					0x09, 0x01,
 				},
 			},
-			nil,
+			expected:    nil,
+			expectError: true,
 		},
 	}
-	convey.Convey("Convert type from nasType.RequestedNSSAI to []models.MappingOfSnssai", t, func() {
-		for _, testCase := range testCases {
-			modelNssai, err := nasConvert.RequestedNssaiToModels(&testCase.requestNssai)
 
-			convey.Convey(testCase.name, func() {
-				convey.So(modelNssai, convey.ShouldResemble, testCase.expected)
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			modelNssai, err := RequestedNssaiToModels(&tc.requestNssai)
 
-				if testCase.name == "Test error handling" {
-					convey.So(err, convey.ShouldBeError)
-				} else {
-					convey.So(err, convey.ShouldBeNil)
+			if tc.expectError {
+				if err == nil {
+					t.Errorf("Expected error but got none")
 				}
-			})
-		}
-	})
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+			}
+
+			if !reflect.DeepEqual(modelNssai, tc.expected) {
+				t.Errorf("Expected %+v, got %+v", tc.expected, modelNssai)
+			}
+		})
+	}
 }
