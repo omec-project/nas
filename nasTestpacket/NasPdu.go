@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2025 Intel Corporation
 // Copyright 2019 free5GC.org
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -673,6 +674,7 @@ func GetSecurityModeComplete(nasMessageContainer []uint8) []byte {
 	securityModeComplete.SetIdentityDigit1(1)
 	securityModeComplete.SetIdentityDigitP_1(1)
 	securityModeComplete.SetIdentityDigitP(1)
+	securityModeComplete.SetIdentityDigitP_15(15)
 
 	if nasMessageContainer != nil {
 		securityModeComplete.NASMessageContainer = nasType.NewNASMessageContainer(
