@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
-	github.com/omec-project/openapi v1.6.4
+	github.com/omec-project/openapi v1.6.5
 	github.com/stretchr/testify v1.11.1
 	go.uber.org/zap v1.27.0
 )
