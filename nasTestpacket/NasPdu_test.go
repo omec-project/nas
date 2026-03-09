@@ -190,19 +190,6 @@ func TestGetSecurityModeComplete_EmptyInput(t *testing.T) {
 	}
 }
 
-func TestGetSecurityModeComplete_RawOutput(t *testing.T) {
-	t.Run("Debug raw output", func(t *testing.T) {
-		result := GetSecurityModeComplete(nil)
-		t.Logf("Raw output length: %d", len(result))
-		t.Logf("Raw output hex: %x", result)
-
-		// Print byte by byte for debugging
-		for i, b := range result {
-			t.Logf("Byte %d: 0x%02X", i, b)
-		}
-	})
-}
-
 // Helper function to validate the structure of the Security Mode Complete message
 func validateSecurityModeCompleteMessage(t *testing.T, result []byte, expectedContainer []uint8,
 	validateIMEISV, validateContainer bool,
