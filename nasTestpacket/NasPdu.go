@@ -328,7 +328,7 @@ func GetSecurityModeComplete(nasMessageContainer []uint8) []byte {
 	return data.Bytes()
 }
 
-func GetDeregistrationRequest(accessType uint8, switchOff uint8, ngKsi uint8,
+func GetDeregistrationRequest(accessType nasMessage.AccessType, switchOff uint8, ngKsi uint8,
 	mobileIdentity5GS nasType.MobileIdentity5GS,
 ) []byte {
 	m := nas.NewMessage()
@@ -343,7 +343,7 @@ func GetDeregistrationRequest(accessType uint8, switchOff uint8, ngKsi uint8,
 	deregistrationRequest.DeregistrationRequestMessageIdentity.SetMessageType(
 		nas.MsgTypeDeregistrationRequestUEOriginatingDeregistration)
 
-	deregistrationRequest.NgksiAndDeregistrationType.SetAccessType(accessType)
+	deregistrationRequest.NgksiAndDeregistrationType.SetAccessType(uint8(accessType))
 	deregistrationRequest.NgksiAndDeregistrationType.SetSwitchOff(switchOff)
 	deregistrationRequest.NgksiAndDeregistrationType.SetReRegistrationRequired(0)
 	deregistrationRequest.NgksiAndDeregistrationType.SetTSC(ngKsi)
