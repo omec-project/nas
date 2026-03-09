@@ -1,7 +1,7 @@
 # Copyright 2019 free5GC.org
 #
 # SPDX-License-Identifier: Apache-2.0
-# 
+#
 
 # Toolchain
 # Goland project folder
@@ -17,5 +17,8 @@ tags
 cscope.*
 # mac
 .DS_Store
+
+# Coverage profiles
+coverage.out
 
 support
