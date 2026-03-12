@@ -147,12 +147,10 @@ const (
 )
 
 // TS 24.501 9.11.3.11
-type AccessType uint8
-
 const (
-	AccessType3GPP    AccessType = 0x01
-	AccessTypeNon3GPP AccessType = 0x02
-	AccessTypeBoth    AccessType = 0x03
+	AccessType3GPP    uint8 = 0x01
+	AccessTypeNon3GPP uint8 = 0x02
+	AccessTypeBoth    uint8 = 0x03
 )
 
 // TS 24.501 9.11.3.50
