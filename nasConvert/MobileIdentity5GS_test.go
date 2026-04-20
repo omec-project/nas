@@ -53,8 +53,14 @@ func TestSuciToString(t *testing.T) {
 		expectedPlmn string
 	}{
 		{
-			name:         "empty buffer",
+			name:         "nil buffer",
 			input:        nil,
+			expectedSuci: "",
+			expectedPlmn: "",
+		},
+		{
+			name:         "empty buffer",
+			input:        []byte{},
 			expectedSuci: "",
 			expectedPlmn: "",
 		},
