@@ -7,6 +7,84 @@ import (
 	"testing"
 )
 
+func TestNaiToString(t *testing.T) {
+	tests := []struct {
+		name        string
+		input       []byte
+		expectedNai string
+	}{
+		{
+			name:        "nil buffer",
+			input:       nil,
+			expectedNai: "",
+		},
+		{
+			name:        "empty buffer",
+			input:       []byte{},
+			expectedNai: "",
+		},
+		{
+			name:        "type-only buffer",
+			input:       []byte{0x01},
+			expectedNai: "",
+		},
+		{
+			name:        "minimum valid buffer",
+			input:       []byte{0x01, 0x23},
+			expectedNai: "nai-1-23",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := NaiToString(tt.input)
+			if result != tt.expectedNai {
+				t.Errorf("NaiToString() = %q, expected %q", result, tt.expectedNai)
+			}
+		})
+	}
+}
+
+func TestSuciToString(t *testing.T) {
+	tests := []struct {
+		name         string
+		input        []byte
+		expectedSuci string
+		expectedPlmn string
+	}{
+		{
+			name:         "empty buffer",
+			input:        nil,
+			expectedSuci: "",
+			expectedPlmn: "",
+		},
+		{
+			name:         "undersized imsi buffer",
+			input:        []byte{0x00, 0x21, 0x63, 0x54, 0x76, 0x98, 0x00},
+			expectedSuci: "",
+			expectedPlmn: "",
+		},
+		{
+			name:         "minimum valid imsi buffer without scheme output",
+			input:        []byte{0x00, 0x21, 0x63, 0x54, 0x76, 0xf8, 0x00, 0x01},
+			expectedSuci: "suci-0-123-456-678-0-1-",
+			expectedPlmn: "123456",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			suci, plmn := SuciToString(tt.input)
+			if suci != tt.expectedSuci {
+				t.Errorf("SuciToString() suci = %q, expected %q", suci, tt.expectedSuci)
+			}
+			if plmn != tt.expectedPlmn {
+				t.Errorf("SuciToString() plmnId = %q, expected %q", plmn, tt.expectedPlmn)
+			}
+		})
+	}
+}
+
 func TestPeiToString(t *testing.T) {
 	tests := []struct {
 		name     string
