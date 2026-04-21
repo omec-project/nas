@@ -12,32 +12,40 @@ func TestNaiToString(t *testing.T) {
 		name        string
 		input       []byte
 		expectedNai string
+		expectErr   bool
 	}{
 		{
 			name:        "nil buffer",
 			input:       nil,
 			expectedNai: "",
+			expectErr:   true,
 		},
 		{
 			name:        "empty buffer",
 			input:       []byte{},
 			expectedNai: "",
+			expectErr:   true,
 		},
 		{
 			name:        "type-only buffer",
 			input:       []byte{0x01},
 			expectedNai: "",
+			expectErr:   true,
 		},
 		{
 			name:        "minimum valid buffer",
 			input:       []byte{0x01, 0x23},
 			expectedNai: "nai-1-23",
+			expectErr:   false,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := NaiToString(tt.input)
+			result, err := NaiToString(tt.input)
+			if (err != nil) != tt.expectErr {
+				t.Fatalf("NaiToString() error = %v, expectErr %v", err, tt.expectErr)
+			}
 			if result != tt.expectedNai {
 				t.Errorf("NaiToString() = %q, expected %q", result, tt.expectedNai)
 			}
@@ -51,36 +59,65 @@ func TestSuciToString(t *testing.T) {
 		input        []byte
 		expectedSuci string
 		expectedPlmn string
+		expectErr    bool
 	}{
 		{
 			name:         "nil buffer",
 			input:        nil,
 			expectedSuci: "",
 			expectedPlmn: "",
+			expectErr:    true,
 		},
 		{
 			name:         "empty buffer",
 			input:        []byte{},
 			expectedSuci: "",
 			expectedPlmn: "",
+			expectErr:    true,
 		},
 		{
 			name:         "undersized imsi buffer",
 			input:        []byte{0x00, 0x21, 0x63, 0x54, 0x76, 0x98, 0x00},
 			expectedSuci: "",
 			expectedPlmn: "",
+			expectErr:    true,
 		},
 		{
 			name:         "minimum valid imsi buffer without scheme output",
 			input:        []byte{0x00, 0x21, 0x63, 0x54, 0x76, 0xf8, 0x00, 0x01},
-			expectedSuci: "suci-0-123-456-678-0-1-",
+			expectedSuci: "",
+			expectedPlmn: "",
+			expectErr:    true,
+		},
+		{
+			name:         "valid imsi buffer",
+			input:        []byte{0x00, 0x21, 0x63, 0x54, 0x76, 0xf8, 0x00, 0x01, 0x32},
+			expectedSuci: "suci-0-123-456-678-0-1-23",
 			expectedPlmn: "123456",
+			expectErr:    false,
+		},
+		{
+			name:         "invalid nai buffer",
+			input:        []byte{0x10},
+			expectedSuci: "",
+			expectedPlmn: "",
+			expectErr:    true,
+		},
+		{
+			name:         "valid nai buffer",
+			input:        []byte{0x10, 0x23},
+			expectedSuci: "nai-1-23",
+			expectedPlmn: "",
+			expectErr:    false,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			suci, plmn := SuciToString(tt.input)
+			suci, plmn, err := SuciToString(tt.input)
+			if (err != nil) != tt.expectErr {
+				t.Fatalf("SuciToString() error = %v, expectErr %v", err, tt.expectErr)
+			}
 			if suci != tt.expectedSuci {
 				t.Errorf("SuciToString() suci = %q, expected %q", suci, tt.expectedSuci)
 			}
