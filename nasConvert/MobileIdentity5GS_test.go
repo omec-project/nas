@@ -83,7 +83,7 @@ func TestSuciToString(t *testing.T) {
 			expectErr:    true,
 		},
 		{
-			name:         "minimum valid imsi buffer without scheme output",
+			name:         "imsi buffer missing scheme output",
 			input:        []byte{0x00, 0x21, 0x63, 0x54, 0x76, 0xf8, 0x00, 0x01},
 			expectedSuci: "",
 			expectedPlmn: "",
