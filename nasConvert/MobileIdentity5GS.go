@@ -25,24 +25,22 @@ func GetTypeOfIdentity(buf byte) uint8 {
 // TS 24.501 9.11.3.4
 // suci(imsi) =
 // "suci-0-${mcc}-${mnc}-${routingIndentifier}-${protectionScheme}-${homeNetworkPublicKeyIdentifier}-${schemeOutput}"
-// suci(nai) = "nai-${naiString}"
-func SuciToString(buf []byte) (suci string, plmnId string) {
+// suci(nai) = NAI string returned by NaiToString, for example "nai-1-..."
+func SuciToString(buf []byte) (suci string, plmnId string, err error) {
 	var mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier, schemeOutput string
 
 	if len(buf) == 0 {
-		logger.ConvertLog.Errorln("empty SUCI buffer")
-		return "", ""
+		return "", "", fmt.Errorf("empty SUCI buffer")
 	}
 
 	supiFormat := (buf[0] & 0xf0) >> 4
 	if supiFormat == nasMessage.SupiFormatNai {
-		suci = NaiToString(buf)
-		return suci, ""
+		suci, err = NaiToString(buf)
+		return suci, "", err
 	}
 
-	if len(buf) < 8 {
-		logger.ConvertLog.Errorf("invalid SUCI buffer length: %d", len(buf))
-		return "", ""
+	if len(buf) < 9 {
+		return "", "", fmt.Errorf("invalid SUCI buffer length: %d", len(buf))
 	}
 
 	// Encode buf to SUCI in supi format "IMSI"
@@ -98,20 +96,19 @@ func SuciToString(buf []byte) (suci string, plmnId string) {
 		"suci", "0", mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier,
 		schemeOutput,
 	}, "-")
-	return suci, plmnId
+	return suci, plmnId, nil
 }
 
-func NaiToString(buf []byte) (nai string) {
+func NaiToString(buf []byte) (nai string, err error) {
 	if len(buf) < 2 {
-		logger.ConvertLog.Errorln("invalid NAI buffer")
-		return ""
+		return "", fmt.Errorf("invalid NAI buffer")
 	}
 
 	prefix := "nai"
 	naiBytes := buf[1:]
 	naiStr := hex.EncodeToString(naiBytes)
 	nai = strings.Join([]string{prefix, "1", naiStr}, "-")
-	return
+	return nai, nil
 }
 
 // nasType: TS 24.501 9.11.3.4
