@@ -25,7 +25,7 @@ func GetTypeOfIdentity(buf byte) uint8 {
 // TS 24.501 9.11.3.4
 // suci(imsi) =
 // "suci-0-${mcc}-${mnc}-${routingIndentifier}-${protectionScheme}-${homeNetworkPublicKeyIdentifier}-${schemeOutput}"
-// suci(nai) = "nai-${naiString}"
+// suci(nai) = NAI string returned by NaiToString, for example "nai-1-..."
 func SuciToString(buf []byte) (suci string, plmnId string, err error) {
 	var mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier, schemeOutput string
 
