@@ -30,9 +30,7 @@ func SuciToString(buf []byte) (suci string, plmnId string, err error) {
 	var mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier, schemeOutput string
 
 	if len(buf) == 0 {
-		err = fmt.Errorf("empty SUCI buffer")
-		logger.ConvertLog.Errorln(err)
-		return "", "", err
+		return "", "", fmt.Errorf("empty SUCI buffer")
 	}
 
 	supiFormat := (buf[0] & 0xf0) >> 4
@@ -42,9 +40,7 @@ func SuciToString(buf []byte) (suci string, plmnId string, err error) {
 	}
 
 	if len(buf) < 9 {
-		err = fmt.Errorf("invalid SUCI buffer length: %d", len(buf))
-		logger.ConvertLog.Errorln(err)
-		return "", "", err
+		return "", "", fmt.Errorf("invalid SUCI buffer length: %d", len(buf))
 	}
 
 	// Encode buf to SUCI in supi format "IMSI"
@@ -105,9 +101,7 @@ func SuciToString(buf []byte) (suci string, plmnId string, err error) {
 
 func NaiToString(buf []byte) (nai string, err error) {
 	if len(buf) < 2 {
-		err = fmt.Errorf("invalid NAI buffer")
-		logger.ConvertLog.Errorln(err)
-		return "", err
+		return "", fmt.Errorf("invalid NAI buffer")
 	}
 
 	prefix := "nai"
