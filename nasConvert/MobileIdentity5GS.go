@@ -29,10 +29,20 @@ func GetTypeOfIdentity(buf byte) uint8 {
 func SuciToString(buf []byte) (suci string, plmnId string) {
 	var mcc, mnc, routingInd, protectionScheme, homeNetworkPublicKeyIdentifier, schemeOutput string
 
+	if len(buf) == 0 {
+		logger.ConvertLog.Errorln("empty SUCI buffer")
+		return "", ""
+	}
+
 	supiFormat := (buf[0] & 0xf0) >> 4
 	if supiFormat == nasMessage.SupiFormatNai {
 		suci = NaiToString(buf)
 		return suci, ""
+	}
+
+	if len(buf) < 8 {
+		logger.ConvertLog.Errorf("invalid SUCI buffer length: %d", len(buf))
+		return "", ""
 	}
 
 	// Encode buf to SUCI in supi format "IMSI"
@@ -77,7 +87,7 @@ func SuciToString(buf []byte) (suci string, plmnId string) {
 			msinBytes = append(msinBytes, bits.RotateLeft8(buf[i], 4))
 		}
 		schemeOutput = hex.EncodeToString(msinBytes)
-		if schemeOutput[len(schemeOutput)-1] == 'f' {
+		if len(schemeOutput) > 0 && schemeOutput[len(schemeOutput)-1] == 'f' {
 			schemeOutput = schemeOutput[:len(schemeOutput)-1]
 		}
 	} else {
@@ -92,6 +102,11 @@ func SuciToString(buf []byte) (suci string, plmnId string) {
 }
 
 func NaiToString(buf []byte) (nai string) {
+	if len(buf) < 2 {
+		logger.ConvertLog.Errorln("invalid NAI buffer")
+		return ""
+	}
+
 	prefix := "nai"
 	naiBytes := buf[1:]
 	naiStr := hex.EncodeToString(naiBytes)
