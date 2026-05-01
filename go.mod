@@ -6,7 +6,7 @@ require (
 	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
 	github.com/omec-project/openapi v1.7.1
 	github.com/stretchr/testify v1.11.1
-	go.uber.org/zap v1.27.1
+	go.uber.org/zap v1.28.0
 )
 
 require (
