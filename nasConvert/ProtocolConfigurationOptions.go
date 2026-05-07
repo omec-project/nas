@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasMessage"
+	"github.com/omec-project/nas/v2/logger"
+	"github.com/omec-project/nas/v2/nasMessage"
 )
 
 type ProtocolOrContainerUnit struct {

@@ -1,4 +1,4 @@
-module github.com/omec-project/nas
+module github.com/omec-project/nas/v2
 
 go 1.25.0
 

@@ -10,9 +10,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/omec-project/nas"
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasMessage"
+	"github.com/omec-project/nas/v2"
+	"github.com/omec-project/nas/v2/logger"
+	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/stretchr/testify/assert"
 )
 

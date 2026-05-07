@@ -11,11 +11,11 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 
-	"github.com/omec-project/nas"
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasConvert"
-	"github.com/omec-project/nas/nasMessage"
-	"github.com/omec-project/nas/nasType"
+	"github.com/omec-project/nas/v2"
+	"github.com/omec-project/nas/v2/logger"
+	"github.com/omec-project/nas/v2/nasConvert"
+	"github.com/omec-project/nas/v2/nasMessage"
+	"github.com/omec-project/nas/v2/nasType"
 	"github.com/omec-project/openapi/v2/models"
 )
 
