@@ -16,7 +16,7 @@ import (
 	"github.com/omec-project/nas/nasConvert"
 	"github.com/omec-project/nas/nasMessage"
 	"github.com/omec-project/nas/nasType"
-	"github.com/omec-project/openapi/models"
+	"github.com/omec-project/openapi/v2/models"
 )
 
 const (
@@ -147,7 +147,7 @@ func GetUlNasTransport_PduSessionEstablishmentRequest(pduSessionId uint8, reques
 	}
 	if sNssai != nil {
 		var sdTemp [3]uint8
-		sd, err := hex.DecodeString(sNssai.Sd)
+		sd, err := hex.DecodeString(sNssai.GetSd())
 		if err != nil {
 			logger.NasMsgLog.Errorf("sNssai decode error: %+v", err)
 		}
@@ -446,7 +446,7 @@ func GetUlNasTransport_PduSessionReleaseComplete(pduSessionId uint8, requestType
 	}
 	if sNssai != nil {
 		var sdTemp [3]uint8
-		sd, err := hex.DecodeString(sNssai.Sd)
+		sd, err := hex.DecodeString(sNssai.GetSd())
 		if err != nil {
 			logger.NasMsgLog.Warnf("sNssai SD decode error: %+v", err)
 		}

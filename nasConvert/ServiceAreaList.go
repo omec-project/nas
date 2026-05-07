@@ -10,7 +10,7 @@ import (
 
 	"github.com/omec-project/nas/logger"
 	"github.com/omec-project/nas/nasMessage"
-	"github.com/omec-project/openapi/models"
+	"github.com/omec-project/openapi/v2/models"
 )
 
 // TS 24.501 9.11.3.49
@@ -18,7 +18,7 @@ func PartialServiceAreaListToNas(plmnID models.PlmnId, serviceAreaRestriction mo
 	var partialServiceAreaList []byte
 	var allowedType uint8
 
-	if serviceAreaRestriction.RestrictionType == models.RestrictionType_ALLOWED_AREAS {
+	if serviceAreaRestriction.RestrictionType != nil && *serviceAreaRestriction.RestrictionType == models.RESTRICTIONTYPE_ALLOWED_AREAS {
 		allowedType = nasMessage.AllowedTypeAllowedArea
 	} else {
 		allowedType = nasMessage.AllowedTypeNonAllowedArea
