@@ -8,7 +8,7 @@ package security_test
 import (
 	"testing"
 
-	"github.com/omec-project/nas/security"
+	"github.com/omec-project/nas/v2/security"
 	"github.com/stretchr/testify/assert"
 )
 

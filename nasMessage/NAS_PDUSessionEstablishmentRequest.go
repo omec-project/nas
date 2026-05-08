@@ -9,8 +9,8 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasType"
+	"github.com/omec-project/nas/v2/logger"
+	"github.com/omec-project/nas/v2/nasType"
 )
 
 type PDUSessionEstablishmentRequest struct {

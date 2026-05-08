@@ -10,9 +10,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/omec-project/nas/nasMessage"
-	"github.com/omec-project/nas/nasType"
-	"github.com/omec-project/openapi/models"
+	"github.com/omec-project/nas/v2/nasMessage"
+	"github.com/omec-project/nas/v2/nasType"
+	"github.com/omec-project/openapi/v2"
+	"github.com/omec-project/openapi/v2/models"
 )
 
 func TestRequestedNssaiToModels(t *testing.T) {
@@ -37,41 +38,41 @@ func TestRequestedNssaiToModels(t *testing.T) {
 			},
 			expected: []models.MappingOfSnssai{
 				{
-					ServingSnssai: &models.Snssai{
+					ServingSnssai: models.Snssai{
 						Sst: 1,
 					},
 				},
 				{
-					ServingSnssai: &models.Snssai{
+					ServingSnssai: models.Snssai{
 						Sst: 1,
 					},
-					HomeSnssai: &models.Snssai{
+					HomeSnssai: models.Snssai{
 						Sst: 2,
 					},
 				},
 				{
-					ServingSnssai: &models.Snssai{
+					ServingSnssai: models.Snssai{
 						Sst: 1,
-						Sd:  "010203",
+						Sd:  openapi.PtrString("010203"),
 					},
 				},
 				{
-					ServingSnssai: &models.Snssai{
+					ServingSnssai: models.Snssai{
 						Sst: 1,
-						Sd:  "010203",
+						Sd:  openapi.PtrString("010203"),
 					},
-					HomeSnssai: &models.Snssai{
+					HomeSnssai: models.Snssai{
 						Sst: 3,
 					},
 				},
 				{
-					ServingSnssai: &models.Snssai{
+					ServingSnssai: models.Snssai{
 						Sst: 1,
-						Sd:  "112233",
+						Sd:  openapi.PtrString("112233"),
 					},
-					HomeSnssai: &models.Snssai{
+					HomeSnssai: models.Snssai{
 						Sst: 4,
-						Sd:  "010203",
+						Sd:  openapi.PtrString("010203"),
 					},
 				},
 			},

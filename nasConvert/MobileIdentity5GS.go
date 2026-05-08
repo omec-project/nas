@@ -12,10 +12,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/omec-project/nas/logger"
-	"github.com/omec-project/nas/nasMessage"
-	"github.com/omec-project/nas/nasType"
-	"github.com/omec-project/openapi/models"
+	"github.com/omec-project/nas/v2/logger"
+	"github.com/omec-project/nas/v2/nasMessage"
+	"github.com/omec-project/nas/v2/nasType"
+	"github.com/omec-project/openapi/v2/models"
 )
 
 func GetTypeOfIdentity(buf byte) uint8 {
@@ -117,9 +117,10 @@ func GutiToString(buf []byte) (guami models.Guami, guti string) {
 	amfID := hex.EncodeToString(buf[4:7])
 	tmsi5G := hex.EncodeToString(buf[7:])
 
-	guami.PlmnId = new(models.PlmnId)
-	guami.PlmnId.Mcc = plmnID[:3]
-	guami.PlmnId.Mnc = plmnID[3:]
+	guami.PlmnId = models.PlmnIdNid{
+		Mcc: plmnID[:3],
+		Mnc: plmnID[3:],
+	}
 	guami.AmfId = amfID
 	guti = plmnID + amfID + tmsi5G
 	return
