@@ -13,7 +13,6 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/v2/security/zuc"
-	"github.com/stretchr/testify/require"
 )
 
 func TestZuc(t *testing.T) {
@@ -59,7 +58,14 @@ func TestZuc(t *testing.T) {
 	for _, ts := range testSets {
 		t.Run(ts.name, func(t *testing.T) {
 			ks := zuc.Zuc(ts.key, ts.iv, ts.length)
-			require.Equal(t, ts.z, ks)
+			if len(ks) != len(ts.z) {
+				t.Fatalf("keystream length mismatch: expected %d, got %d", len(ts.z), len(ks))
+			}
+			for i := range ts.z {
+				if ks[i] != ts.z[i] {
+					t.Errorf("keystream[%d] mismatch: expected %#x, got %#x", i, ts.z[i], ks[i])
+				}
+			}
 		})
 	}
 }
