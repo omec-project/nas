@@ -7,14 +7,90 @@
 // https://www.gsma.com/security/wp-content/uploads/2019/05/eea3eia3testdatav11.pdf
 //
 
-package security_test
+package security
 
 import (
+	"bytes"
+	"crypto/aes"
+	"encoding/hex"
 	"testing"
-
-	"github.com/omec-project/nas/v2/security"
-	"github.com/stretchr/testify/require"
 )
+
+// TestAESCMACSumRFC4493 validates aesCMACSum against all four test vectors from
+// RFC 4493 (https://www.rfc-editor.org/rfc/rfc4493), Section 4, using the same
+// 128-bit key. The vectors exercise: empty message, one exact block, partial
+// multi-block, and multiple exact blocks.
+func TestAESCMACSumRFC4493(t *testing.T) {
+	t.Parallel()
+
+	const keyHex = "2b7e151628aed2a6abf7158809cf4f3c" // gitleaks:allow
+
+	testCases := []struct {
+		name    string
+		msgHex  string
+		wantHex string
+	}{
+		{
+			// Example 1: empty message
+			name:    "EmptyMessage",
+			msgHex:  "",
+			wantHex: "bb1d6929e95937287fa37d129b756746",
+		},
+		{
+			// Example 2: exactly one 16-byte block (complete block → uses K1)
+			name:    "OneCompleteBlock",
+			msgHex:  "6bc1bee22e409f96e93d7e117393172a",
+			wantHex: "070a16b46b4d4144f79bdd9dd04a287c",
+		},
+		{
+			// Example 3: 40 bytes – two complete blocks + one partial block (uses K2)
+			name:    "PartialLastBlock",
+			msgHex:  "6bc1bee22e409f96e93d7e117393172aae2d8a571e03ac9c9eb76fac45af8e5130c81c46a35ce411",
+			wantHex: "dfa66747de9ae63030ca32611497c827",
+		},
+		{
+			// Example 4: 64 bytes – four complete blocks (uses K1)
+			name:    "MultipleCompleteBlocks",
+			msgHex:  "6bc1bee22e409f96e93d7e117393172aae2d8a571e03ac9c9eb76fac45af8e5130c81c46a35ce411e5fbc1191a0a52eff69f2445df4f9b17ad2b417be66c3710",
+			wantHex: "51f0bebf7e3b9d92fc49741779363cfe",
+		},
+	}
+
+	key, err := hex.DecodeString(keyHex)
+	if err != nil {
+		t.Fatalf("decode key: %v", err)
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			var msg []byte
+			if tc.msgHex != "" {
+				msg, err = hex.DecodeString(tc.msgHex)
+				if err != nil {
+					t.Fatalf("decode message: %v", err)
+				}
+			}
+
+			want, err := hex.DecodeString(tc.wantHex)
+			if err != nil {
+				t.Fatalf("decode expected MAC: %v", err)
+			}
+
+			block, err := aes.NewCipher(key)
+			if err != nil {
+				t.Fatalf("create cipher: %v", err)
+			}
+
+			got, err := aesCMACSum(block, msg)
+			if err != nil {
+				t.Fatalf("compute CMAC: %v", err)
+			}
+			if !bytes.Equal(want, got) {
+				t.Errorf("CMAC mismatch: expected %x, got %x", want, got)
+			}
+		})
+	}
+}
 
 func TestConfidentialityEEA3(t *testing.T) {
 	t.Parallel()
@@ -223,11 +299,13 @@ func TestConfidentialityEEA3(t *testing.T) {
 
 	for _, ts := range testSets {
 		t.Run(ts.name, func(t *testing.T) {
-			cipher, err := security.NEA3(ts.key, ts.count, ts.bearer, ts.direction, ts.plainText, ts.length)
+			cipher, err := NEA3(ts.key, ts.count, ts.bearer, ts.direction, ts.plainText, ts.length)
 			if err != nil {
 				t.Errorf("error: %v", err)
 			}
-			require.Equal(t, ts.cipherText, cipher)
+			if !bytes.Equal(ts.cipherText, cipher) {
+				t.Errorf("ciphertext mismatch: expected %x, got %x", ts.cipherText, cipher)
+			}
 		})
 	}
 }
@@ -358,11 +436,13 @@ func TestIntegrityEIA3(t *testing.T) {
 
 	for _, ts := range testSets {
 		t.Run(ts.name, func(t *testing.T) {
-			output, err := security.NIA3(ts.key, ts.count, ts.bearer, ts.direction, ts.message, ts.length)
+			output, err := NIA3(ts.key, ts.count, ts.bearer, ts.direction, ts.message, ts.length)
 			if err != nil {
 				t.Errorf("error: %v", err)
 			}
-			require.Equal(t, ts.output, output)
+			if !bytes.Equal(ts.output, output) {
+				t.Errorf("MAC mismatch: expected %x, got %x", ts.output, output)
+			}
 		})
 	}
 }

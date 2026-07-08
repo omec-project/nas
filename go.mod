@@ -3,7 +3,6 @@ module github.com/omec-project/nas/v2
 go 1.25.0
 
 require (
-	github.com/aead/cmac v0.0.0-20160719120800-7af84192f0b1
 	github.com/omec-project/openapi/v2 v2.1.4
 	github.com/stretchr/testify v1.11.1
 	go.uber.org/zap v1.28.0
