@@ -114,7 +114,7 @@ func NEA1(ck [16]byte, countC, bearer, direction uint32, ibs []byte, length uint
 
 	obs = make([]byte, len(ibs))
 	var i, j uint32
-	for i = range length / 32 {
+	for i = 0; i < length/32; i++ {
 		for j = range 4 {
 			obs[4*i+j] = ibs[4*i+j] ^ byte((ks[i]>>(8*(3-j)))&0xff)
 		}
