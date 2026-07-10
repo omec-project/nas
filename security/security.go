@@ -109,8 +109,13 @@ func NEA1(ck [16]byte, countC, bearer, direction uint32, ibs []byte, length uint
 	r := length % 32
 	ks := make([]uint32, l)
 	snow3g.GenerateKeystream(int(l), ks)
-	// Clear keystream bits which exceed length
-	ks[l-1] &= ^((1 << (32 - r)) - 1)
+	// Clear keystream bits which exceed length.
+	// Guard: when r==0 the length is an exact multiple of 32 bits, so no
+	// masking is needed - without this guard the shift evaluates to zero,
+	// which would erase the entire last keystream word.
+	if r != 0 {
+		ks[l-1] &= ^((uint32(1) << (32 - r)) - 1)
+	}
 
 	obs = make([]byte, len(ibs))
 	var i, j uint32
