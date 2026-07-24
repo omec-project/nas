@@ -3,7 +3,6 @@ Copyright 2021-present Open Networking Foundation
 SPDX-License-Identifier: Apache-2.0
 
 -->
-[![Go Report Card](https://goreportcard.com/badge/github.com/omec-project/nas)](https://goreportcard.com/report/github.com/omec-project/nas)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/omec-project/nas/badge)](https://scorecard.dev/viewer/?uri=github.com/omec-project/nas)
 
 # nas
