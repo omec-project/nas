@@ -1,7 +1,6 @@
+// Copyright (C) 2026 Intel Corporation
 // Copyright 2019 free5GC.org
-//
 // SPDX-License-Identifier: Apache-2.0
-//
 
 package nasMessage_test
 
@@ -245,5 +244,43 @@ func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
+	}
+}
+
+func TestRegistrationRequestNewIEsEncodeDecode(t *testing.T) {
+	a := nasMessage.NewRegistrationRequest(0)
+	b := nasMessage.NewRegistrationRequest(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.RegistrationRequestMessageIdentity.SetMessageType(nas.MsgTypeRegistrationRequest)
+	a.NgksiAndRegistrationType5GS.SetNasKeySetIdentifiler(0x01)
+	a.NgksiAndRegistrationType5GS.SetRegistrationType5GS(0x01)
+	a.MobileIdentity5GS = nasType.MobileIdentity5GS{Len: 2, Buffer: []uint8{0x01, 0x01}}
+
+	a.EPSBearerContextStatus = nasType.NewEPSBearerContextStatus(nasMessage.RegistrationRequestEPSBearerContextStatusType)
+	a.EPSBearerContextStatus.SetLen(2)
+	copy(a.EPSBearerContextStatus.Buffer, []byte{0x0E, 0x00})
+
+	a.ExtendedDRXParameters = nasType.NewExtendedDRXParameters(nasMessage.RegistrationRequestExtendedDRXParametersType)
+	a.ExtendedDRXParameters.SetLen(1)
+	a.ExtendedDRXParameters.Buffer[0] = 0x25
+
+	a.UERadioCapabilityID = nasType.NewUERadioCapabilityID(nasMessage.RegistrationRequestUERadioCapabilityIDType)
+	a.UERadioCapabilityID.SetLen(3)
+	copy(a.UERadioCapabilityID.Buffer, []byte{0x01, 0x02, 0x03})
+
+	buff := new(bytes.Buffer)
+	a.EncodeRegistrationRequest(buff)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeRegistrationRequest(&data)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("RegistrationRequest new IEs encode/decode mismatch")
 	}
 }

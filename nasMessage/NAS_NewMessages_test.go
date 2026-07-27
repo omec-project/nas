@@ -90,6 +90,154 @@ func TestNasTypeNewRelayAuthenticationResponse(t *testing.T) {
 	assert.NotNil(t, a)
 }
 
+func TestRelayKeyRequestEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: RelayKeyRequest---")
+
+	a := nasMessage.NewRelayKeyRequest(0)
+	b := nasMessage.NewRelayKeyRequest(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.RELAYKEYREQUESTMessageIdentity.SetMessageType(0x69)
+	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
+	a.RelayKeyRequestParameters.SetLen(4)
+	copy(a.RelayKeyRequestParameters.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
+
+	buff := new(bytes.Buffer)
+	a.EncodeRelayKeyRequest(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeRelayKeyRequest(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("RelayKeyRequest encode/decode mismatch")
+	}
+}
+
+func TestRelayKeyAcceptEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: RelayKeyAccept---")
+
+	a := nasMessage.NewRelayKeyAccept(0)
+	b := nasMessage.NewRelayKeyAccept(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.RELAYKEYACCEPTMessageIdentity.SetMessageType(0x6A)
+	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
+	a.RelayKeyResponseParameters.SetLen(4)
+	copy(a.RelayKeyResponseParameters.Buffer, []byte{0x0A, 0x0B, 0x0C, 0x0D})
+
+	buff := new(bytes.Buffer)
+	a.EncodeRelayKeyAccept(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeRelayKeyAccept(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("RelayKeyAccept encode/decode mismatch")
+	}
+}
+
+func TestRelayKeyRejectEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: RelayKeyReject---")
+
+	a := nasMessage.NewRelayKeyReject(0)
+	b := nasMessage.NewRelayKeyReject(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.RELAYKEYREJECTMessageIdentity.SetMessageType(0x6B)
+	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x02)
+
+	buff := new(bytes.Buffer)
+	a.EncodeRelayKeyReject(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeRelayKeyReject(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("RelayKeyReject encode/decode mismatch")
+	}
+}
+
+func TestRelayAuthenticationRequestEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: RelayAuthenticationRequest---")
+
+	a := nasMessage.NewRelayAuthenticationRequest(0)
+	b := nasMessage.NewRelayAuthenticationRequest(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.RELAYAUTHENTICATIONREQUESTMessageIdentity.SetMessageType(0x6C)
+	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
+	a.EAPMessage.SetLen(4)
+	copy(a.EAPMessage.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
+
+	buff := new(bytes.Buffer)
+	a.EncodeRelayAuthenticationRequest(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeRelayAuthenticationRequest(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("RelayAuthenticationRequest encode/decode mismatch")
+	}
+}
+
+func TestRelayAuthenticationResponseEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: RelayAuthenticationResponse---")
+
+	a := nasMessage.NewRelayAuthenticationResponse(0)
+	b := nasMessage.NewRelayAuthenticationResponse(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.RELAYAUTHENTICATIONRESPONSEMessageIdentity.SetMessageType(0x6D)
+	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
+	a.EAPMessage.SetLen(4)
+	copy(a.EAPMessage.Buffer, []byte{0x03, 0x01, 0x00, 0x04})
+
+	buff := new(bytes.Buffer)
+	a.EncodeRelayAuthenticationResponse(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeRelayAuthenticationResponse(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("RelayAuthenticationResponse encode/decode mismatch")
+	}
+}
+
 func TestNasTypeNewControlPlaneServiceRequest(t *testing.T) {
 	a := nasMessage.NewControlPlaneServiceRequest(0)
 	assert.NotNil(t, a)

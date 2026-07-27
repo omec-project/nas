@@ -36,6 +36,8 @@ type RegistrationRequest struct {
 	*nasType.PayloadContainer
 	*nasType.NetworkSlicingIndication
 	*nasType.UpdateType5GS
+	*nasType.MobileStationClassmark2
+	*nasType.SupportedCodecs
 	*nasType.NASMessageContainer
 	*nasType.EPSBearerContextStatus
 	*nasType.ExtendedDRXParameters
@@ -54,8 +56,6 @@ type RegistrationRequest struct {
 	*nasType.TimeDuration
 	*nasType.Non3GPPPathSwitchingInformation
 	*nasType.AUN3Indication
-	*nasType.MobileStationClassmark2
-	*nasType.SupportedCodecs
 }
 
 func NewRegistrationRequest(iei uint8) (registrationRequest *RegistrationRequest) {
@@ -200,6 +200,16 @@ func (a *RegistrationRequest) EncodeRegistrationRequest(buffer *bytes.Buffer) {
 		binary.Write(buffer, binary.BigEndian, a.UpdateType5GS.GetLen())
 		binary.Write(buffer, binary.BigEndian, &a.UpdateType5GS.Octet)
 	}
+	if a.MobileStationClassmark2 != nil {
+		binary.Write(buffer, binary.BigEndian, a.MobileStationClassmark2.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.MobileStationClassmark2.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.MobileStationClassmark2.Buffer[:uint8(a.MobileStationClassmark2.GetLen())])
+	}
+	if a.SupportedCodecs != nil {
+		binary.Write(buffer, binary.BigEndian, a.SupportedCodecs.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.SupportedCodecs.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.SupportedCodecs.Buffer[:uint8(a.SupportedCodecs.GetLen())])
+	}
 	if a.NASMessageContainer != nil {
 		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetIei())
 		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetLen())
@@ -208,32 +218,32 @@ func (a *RegistrationRequest) EncodeRegistrationRequest(buffer *bytes.Buffer) {
 	if a.EPSBearerContextStatus != nil {
 		binary.Write(buffer, binary.BigEndian, a.EPSBearerContextStatus.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.EPSBearerContextStatus.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.EPSBearerContextStatus.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.EPSBearerContextStatus.Buffer[:uint8(a.EPSBearerContextStatus.GetLen())])
 	}
 	if a.ExtendedDRXParameters != nil {
 		binary.Write(buffer, binary.BigEndian, a.ExtendedDRXParameters.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.ExtendedDRXParameters.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.ExtendedDRXParameters.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.ExtendedDRXParameters.Buffer[:uint8(a.ExtendedDRXParameters.GetLen())])
 	}
 	if a.UERadioCapabilityID != nil {
 		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.UERadioCapabilityID.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.UERadioCapabilityID.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.Buffer[:uint8(a.UERadioCapabilityID.GetLen())])
 	}
 	if a.RequestedMappedNSSAI != nil {
 		binary.Write(buffer, binary.BigEndian, a.RequestedMappedNSSAI.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.RequestedMappedNSSAI.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.RequestedMappedNSSAI.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.RequestedMappedNSSAI.Buffer[:uint8(a.RequestedMappedNSSAI.GetLen())])
 	}
 	if a.AdditionalInformationRequested != nil {
 		binary.Write(buffer, binary.BigEndian, a.AdditionalInformationRequested.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.AdditionalInformationRequested.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.AdditionalInformationRequested.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.AdditionalInformationRequested.Buffer[:uint8(a.AdditionalInformationRequested.GetLen())])
 	}
 	if a.WUSAssistanceInformation != nil {
 		binary.Write(buffer, binary.BigEndian, a.WUSAssistanceInformation.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.WUSAssistanceInformation.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.WUSAssistanceInformation.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.WUSAssistanceInformation.Buffer[:uint8(a.WUSAssistanceInformation.GetLen())])
 	}
 	if a.N5GCIndication != nil {
 		binary.Write(buffer, binary.BigEndian, &a.N5GCIndication.Octet)
@@ -241,17 +251,17 @@ func (a *RegistrationRequest) EncodeRegistrationRequest(buffer *bytes.Buffer) {
 	if a.NBN1ModeDRXParameters != nil {
 		binary.Write(buffer, binary.BigEndian, a.NBN1ModeDRXParameters.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.NBN1ModeDRXParameters.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.NBN1ModeDRXParameters.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.NBN1ModeDRXParameters.Buffer[:uint8(a.NBN1ModeDRXParameters.GetLen())])
 	}
 	if a.UERequestType != nil {
 		binary.Write(buffer, binary.BigEndian, a.UERequestType.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.UERequestType.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.UERequestType.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.UERequestType.Buffer[:uint8(a.UERequestType.GetLen())])
 	}
 	if a.PagingRestriction != nil {
 		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.PagingRestriction.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.PagingRestriction.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:uint8(a.PagingRestriction.GetLen())])
 	}
 	if a.ServiceLevelAAContainer != nil {
 		binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetIei())
@@ -261,42 +271,32 @@ func (a *RegistrationRequest) EncodeRegistrationRequest(buffer *bytes.Buffer) {
 	if a.NID != nil {
 		binary.Write(buffer, binary.BigEndian, a.NID.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.NID.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.NID.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.NID.Buffer[:uint8(a.NID.GetLen())])
 	}
 	if a.PLMNIdentityWithDisasterCondition != nil {
 		binary.Write(buffer, binary.BigEndian, a.PLMNIdentityWithDisasterCondition.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.PLMNIdentityWithDisasterCondition.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.PLMNIdentityWithDisasterCondition.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.PLMNIdentityWithDisasterCondition.Buffer[:uint8(a.PLMNIdentityWithDisasterCondition.GetLen())])
 	}
 	if a.PEIPSAssistanceInformation != nil {
 		binary.Write(buffer, binary.BigEndian, a.PEIPSAssistanceInformation.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.PEIPSAssistanceInformation.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.PEIPSAssistanceInformation.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.PEIPSAssistanceInformation.Buffer[:uint8(a.PEIPSAssistanceInformation.GetLen())])
 	}
 	if a.TimeDuration != nil {
 		binary.Write(buffer, binary.BigEndian, a.TimeDuration.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.TimeDuration.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.TimeDuration.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.TimeDuration.Buffer[:uint8(a.TimeDuration.GetLen())])
 	}
 	if a.Non3GPPPathSwitchingInformation != nil {
 		binary.Write(buffer, binary.BigEndian, a.Non3GPPPathSwitchingInformation.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.Non3GPPPathSwitchingInformation.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.Non3GPPPathSwitchingInformation.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.Non3GPPPathSwitchingInformation.Buffer[:uint8(a.Non3GPPPathSwitchingInformation.GetLen())])
 	}
 	if a.AUN3Indication != nil {
 		binary.Write(buffer, binary.BigEndian, a.AUN3Indication.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.AUN3Indication.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.AUN3Indication.Buffer)
-	}
-	if a.MobileStationClassmark2 != nil {
-		binary.Write(buffer, binary.BigEndian, a.MobileStationClassmark2.GetIei())
-		binary.Write(buffer, binary.BigEndian, uint8(a.MobileStationClassmark2.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.MobileStationClassmark2.Buffer)
-	}
-	if a.SupportedCodecs != nil {
-		binary.Write(buffer, binary.BigEndian, a.SupportedCodecs.GetIei())
-		binary.Write(buffer, binary.BigEndian, uint8(a.SupportedCodecs.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.SupportedCodecs.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.AUN3Indication.Buffer[:uint8(a.AUN3Indication.GetLen())])
 	}
 }
 

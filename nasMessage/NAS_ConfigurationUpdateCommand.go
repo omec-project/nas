@@ -166,17 +166,17 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 	if a.UERadioCapabilityID != nil {
 		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.UERadioCapabilityID.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.UERadioCapabilityID.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.Buffer[:uint8(a.UERadioCapabilityID.GetLen())])
 	}
 	if a.TruncatedFiveGSTMSIConfiguration != nil {
 		binary.Write(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.TruncatedFiveGSTMSIConfiguration.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.TruncatedFiveGSTMSIConfiguration.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.Buffer[:uint8(a.TruncatedFiveGSTMSIConfiguration.GetLen())])
 	}
 	if a.ExtendedRejectedNSSAI != nil {
 		binary.Write(buffer, binary.BigEndian, a.ExtendedRejectedNSSAI.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.ExtendedRejectedNSSAI.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.ExtendedRejectedNSSAI.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.ExtendedRejectedNSSAI.Buffer[:uint8(a.ExtendedRejectedNSSAI.GetLen())])
 	}
 	if a.ServiceLevelAAContainer != nil {
 		binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetIei())
@@ -191,12 +191,12 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 	if a.RegistrationWaitRange != nil {
 		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.RegistrationWaitRange.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.RegistrationWaitRange.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:uint8(a.RegistrationWaitRange.GetLen())])
 	}
 	if a.ListOfPLMNsForDisasterCondition != nil {
 		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.ListOfPLMNsForDisasterCondition.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.ListOfPLMNsForDisasterCondition.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.Buffer[:uint8(a.ListOfPLMNsForDisasterCondition.GetLen())])
 	}
 	if a.NSAGInformation != nil {
 		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetIei())

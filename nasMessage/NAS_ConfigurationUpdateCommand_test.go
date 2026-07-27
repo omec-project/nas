@@ -1,7 +1,6 @@
+// Copyright (C) 2026 Intel Corporation
 // Copyright 2019 free5GC.org
-//
 // SPDX-License-Identifier: Apache-2.0
-//
 
 package nasMessage_test
 
@@ -208,5 +207,38 @@ func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
 			t.Errorf("Not correct")
 		}
 
+	}
+}
+
+func TestConfigurationUpdateCommandNewIEsEncodeDecode(t *testing.T) {
+	a := nasMessage.NewConfigurationUpdateCommand(0)
+	b := nasMessage.NewConfigurationUpdateCommand(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.ConfigurationUpdateCommandMessageIdentity.SetMessageType(nas.MsgTypeConfigurationUpdateCommand)
+
+	a.UERadioCapabilityID = nasType.NewUERadioCapabilityID(nasMessage.ConfigurationUpdateCommandUERadioCapabilityIDType)
+	a.UERadioCapabilityID.SetLen(3)
+	copy(a.UERadioCapabilityID.Buffer, []byte{0x01, 0x02, 0x03})
+
+	a.TruncatedFiveGSTMSIConfiguration = nasType.NewTruncatedFiveGSTMSIConfiguration(nasMessage.ConfigurationUpdateCommandTruncatedFiveGSTMSIConfigurationType)
+	a.TruncatedFiveGSTMSIConfiguration.SetLen(2)
+	copy(a.TruncatedFiveGSTMSIConfiguration.Buffer, []byte{0x01, 0x02})
+
+	buff := new(bytes.Buffer)
+	a.EncodeConfigurationUpdateCommand(buff)
+	logger.NasMsgLog.Debugln("Encode: ", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeConfigurationUpdateCommand(&data)
+	logger.NasMsgLog.Debugln("Decode: ", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("ConfigurationUpdateCommand new IEs encode/decode mismatch")
 	}
 }

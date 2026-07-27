@@ -40,6 +40,7 @@ type RegistrationAccept struct {
 	*nasType.NSSAIInclusionMode
 	*nasType.OperatordefinedAccessCategoryDefinitions
 	*nasType.NegotiatedDRXParameters
+	*nasType.Non3GPPNWProvidedPolicies
 	*nasType.EPSBearerContextStatus
 	*nasType.ExtendedDRXParameters
 	*nasType.UERadioCapabilityID
@@ -55,7 +56,6 @@ type RegistrationAccept struct {
 	*nasType.ListOfPLMNsForDisasterCondition
 	*nasType.ExtendedCAGInformationList
 	*nasType.NSAGInformation
-	*nasType.Non3GPPNWProvidedPolicies
 }
 
 func NewRegistrationAccept(iei uint8) (registrationAccept *RegistrationAccept) {
@@ -226,20 +226,23 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 		binary.Write(buffer, binary.BigEndian, a.NegotiatedDRXParameters.GetLen())
 		binary.Write(buffer, binary.BigEndian, &a.NegotiatedDRXParameters.Octet)
 	}
+	if a.Non3GPPNWProvidedPolicies != nil {
+		binary.Write(buffer, binary.BigEndian, &a.Non3GPPNWProvidedPolicies.Octet)
+	}
 	if a.EPSBearerContextStatus != nil {
 		binary.Write(buffer, binary.BigEndian, a.EPSBearerContextStatus.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.EPSBearerContextStatus.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.EPSBearerContextStatus.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.EPSBearerContextStatus.Buffer[:uint8(a.EPSBearerContextStatus.GetLen())])
 	}
 	if a.ExtendedDRXParameters != nil {
 		binary.Write(buffer, binary.BigEndian, a.ExtendedDRXParameters.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.ExtendedDRXParameters.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.ExtendedDRXParameters.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.ExtendedDRXParameters.Buffer[:uint8(a.ExtendedDRXParameters.GetLen())])
 	}
 	if a.UERadioCapabilityID != nil {
 		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.UERadioCapabilityID.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.UERadioCapabilityID.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.Buffer[:uint8(a.UERadioCapabilityID.GetLen())])
 	}
 	if a.UERadioCapabilityIDDeletionIndicationIE != nil {
 		binary.Write(buffer, binary.BigEndian, &a.UERadioCapabilityIDDeletionIndicationIE.Octet)
@@ -257,12 +260,12 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 	if a.TruncatedFiveGSTMSIConfiguration != nil {
 		binary.Write(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.TruncatedFiveGSTMSIConfiguration.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.TruncatedFiveGSTMSIConfiguration.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.Buffer[:uint8(a.TruncatedFiveGSTMSIConfiguration.GetLen())])
 	}
 	if a.ExtendedRejectedNSSAI != nil {
 		binary.Write(buffer, binary.BigEndian, a.ExtendedRejectedNSSAI.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.ExtendedRejectedNSSAI.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.ExtendedRejectedNSSAI.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.ExtendedRejectedNSSAI.Buffer[:uint8(a.ExtendedRejectedNSSAI.GetLen())])
 	}
 	if a.ServiceLevelAAContainer != nil {
 		binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetIei())
@@ -272,7 +275,7 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 	if a.FiveGSAdditionalRequestResult != nil {
 		binary.Write(buffer, binary.BigEndian, a.FiveGSAdditionalRequestResult.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.FiveGSAdditionalRequestResult.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.FiveGSAdditionalRequestResult.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.FiveGSAdditionalRequestResult.Buffer[:uint8(a.FiveGSAdditionalRequestResult.GetLen())])
 	}
 	if a.NSSRGInformation != nil {
 		binary.Write(buffer, binary.BigEndian, a.NSSRGInformation.GetIei())
@@ -282,12 +285,12 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 	if a.RegistrationWaitRange != nil {
 		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.RegistrationWaitRange.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.RegistrationWaitRange.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:uint8(a.RegistrationWaitRange.GetLen())])
 	}
 	if a.ListOfPLMNsForDisasterCondition != nil {
 		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.ListOfPLMNsForDisasterCondition.GetLen()))
-		binary.Write(buffer, binary.BigEndian, &a.ListOfPLMNsForDisasterCondition.Buffer)
+		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.Buffer[:uint8(a.ListOfPLMNsForDisasterCondition.GetLen())])
 	}
 	if a.ExtendedCAGInformationList != nil {
 		binary.Write(buffer, binary.BigEndian, a.ExtendedCAGInformationList.GetIei())
@@ -298,9 +301,6 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetIei())
 		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetLen())
 		binary.Write(buffer, binary.BigEndian, &a.NSAGInformation.Buffer)
-	}
-	if a.Non3GPPNWProvidedPolicies != nil {
-		binary.Write(buffer, binary.BigEndian, &a.Non3GPPNWProvidedPolicies.Octet)
 	}
 }
 
