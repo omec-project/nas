@@ -22,6 +22,10 @@ type ControlPlaneServiceRequest struct {
 	*nasType.AllowedPDUSessionStatus
 	*nasType.UERequestType
 	*nasType.PagingRestriction
+	*nasType.CIoTSmallDataContainer
+	*nasType.PduSessionID2Value
+	*nasType.AdditionalInformation
+	*nasType.ReleaseAssistanceIndication
 }
 
 func NewControlPlaneServiceRequest(iei uint8) (controlPlaneServiceRequest *ControlPlaneServiceRequest) {
@@ -30,12 +34,16 @@ func NewControlPlaneServiceRequest(iei uint8) (controlPlaneServiceRequest *Contr
 }
 
 const (
-	ControlPlaneServiceRequestPDUSessionStatusType        uint8 = 0x50
-	ControlPlaneServiceRequestUplinkDataStatusType        uint8 = 0x40
-	ControlPlaneServiceRequestNASMessageContainerType     uint8 = 0x71
-	ControlPlaneServiceRequestAllowedPDUSessionStatusType uint8 = 0x25
-	ControlPlaneServiceRequestUERequestTypeType           uint8 = 0x29
-	ControlPlaneServiceRequestPagingRestrictionType       uint8 = 0x28
+	ControlPlaneServiceRequestPDUSessionStatusType            uint8 = 0x50
+	ControlPlaneServiceRequestUplinkDataStatusType            uint8 = 0x40
+	ControlPlaneServiceRequestNASMessageContainerType         uint8 = 0x71
+	ControlPlaneServiceRequestAllowedPDUSessionStatusType     uint8 = 0x25
+	ControlPlaneServiceRequestUERequestTypeType               uint8 = 0x29
+	ControlPlaneServiceRequestPagingRestrictionType           uint8 = 0x28
+	ControlPlaneServiceRequestCIoTSmallDataContainerType      uint8 = 0x6F
+	ControlPlaneServiceRequestPduSessionIDType                uint8 = 0x12
+	ControlPlaneServiceRequestAdditionalInformationType       uint8 = 0x24
+	ControlPlaneServiceRequestReleaseAssistanceIndicationType uint8 = 0x0F
 )
 
 func (a *ControlPlaneServiceRequest) EncodeControlPlaneServiceRequest(buffer *bytes.Buffer) {
@@ -72,6 +80,23 @@ func (a *ControlPlaneServiceRequest) EncodeControlPlaneServiceRequest(buffer *by
 		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.PagingRestriction.GetLen()))
 		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:uint8(a.PagingRestriction.GetLen())])
+	}
+	if a.CIoTSmallDataContainer != nil {
+		binary.Write(buffer, binary.BigEndian, a.CIoTSmallDataContainer.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.CIoTSmallDataContainer.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.CIoTSmallDataContainer.Buffer)
+	}
+	if a.PduSessionID2Value != nil {
+		binary.Write(buffer, binary.BigEndian, a.PduSessionID2Value.GetIei())
+		binary.Write(buffer, binary.BigEndian, &a.PduSessionID2Value.Octet)
+	}
+	if a.AdditionalInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.AdditionalInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.AdditionalInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.AdditionalInformation.Buffer)
+	}
+	if a.ReleaseAssistanceIndication != nil {
+		binary.Write(buffer, binary.BigEndian, &a.ReleaseAssistanceIndication.Octet)
 	}
 }
 
@@ -123,6 +148,22 @@ func (a *ControlPlaneServiceRequest) DecodeControlPlaneServiceRequest(byteArray 
 			binary.Read(buffer, binary.BigEndian, &lenN1)
 			a.PagingRestriction.SetLen(uint16(lenN1))
 			binary.Read(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:lenN1])
+		case ControlPlaneServiceRequestCIoTSmallDataContainerType:
+			a.CIoTSmallDataContainer = nasType.NewCIoTSmallDataContainer(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.CIoTSmallDataContainer.Len)
+			a.CIoTSmallDataContainer.SetLen(a.CIoTSmallDataContainer.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.CIoTSmallDataContainer.Buffer[:a.CIoTSmallDataContainer.GetLen()])
+		case ControlPlaneServiceRequestPduSessionIDType:
+			a.PduSessionID2Value = nasType.NewPduSessionID2Value(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.PduSessionID2Value.Octet)
+		case ControlPlaneServiceRequestAdditionalInformationType:
+			a.AdditionalInformation = nasType.NewAdditionalInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.AdditionalInformation.Len)
+			a.AdditionalInformation.SetLen(a.AdditionalInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.AdditionalInformation.Buffer[:a.AdditionalInformation.GetLen()])
+		case ControlPlaneServiceRequestReleaseAssistanceIndicationType:
+			a.ReleaseAssistanceIndication = nasType.NewReleaseAssistanceIndication(ieiN)
+			a.ReleaseAssistanceIndication.Octet = ieiN
 		default:
 		}
 	}
