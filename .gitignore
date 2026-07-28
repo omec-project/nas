@@ -18,7 +18,10 @@ cscope.*
 # mac
 .DS_Store
 
+# debug
+*.log
+vendor*
+*.patch
+
 # Coverage profiles
 coverage.out
-
-support

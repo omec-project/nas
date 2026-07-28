@@ -1,7 +1,6 @@
+// Copyright (C) 2026 Intel Corporation
 // Copyright 2019 free5GC.org
-//
 // SPDX-License-Identifier: Apache-2.0
-//
 
 package nasMessage
 
@@ -33,6 +32,16 @@ type ConfigurationUpdateCommand struct {
 	*nasType.RejectedNSSAI
 	*nasType.OperatordefinedAccessCategoryDefinitions
 	*nasType.SMSIndication
+	*nasType.CAGInformationList
+	*nasType.UERadioCapabilityID
+	*nasType.TruncatedFiveGSTMSIConfiguration
+	*nasType.ExtendedRejectedNSSAI
+	*nasType.ServiceLevelAAContainer
+	*nasType.NSSRGInformation
+	*nasType.RegistrationWaitRange
+	*nasType.ListOfPLMNsForDisasterCondition
+	*nasType.NSAGInformation
+	*nasType.EAPMessage
 }
 
 func NewConfigurationUpdateCommand(iei uint8) (configurationUpdateCommand *ConfigurationUpdateCommand) {
@@ -58,6 +67,16 @@ const (
 	ConfigurationUpdateCommandRejectedNSSAIType                            uint8 = 0x11
 	ConfigurationUpdateCommandOperatordefinedAccessCategoryDefinitionsType uint8 = 0x76
 	ConfigurationUpdateCommandSMSIndicationType                            uint8 = 0x0F
+	ConfigurationUpdateCommandCAGInformationListType                       uint8 = 0x75
+	ConfigurationUpdateCommandUERadioCapabilityIDType                      uint8 = 0x67
+	ConfigurationUpdateCommandTruncatedFiveGSTMSIConfigurationType         uint8 = 0x1B
+	ConfigurationUpdateCommandExtendedRejectedNSSAIType                    uint8 = 0x68
+	ConfigurationUpdateCommandServiceLevelAAContainerType                  uint8 = 0x72
+	ConfigurationUpdateCommandNSSRGInformationType                         uint8 = 0x70
+	ConfigurationUpdateCommandRegistrationWaitRangeType                    uint8 = 0x14
+	ConfigurationUpdateCommandListOfPLMNsForDisasterConditionType          uint8 = 0x13
+	ConfigurationUpdateCommandNSAGInformationType                          uint8 = 0x73
+	ConfigurationUpdateCommandEAPMessageType                               uint8 = 0x78
 )
 
 func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *bytes.Buffer) {
@@ -138,6 +157,56 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 	}
 	if a.SMSIndication != nil {
 		binary.Write(buffer, binary.BigEndian, &a.SMSIndication.Octet)
+	}
+	if a.CAGInformationList != nil {
+		binary.Write(buffer, binary.BigEndian, a.CAGInformationList.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.CAGInformationList.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.CAGInformationList.Buffer)
+	}
+	if a.UERadioCapabilityID != nil {
+		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.UERadioCapabilityID.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.Buffer[:uint8(a.UERadioCapabilityID.GetLen())])
+	}
+	if a.TruncatedFiveGSTMSIConfiguration != nil {
+		binary.Write(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.TruncatedFiveGSTMSIConfiguration.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.Buffer[:uint8(a.TruncatedFiveGSTMSIConfiguration.GetLen())])
+	}
+	if a.ExtendedRejectedNSSAI != nil {
+		binary.Write(buffer, binary.BigEndian, a.ExtendedRejectedNSSAI.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.ExtendedRejectedNSSAI.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.ExtendedRejectedNSSAI.Buffer[:uint8(a.ExtendedRejectedNSSAI.GetLen())])
+	}
+	if a.ServiceLevelAAContainer != nil {
+		binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Buffer)
+	}
+	if a.NSSRGInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.NSSRGInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.NSSRGInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.NSSRGInformation.Buffer)
+	}
+	if a.RegistrationWaitRange != nil {
+		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.RegistrationWaitRange.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:uint8(a.RegistrationWaitRange.GetLen())])
+	}
+	if a.ListOfPLMNsForDisasterCondition != nil {
+		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.ListOfPLMNsForDisasterCondition.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.Buffer[:uint8(a.ListOfPLMNsForDisasterCondition.GetLen())])
+	}
+	if a.NSAGInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.NSAGInformation.Buffer)
+	}
+	if a.EAPMessage != nil {
+		binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.EAPMessage.Buffer)
 	}
 }
 
@@ -229,6 +298,61 @@ func (a *ConfigurationUpdateCommand) DecodeConfigurationUpdateCommand(byteArray 
 		case ConfigurationUpdateCommandSMSIndicationType:
 			a.SMSIndication = nasType.NewSMSIndication(ieiN)
 			a.SMSIndication.Octet = ieiN
+		case ConfigurationUpdateCommandCAGInformationListType:
+			a.CAGInformationList = nasType.NewCAGInformationList(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.CAGInformationList.Len)
+			a.CAGInformationList.SetLen(a.CAGInformationList.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.CAGInformationList.Buffer[:a.CAGInformationList.GetLen()])
+		case ConfigurationUpdateCommandUERadioCapabilityIDType:
+			a.UERadioCapabilityID = nasType.NewUERadioCapabilityID(ieiN)
+			var lenN0 uint8
+			binary.Read(buffer, binary.BigEndian, &lenN0)
+			a.UERadioCapabilityID.SetLen(uint16(lenN0))
+			binary.Read(buffer, binary.BigEndian, a.UERadioCapabilityID.Buffer[:lenN0])
+		case ConfigurationUpdateCommandTruncatedFiveGSTMSIConfigurationType:
+			a.TruncatedFiveGSTMSIConfiguration = nasType.NewTruncatedFiveGSTMSIConfiguration(ieiN)
+			var lenN1 uint8
+			binary.Read(buffer, binary.BigEndian, &lenN1)
+			a.TruncatedFiveGSTMSIConfiguration.SetLen(uint16(lenN1))
+			binary.Read(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.Buffer[:lenN1])
+		case ConfigurationUpdateCommandExtendedRejectedNSSAIType:
+			a.ExtendedRejectedNSSAI = nasType.NewExtendedRejectedNSSAI(ieiN)
+			var lenN2 uint8
+			binary.Read(buffer, binary.BigEndian, &lenN2)
+			a.ExtendedRejectedNSSAI.SetLen(uint16(lenN2))
+			binary.Read(buffer, binary.BigEndian, a.ExtendedRejectedNSSAI.Buffer[:lenN2])
+		case ConfigurationUpdateCommandServiceLevelAAContainerType:
+			a.ServiceLevelAAContainer = nasType.NewServiceLevelAAContainer(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Len)
+			a.ServiceLevelAAContainer.SetLen(a.ServiceLevelAAContainer.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.ServiceLevelAAContainer.Buffer[:a.ServiceLevelAAContainer.GetLen()])
+		case ConfigurationUpdateCommandNSSRGInformationType:
+			a.NSSRGInformation = nasType.NewNSSRGInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.NSSRGInformation.Len)
+			a.NSSRGInformation.SetLen(a.NSSRGInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.NSSRGInformation.Buffer[:a.NSSRGInformation.GetLen()])
+		case ConfigurationUpdateCommandRegistrationWaitRangeType:
+			a.RegistrationWaitRange = nasType.NewRegistrationWaitRange(ieiN)
+			var lenN3 uint8
+			binary.Read(buffer, binary.BigEndian, &lenN3)
+			a.RegistrationWaitRange.SetLen(uint16(lenN3))
+			binary.Read(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:lenN3])
+		case ConfigurationUpdateCommandListOfPLMNsForDisasterConditionType:
+			a.ListOfPLMNsForDisasterCondition = nasType.NewListOfPLMNsForDisasterCondition(ieiN)
+			var lenN4 uint8
+			binary.Read(buffer, binary.BigEndian, &lenN4)
+			a.ListOfPLMNsForDisasterCondition.SetLen(uint16(lenN4))
+			binary.Read(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.Buffer[:lenN4])
+		case ConfigurationUpdateCommandNSAGInformationType:
+			a.NSAGInformation = nasType.NewNSAGInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.NSAGInformation.Len)
+			a.NSAGInformation.SetLen(a.NSAGInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.NSAGInformation.Buffer[:a.NSAGInformation.GetLen()])
+		case ConfigurationUpdateCommandEAPMessageType:
+			a.EAPMessage = nasType.NewEAPMessage(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.EAPMessage.Len)
+			a.EAPMessage.SetLen(a.EAPMessage.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.EAPMessage.Buffer[:a.EAPMessage.GetLen()])
 		default:
 		}
 	}
