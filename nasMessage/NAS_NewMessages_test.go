@@ -60,9 +60,81 @@ func TestNasTypeNewNetworkSliceSpecificAuthenticationComplete(t *testing.T) {
 	assert.NotNil(t, a)
 }
 
+func TestNetworkSliceSpecificAuthenticationCompleteEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: NetworkSliceSpecificAuthenticationComplete---")
+
+	a := nasMessage.NewNetworkSliceSpecificAuthenticationComplete(0)
+	b := nasMessage.NewNetworkSliceSpecificAuthenticationComplete(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.NETWORKSLICESPECIFICAUTHENTICATIONCOMPLETEMessageIdentity.SetMessageType(0x51)
+
+	// Set S-NSSAI (1 byte SST only)
+	a.SNSSAI.Len = 1
+	a.SNSSAI.Octet[0] = 0x01
+
+	// Set EAP message
+	a.EAPMessage = nasType.EAPMessage{}
+	a.EAPMessage.SetLen(4)
+	copy(a.EAPMessage.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
+
+	buff := new(bytes.Buffer)
+	a.EncodeNetworkSliceSpecificAuthenticationComplete(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeNetworkSliceSpecificAuthenticationComplete(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("NetworkSliceSpecificAuthenticationComplete encode/decode mismatch")
+	}
+}
+
 func TestNasTypeNewNetworkSliceSpecificAuthenticationResult(t *testing.T) {
 	a := nasMessage.NewNetworkSliceSpecificAuthenticationResult(0)
 	assert.NotNil(t, a)
+}
+
+func TestNetworkSliceSpecificAuthenticationResultEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: NetworkSliceSpecificAuthenticationResult---")
+
+	a := nasMessage.NewNetworkSliceSpecificAuthenticationResult(0)
+	b := nasMessage.NewNetworkSliceSpecificAuthenticationResult(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.NETWORKSLICESPECIFICAUTHENTICATIONRESULTMessageIdentity.SetMessageType(0x52)
+
+	// Set S-NSSAI (1 byte SST only)
+	a.SNSSAI.Len = 1
+	a.SNSSAI.Octet[0] = 0x02
+
+	// Set EAP message
+	a.EAPMessage = nasType.EAPMessage{}
+	a.EAPMessage.SetLen(4)
+	copy(a.EAPMessage.Buffer, []byte{0x03, 0x01, 0x00, 0x04})
+
+	buff := new(bytes.Buffer)
+	a.EncodeNetworkSliceSpecificAuthenticationResult(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeNetworkSliceSpecificAuthenticationResult(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("NetworkSliceSpecificAuthenticationResult encode/decode mismatch")
+	}
 }
 
 func TestNasTypeNewRelayKeyRequest(t *testing.T) {

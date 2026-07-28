@@ -7,7 +7,7 @@ SPDX-License-Identifier: Apache-2.0
 
 # nas
 
-1. Implementation of 3gpp specification 24.501 release 18 specification.
+1. Implementation of 3GPP TS 24.501 Release 18.
 
 2. Supports NAS encoding/decoding of messages.
 
