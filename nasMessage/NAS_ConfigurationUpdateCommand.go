@@ -41,7 +41,7 @@ type ConfigurationUpdateCommand struct {
 	*nasType.RegistrationWaitRange
 	*nasType.ListOfPLMNsForDisasterCondition
 	*nasType.NSAGInformation
-	*nasType.EAPMessage
+	*nasType.ExtendedLADNInformation
 }
 
 func NewConfigurationUpdateCommand(iei uint8) (configurationUpdateCommand *ConfigurationUpdateCommand) {
@@ -76,7 +76,7 @@ const (
 	ConfigurationUpdateCommandRegistrationWaitRangeType                    uint8 = 0x14
 	ConfigurationUpdateCommandListOfPLMNsForDisasterConditionType          uint8 = 0x13
 	ConfigurationUpdateCommandNSAGInformationType                          uint8 = 0x73
-	ConfigurationUpdateCommandEAPMessageType                               uint8 = 0x78
+	ConfigurationUpdateCommandExtendedLADNInformationType                  uint8 = 0x78
 )
 
 func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *bytes.Buffer) {
@@ -203,10 +203,10 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetLen())
 		binary.Write(buffer, binary.BigEndian, &a.NSAGInformation.Buffer)
 	}
-	if a.EAPMessage != nil {
-		binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.EAPMessage.Buffer)
+	if a.ExtendedLADNInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.ExtendedLADNInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.ExtendedLADNInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.ExtendedLADNInformation.Buffer)
 	}
 }
 
@@ -348,11 +348,11 @@ func (a *ConfigurationUpdateCommand) DecodeConfigurationUpdateCommand(byteArray 
 			binary.Read(buffer, binary.BigEndian, &a.NSAGInformation.Len)
 			a.NSAGInformation.SetLen(a.NSAGInformation.GetLen())
 			binary.Read(buffer, binary.BigEndian, a.NSAGInformation.Buffer[:a.NSAGInformation.GetLen()])
-		case ConfigurationUpdateCommandEAPMessageType:
-			a.EAPMessage = nasType.NewEAPMessage(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.EAPMessage.Len)
-			a.EAPMessage.SetLen(a.EAPMessage.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.EAPMessage.Buffer[:a.EAPMessage.GetLen()])
+		case ConfigurationUpdateCommandExtendedLADNInformationType:
+			a.ExtendedLADNInformation = nasType.NewExtendedLADNInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.ExtendedLADNInformation.Len)
+			a.ExtendedLADNInformation.SetLen(a.ExtendedLADNInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.ExtendedLADNInformation.Buffer[:a.ExtendedLADNInformation.GetLen()])
 		default:
 		}
 	}
