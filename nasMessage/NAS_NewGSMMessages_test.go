@@ -56,6 +56,37 @@ func TestNasTypeNewServiceLevelAuthenticationComplete(t *testing.T) {
 	assert.NotNil(t, a)
 }
 
+func TestServiceLevelAuthenticationCompleteEncodeDecode(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: ServiceLevelAuthenticationComplete---")
+
+	a := nasMessage.NewServiceLevelAuthenticationComplete(0)
+	b := nasMessage.NewServiceLevelAuthenticationComplete(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
+	a.PDUSessionID.SetPDUSessionID(0x01)
+	a.PTI.SetPTI(0x01)
+	a.SERVICELEVELAUTHENTICATIONCOMPLETEMessageIdentity.SetMessageType(0xD9)
+
+	// Set ServiceLevelAAContainer
+	a.ServiceLevelAAContainer.SetLen(4)
+	copy(a.ServiceLevelAAContainer.Buffer, []byte{0x05, 0x06, 0x07, 0x08})
+
+	buff := new(bytes.Buffer)
+	a.EncodeServiceLevelAuthenticationComplete(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeServiceLevelAuthenticationComplete(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("ServiceLevelAuthenticationComplete encode/decode mismatch")
+	}
+}
+
 func TestNasTypeNewRemoteUEReport(t *testing.T) {
 	a := nasMessage.NewRemoteUEReport(0)
 	assert.NotNil(t, a)
@@ -85,6 +116,43 @@ func TestRemoteUEReportEncodeDecode(t *testing.T) {
 
 	if reflect.DeepEqual(a, b) != true {
 		t.Errorf("RemoteUEReport encode/decode mismatch")
+	}
+}
+
+func TestRemoteUEReportEncodeDecodeWithOptionalIEs(t *testing.T) {
+	logger.NasMsgLog.Infoln("---Test NAS Message: RemoteUEReport (with optional IEs)---")
+
+	a := nasMessage.NewRemoteUEReport(0)
+	b := nasMessage.NewRemoteUEReport(0)
+	assert.NotNil(t, a)
+	assert.NotNil(t, b)
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
+	a.PDUSessionID.SetPDUSessionID(0x01)
+	a.PTI.SetPTI(0x02)
+	a.REMOTEUEREPORTMessageIdentity.SetMessageType(0xDA)
+
+	// Set Remote UE Context Connected (IEI 0x76)
+	a.RemoteUEContextList = nasType.NewRemoteUEContextList(nasMessage.RemoteUEReportRemoteUEContextConnectedType)
+	a.RemoteUEContextList.SetLen(4)
+	copy(a.RemoteUEContextList.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
+
+	// Set Remote UE Context Disconnected (IEI 0x70)
+	a.RemoteUEContextDisconnected = nasType.NewRemoteUEContextList(nasMessage.RemoteUEReportRemoteUEContextDisconnectedType)
+	a.RemoteUEContextDisconnected.SetLen(4)
+	copy(a.RemoteUEContextDisconnected.Buffer, []byte{0x05, 0x06, 0x07, 0x08})
+
+	buff := new(bytes.Buffer)
+	a.EncodeRemoteUEReport(buff)
+	logger.NasMsgLog.Debugln("encode:", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	b.DecodeRemoteUEReport(&data)
+	logger.NasMsgLog.Debugln("decode:", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("RemoteUEReport (with optional IEs) encode/decode mismatch")
 	}
 }
 
