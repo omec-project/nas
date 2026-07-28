@@ -53,6 +53,7 @@ type RegistrationAccept struct {
 	*nasType.FiveGSAdditionalRequestResult
 	*nasType.NSSRGInformation
 	*nasType.RegistrationWaitRange
+	DisasterReturnWaitRange *nasType.RegistrationWaitRange
 	*nasType.ListOfPLMNsForDisasterCondition
 	*nasType.ExtendedCAGInformationList
 	*nasType.NSAGInformation
@@ -100,6 +101,7 @@ const (
 	RegistrationAcceptFiveGSAdditionalRequestResultType            uint8 = 0x35
 	RegistrationAcceptNSSRGInformationType                         uint8 = 0x70
 	RegistrationAcceptRegistrationWaitRangeType                    uint8 = 0x14
+	RegistrationAcceptDisasterReturnWaitRangeType                  uint8 = 0x2C
 	RegistrationAcceptListOfPLMNsForDisasterConditionType          uint8 = 0x13
 	RegistrationAcceptExtendedCAGInformationListType               uint8 = 0x71
 	RegistrationAcceptNSAGInformationType                          uint8 = 0x7C
@@ -286,6 +288,11 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.RegistrationWaitRange.GetLen()))
 		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:uint8(a.RegistrationWaitRange.GetLen())])
+	}
+	if a.DisasterReturnWaitRange != nil {
+		binary.Write(buffer, binary.BigEndian, a.DisasterReturnWaitRange.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.DisasterReturnWaitRange.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.DisasterReturnWaitRange.Buffer[:uint8(a.DisasterReturnWaitRange.GetLen())])
 	}
 	if a.ListOfPLMNsForDisasterCondition != nil {
 		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.GetIei())
@@ -501,6 +508,12 @@ func (a *RegistrationAccept) DecodeRegistrationAccept(byteArray *[]byte) {
 			binary.Read(buffer, binary.BigEndian, &lenN6)
 			a.RegistrationWaitRange.SetLen(uint16(lenN6))
 			binary.Read(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:lenN6])
+		case RegistrationAcceptDisasterReturnWaitRangeType:
+			a.DisasterReturnWaitRange = nasType.NewRegistrationWaitRange(ieiN)
+			var lenN6a uint8
+			binary.Read(buffer, binary.BigEndian, &lenN6a)
+			a.DisasterReturnWaitRange.SetLen(uint16(lenN6a))
+			binary.Read(buffer, binary.BigEndian, a.DisasterReturnWaitRange.Buffer[:lenN6a])
 		case RegistrationAcceptListOfPLMNsForDisasterConditionType:
 			a.ListOfPLMNsForDisasterCondition = nasType.NewListOfPLMNsForDisasterCondition(ieiN)
 			var lenN7 uint8

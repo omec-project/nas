@@ -34,12 +34,15 @@ type ConfigurationUpdateCommand struct {
 	*nasType.SMSIndication
 	*nasType.CAGInformationList
 	*nasType.UERadioCapabilityID
+	*nasType.UERadioCapabilityIDDeletionIndicationIE
 	*nasType.TruncatedFiveGSTMSIConfiguration
 	*nasType.ExtendedRejectedNSSAI
 	*nasType.ServiceLevelAAContainer
 	*nasType.NSSRGInformation
 	*nasType.RegistrationWaitRange
+	DisasterReturnWaitRange *nasType.RegistrationWaitRange
 	*nasType.ListOfPLMNsForDisasterCondition
+	*nasType.ExtendedCAGInformationList
 	*nasType.NSAGInformation
 	*nasType.ExtendedLADNInformation
 }
@@ -69,12 +72,15 @@ const (
 	ConfigurationUpdateCommandSMSIndicationType                            uint8 = 0x0F
 	ConfigurationUpdateCommandCAGInformationListType                       uint8 = 0x75
 	ConfigurationUpdateCommandUERadioCapabilityIDType                      uint8 = 0x67
+	ConfigurationUpdateCommandUERadioCapabilityIDDeletionIndicationType    uint8 = 0x0A
 	ConfigurationUpdateCommandTruncatedFiveGSTMSIConfigurationType         uint8 = 0x1B
 	ConfigurationUpdateCommandExtendedRejectedNSSAIType                    uint8 = 0x68
 	ConfigurationUpdateCommandServiceLevelAAContainerType                  uint8 = 0x72
 	ConfigurationUpdateCommandNSSRGInformationType                         uint8 = 0x70
 	ConfigurationUpdateCommandRegistrationWaitRangeType                    uint8 = 0x14
+	ConfigurationUpdateCommandDisasterReturnWaitRangeType                  uint8 = 0x2C
 	ConfigurationUpdateCommandListOfPLMNsForDisasterConditionType          uint8 = 0x13
+	ConfigurationUpdateCommandExtendedCAGInformationListType               uint8 = 0x71
 	ConfigurationUpdateCommandNSAGInformationType                          uint8 = 0x73
 	ConfigurationUpdateCommandExtendedLADNInformationType                  uint8 = 0x78
 )
@@ -168,6 +174,9 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 		binary.Write(buffer, binary.BigEndian, uint8(a.UERadioCapabilityID.GetLen()))
 		binary.Write(buffer, binary.BigEndian, a.UERadioCapabilityID.Buffer[:uint8(a.UERadioCapabilityID.GetLen())])
 	}
+	if a.UERadioCapabilityIDDeletionIndicationIE != nil {
+		binary.Write(buffer, binary.BigEndian, &a.UERadioCapabilityIDDeletionIndicationIE.Octet)
+	}
 	if a.TruncatedFiveGSTMSIConfiguration != nil {
 		binary.Write(buffer, binary.BigEndian, a.TruncatedFiveGSTMSIConfiguration.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.TruncatedFiveGSTMSIConfiguration.GetLen()))
@@ -193,10 +202,20 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 		binary.Write(buffer, binary.BigEndian, uint8(a.RegistrationWaitRange.GetLen()))
 		binary.Write(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:uint8(a.RegistrationWaitRange.GetLen())])
 	}
+	if a.DisasterReturnWaitRange != nil {
+		binary.Write(buffer, binary.BigEndian, a.DisasterReturnWaitRange.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.DisasterReturnWaitRange.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.DisasterReturnWaitRange.Buffer[:uint8(a.DisasterReturnWaitRange.GetLen())])
+	}
 	if a.ListOfPLMNsForDisasterCondition != nil {
 		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.GetIei())
 		binary.Write(buffer, binary.BigEndian, uint8(a.ListOfPLMNsForDisasterCondition.GetLen()))
 		binary.Write(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.Buffer[:uint8(a.ListOfPLMNsForDisasterCondition.GetLen())])
+	}
+	if a.ExtendedCAGInformationList != nil {
+		binary.Write(buffer, binary.BigEndian, a.ExtendedCAGInformationList.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.ExtendedCAGInformationList.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.ExtendedCAGInformationList.Buffer)
 	}
 	if a.NSAGInformation != nil {
 		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetIei())
@@ -309,6 +328,9 @@ func (a *ConfigurationUpdateCommand) DecodeConfigurationUpdateCommand(byteArray 
 			binary.Read(buffer, binary.BigEndian, &lenN0)
 			a.UERadioCapabilityID.SetLen(uint16(lenN0))
 			binary.Read(buffer, binary.BigEndian, a.UERadioCapabilityID.Buffer[:lenN0])
+		case ConfigurationUpdateCommandUERadioCapabilityIDDeletionIndicationType:
+			a.UERadioCapabilityIDDeletionIndicationIE = nasType.NewUERadioCapabilityIDDeletionIndicationIE(ieiN)
+			a.UERadioCapabilityIDDeletionIndicationIE.Octet = ieiN
 		case ConfigurationUpdateCommandTruncatedFiveGSTMSIConfigurationType:
 			a.TruncatedFiveGSTMSIConfiguration = nasType.NewTruncatedFiveGSTMSIConfiguration(ieiN)
 			var lenN1 uint8
@@ -337,12 +359,23 @@ func (a *ConfigurationUpdateCommand) DecodeConfigurationUpdateCommand(byteArray 
 			binary.Read(buffer, binary.BigEndian, &lenN3)
 			a.RegistrationWaitRange.SetLen(uint16(lenN3))
 			binary.Read(buffer, binary.BigEndian, a.RegistrationWaitRange.Buffer[:lenN3])
+		case ConfigurationUpdateCommandDisasterReturnWaitRangeType:
+			a.DisasterReturnWaitRange = nasType.NewRegistrationWaitRange(ieiN)
+			var lenN3a uint8
+			binary.Read(buffer, binary.BigEndian, &lenN3a)
+			a.DisasterReturnWaitRange.SetLen(uint16(lenN3a))
+			binary.Read(buffer, binary.BigEndian, a.DisasterReturnWaitRange.Buffer[:lenN3a])
 		case ConfigurationUpdateCommandListOfPLMNsForDisasterConditionType:
 			a.ListOfPLMNsForDisasterCondition = nasType.NewListOfPLMNsForDisasterCondition(ieiN)
 			var lenN4 uint8
 			binary.Read(buffer, binary.BigEndian, &lenN4)
 			a.ListOfPLMNsForDisasterCondition.SetLen(uint16(lenN4))
 			binary.Read(buffer, binary.BigEndian, a.ListOfPLMNsForDisasterCondition.Buffer[:lenN4])
+		case ConfigurationUpdateCommandExtendedCAGInformationListType:
+			a.ExtendedCAGInformationList = nasType.NewExtendedCAGInformationList(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.ExtendedCAGInformationList.Len)
+			a.ExtendedCAGInformationList.SetLen(a.ExtendedCAGInformationList.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.ExtendedCAGInformationList.Buffer[:a.ExtendedCAGInformationList.GetLen()])
 		case ConfigurationUpdateCommandNSAGInformationType:
 			a.NSAGInformation = nasType.NewNSAGInformation(ieiN)
 			binary.Read(buffer, binary.BigEndian, &a.NSAGInformation.Len)

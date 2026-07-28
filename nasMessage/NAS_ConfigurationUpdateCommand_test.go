@@ -229,6 +229,10 @@ func TestConfigurationUpdateCommandNewIEsEncodeDecode(t *testing.T) {
 	a.TruncatedFiveGSTMSIConfiguration.SetLen(2)
 	copy(a.TruncatedFiveGSTMSIConfiguration.Buffer, []byte{0x01, 0x02})
 
+	a.ExtendedLADNInformation = nasType.NewExtendedLADNInformation(nasMessage.ConfigurationUpdateCommandExtendedLADNInformationType)
+	a.ExtendedLADNInformation.SetLen(5)
+	copy(a.ExtendedLADNInformation.Buffer, []byte{0xAA, 0xBB, 0xCC, 0xDD, 0xEE})
+
 	buff := new(bytes.Buffer)
 	a.EncodeConfigurationUpdateCommand(buff)
 	logger.NasMsgLog.Debugln("Encode: ", a)
