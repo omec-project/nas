@@ -330,6 +330,14 @@ func TestControlPlaneServiceRequestEncodeDecode(t *testing.T) {
 	a.ControlPlaneServiceTypeAndNgksi.SetControlPlaneServiceType(0x01)
 	a.ControlPlaneServiceTypeAndNgksi.SetNasKeySetIdentifiler(0x07)
 
+	a.UERequestType = nasType.NewUERequestType(nasMessage.ControlPlaneServiceRequestUERequestTypeType)
+	a.UERequestType.SetLen(1)
+	copy(a.UERequestType.Buffer, []byte{0x01})
+
+	a.PagingRestriction = nasType.NewPagingRestriction(nasMessage.ControlPlaneServiceRequestPagingRestrictionType)
+	a.PagingRestriction.SetLen(2)
+	copy(a.PagingRestriction.Buffer, []byte{0x01, 0x02})
+
 	buff := new(bytes.Buffer)
 	a.EncodeControlPlaneServiceRequest(buff)
 	logger.NasMsgLog.Debugln("encode:", a)

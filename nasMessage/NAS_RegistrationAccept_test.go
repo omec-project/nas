@@ -311,6 +311,17 @@ func TestRegistrationAcceptNewIEsEncodeDecode(t *testing.T) {
 	a.ExtendedDRXParameters.SetLen(1)
 	a.ExtendedDRXParameters.Buffer[0] = 0x25
 
+	a.UERadioCapabilityIDDeletionIndicationIE = nasType.NewUERadioCapabilityIDDeletionIndicationIE(nasMessage.RegistrationAcceptUERadioCapabilityIDDeletionIndicationType)
+	a.UERadioCapabilityIDDeletionIndicationIE.SetDeletionIndicationValue(0x01)
+
+	a.DisasterReturnWaitRange = nasType.NewRegistrationWaitRange(nasMessage.RegistrationAcceptDisasterReturnWaitRangeType)
+	a.DisasterReturnWaitRange.SetLen(2)
+	copy(a.DisasterReturnWaitRange.Buffer, []byte{0x05, 0x0A})
+
+	a.ExtendedCAGInformationList = nasType.NewExtendedCAGInformationList(nasMessage.RegistrationAcceptExtendedCAGInformationListType)
+	a.ExtendedCAGInformationList.SetLen(3)
+	copy(a.ExtendedCAGInformationList.Buffer, []byte{0x01, 0x02, 0x03})
+
 	buff := new(bytes.Buffer)
 	a.EncodeRegistrationAccept(buff)
 	logger.NasMsgLog.Debugln("Encode: ", a)
