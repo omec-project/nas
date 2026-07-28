@@ -20,6 +20,8 @@ type ControlPlaneServiceRequest struct {
 	*nasType.UplinkDataStatus
 	*nasType.NASMessageContainer
 	*nasType.AllowedPDUSessionStatus
+	*nasType.UERequestType
+	*nasType.PagingRestriction
 }
 
 func NewControlPlaneServiceRequest(iei uint8) (controlPlaneServiceRequest *ControlPlaneServiceRequest) {
@@ -32,6 +34,8 @@ const (
 	ControlPlaneServiceRequestUplinkDataStatusType        uint8 = 0x40
 	ControlPlaneServiceRequestNASMessageContainerType     uint8 = 0x71
 	ControlPlaneServiceRequestAllowedPDUSessionStatusType uint8 = 0x25
+	ControlPlaneServiceRequestUERequestTypeType           uint8 = 0x29
+	ControlPlaneServiceRequestPagingRestrictionType       uint8 = 0x28
 )
 
 func (a *ControlPlaneServiceRequest) EncodeControlPlaneServiceRequest(buffer *bytes.Buffer) {
@@ -58,6 +62,16 @@ func (a *ControlPlaneServiceRequest) EncodeControlPlaneServiceRequest(buffer *by
 		binary.Write(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.GetIei())
 		binary.Write(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.GetLen())
 		binary.Write(buffer, binary.BigEndian, &a.AllowedPDUSessionStatus.Buffer)
+	}
+	if a.UERequestType != nil {
+		binary.Write(buffer, binary.BigEndian, a.UERequestType.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.UERequestType.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.UERequestType.Buffer[:uint8(a.UERequestType.GetLen())])
+	}
+	if a.PagingRestriction != nil {
+		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.PagingRestriction.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:uint8(a.PagingRestriction.GetLen())])
 	}
 }
 
@@ -97,6 +111,18 @@ func (a *ControlPlaneServiceRequest) DecodeControlPlaneServiceRequest(byteArray 
 			binary.Read(buffer, binary.BigEndian, &a.AllowedPDUSessionStatus.Len)
 			a.AllowedPDUSessionStatus.SetLen(a.AllowedPDUSessionStatus.GetLen())
 			binary.Read(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.Buffer)
+		case ControlPlaneServiceRequestUERequestTypeType:
+			a.UERequestType = nasType.NewUERequestType(ieiN)
+			var lenN0 uint8
+			binary.Read(buffer, binary.BigEndian, &lenN0)
+			a.UERequestType.SetLen(uint16(lenN0))
+			binary.Read(buffer, binary.BigEndian, a.UERequestType.Buffer[:lenN0])
+		case ControlPlaneServiceRequestPagingRestrictionType:
+			a.PagingRestriction = nasType.NewPagingRestriction(ieiN)
+			var lenN1 uint8
+			binary.Read(buffer, binary.BigEndian, &lenN1)
+			a.PagingRestriction.SetLen(uint16(lenN1))
+			binary.Read(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:lenN1])
 		default:
 		}
 	}

@@ -229,6 +229,21 @@ func TestConfigurationUpdateCommandNewIEsEncodeDecode(t *testing.T) {
 	a.TruncatedFiveGSTMSIConfiguration.SetLen(2)
 	copy(a.TruncatedFiveGSTMSIConfiguration.Buffer, []byte{0x01, 0x02})
 
+	a.ExtendedLADNInformation = nasType.NewExtendedLADNInformation(nasMessage.ConfigurationUpdateCommandExtendedLADNInformationType)
+	a.ExtendedLADNInformation.SetLen(5)
+	copy(a.ExtendedLADNInformation.Buffer, []byte{0xAA, 0xBB, 0xCC, 0xDD, 0xEE})
+
+	a.UERadioCapabilityIDDeletionIndicationIE = nasType.NewUERadioCapabilityIDDeletionIndicationIE(nasMessage.ConfigurationUpdateCommandUERadioCapabilityIDDeletionIndicationType)
+	a.UERadioCapabilityIDDeletionIndicationIE.SetDeletionIndicationValue(0x01)
+
+	a.DisasterReturnWaitRange = nasType.NewRegistrationWaitRange(nasMessage.ConfigurationUpdateCommandDisasterReturnWaitRangeType)
+	a.DisasterReturnWaitRange.SetLen(2)
+	copy(a.DisasterReturnWaitRange.Buffer, []byte{0x05, 0x0A})
+
+	a.ExtendedCAGInformationList = nasType.NewExtendedCAGInformationList(nasMessage.ConfigurationUpdateCommandExtendedCAGInformationListType)
+	a.ExtendedCAGInformationList.SetLen(3)
+	copy(a.ExtendedCAGInformationList.Buffer, []byte{0x01, 0x02, 0x03})
+
 	buff := new(bytes.Buffer)
 	a.EncodeConfigurationUpdateCommand(buff)
 	logger.NasMsgLog.Debugln("Encode: ", a)
