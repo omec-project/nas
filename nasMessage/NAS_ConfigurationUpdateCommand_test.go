@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 type nasMessageConfigurationUpdateCommandData struct {
@@ -126,7 +125,9 @@ var nasMessageConfigurationUpdateCommandTable = []nasMessageConfigurationUpdateC
 
 func TestNasTypeNewConfigurationUpdateCommand(t *testing.T) {
 	a := nasMessage.NewConfigurationUpdateCommand(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
@@ -134,8 +135,12 @@ func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
 		logger.NasMsgLog.Infoln("Test Cnt:", i)
 		a := nasMessage.NewConfigurationUpdateCommand(0)
 		b := nasMessage.NewConfigurationUpdateCommand(0)
-		assert.NotNil(t, a)
-		assert.NotNil(t, b)
+		if a == nil {
+			t.Fatal("Expected value not to be nil")
+		}
+		if b == nil {
+			t.Fatal("Expected value not to be nil")
+		}
 
 		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
 		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeaderType)
@@ -213,8 +218,12 @@ func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
 func TestConfigurationUpdateCommandNewIEsEncodeDecode(t *testing.T) {
 	a := nasMessage.NewConfigurationUpdateCommand(0)
 	b := nasMessage.NewConfigurationUpdateCommand(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)

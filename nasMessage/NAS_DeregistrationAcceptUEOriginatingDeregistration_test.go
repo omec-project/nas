@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas/v2"
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
-	"github.com/stretchr/testify/assert"
 )
 
 type nasMessageDeregistrationAcceptUEOriginatingDeregistrationData struct {
@@ -34,7 +33,9 @@ var nasMessageDeregistrationAcceptUEOriginatingDeregistrationTable = []nasMessag
 
 func TestNasTypeNewDeregistrationAcceptUEOriginatingDeregistration(t *testing.T) {
 	a := nasMessage.NewDeregistrationAcceptUEOriginatingDeregistration(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewDeregistrationAcceptUEOriginatingDeregistrationMessage(t *testing.T) {
@@ -42,8 +43,12 @@ func TestNasTypeNewDeregistrationAcceptUEOriginatingDeregistrationMessage(t *tes
 		logger.NasMsgLog.Infoln("Test Cnt:", i)
 		a := nasMessage.NewDeregistrationAcceptUEOriginatingDeregistration(0)
 		b := nasMessage.NewDeregistrationAcceptUEOriginatingDeregistration(0)
-		assert.NotNil(t, a)
-		assert.NotNil(t, b)
+		if a == nil {
+			t.Fatal("Expected value not to be nil")
+		}
+		if b == nil {
+			t.Fatal("Expected value not to be nil")
+		}
 
 		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
 		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeaderType)

@@ -9,10 +9,11 @@ import (
 	"testing"
 
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewPlain5GSNASMessage(t *testing.T) {
 	a := nasType.NewPlain5GSNASMessage()
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }

@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 type nasMessageIdentityResponseData struct {
@@ -41,7 +40,9 @@ var nasMessageIdentityResponseTable = []nasMessageIdentityResponseData{
 
 func TestNasTypeNewIdentityResponse(t *testing.T) {
 	a := nasMessage.NewIdentityResponse(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewIdentityResponseMessage(t *testing.T) {
@@ -49,8 +50,12 @@ func TestNasTypeNewIdentityResponseMessage(t *testing.T) {
 		logger.NasMsgLog.Infoln("Test Cnt:", i)
 		a := nasMessage.NewIdentityResponse(0)
 		b := nasMessage.NewIdentityResponse(0)
-		assert.NotNil(t, a)
-		assert.NotNil(t, b)
+		if a == nil {
+			t.Fatal("Expected value not to be nil")
+		}
+		if b == nil {
+			t.Fatal("Expected value not to be nil")
+		}
 
 		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
 		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)

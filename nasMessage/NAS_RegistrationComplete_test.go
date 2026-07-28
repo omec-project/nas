@@ -14,7 +14,6 @@ import (
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 type nasMessageRegistrationCompleteData struct {
@@ -41,7 +40,9 @@ var nasMessageRegistrationCompleteTable = []nasMessageRegistrationCompleteData{
 
 func TestNasTypeNewRegistrationComplete(t *testing.T) {
 	a := nasMessage.NewRegistrationComplete(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewRegistrationCompleteMessage(t *testing.T) {
@@ -49,8 +50,12 @@ func TestNasTypeNewRegistrationCompleteMessage(t *testing.T) {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewRegistrationComplete(0)
 		b := nasMessage.NewRegistrationComplete(0)
-		assert.NotNil(t, a)
-		assert.NotNil(t, b)
+		if a == nil {
+			t.Fatal("Expected value not to be nil")
+		}
+		if b == nil {
+			t.Fatal("Expected value not to be nil")
+		}
 
 		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
 		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)

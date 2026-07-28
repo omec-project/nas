@@ -11,12 +11,13 @@ import (
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewServiceLevelAuthenticationCommand(t *testing.T) {
 	a := nasMessage.NewServiceLevelAuthenticationCommand(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestServiceLevelAuthenticationCommandEncodeDecode(t *testing.T) {
@@ -24,8 +25,12 @@ func TestServiceLevelAuthenticationCommandEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewServiceLevelAuthenticationCommand(0)
 	b := nasMessage.NewServiceLevelAuthenticationCommand(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
 	a.PDUSessionID.SetPDUSessionID(0x01)
@@ -53,7 +58,9 @@ func TestServiceLevelAuthenticationCommandEncodeDecode(t *testing.T) {
 
 func TestNasTypeNewServiceLevelAuthenticationComplete(t *testing.T) {
 	a := nasMessage.NewServiceLevelAuthenticationComplete(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestServiceLevelAuthenticationCompleteEncodeDecode(t *testing.T) {
@@ -61,8 +68,12 @@ func TestServiceLevelAuthenticationCompleteEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewServiceLevelAuthenticationComplete(0)
 	b := nasMessage.NewServiceLevelAuthenticationComplete(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
 	a.PDUSessionID.SetPDUSessionID(0x01)
@@ -89,7 +100,9 @@ func TestServiceLevelAuthenticationCompleteEncodeDecode(t *testing.T) {
 
 func TestNasTypeNewRemoteUEReport(t *testing.T) {
 	a := nasMessage.NewRemoteUEReport(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestRemoteUEReportEncodeDecode(t *testing.T) {
@@ -97,8 +110,12 @@ func TestRemoteUEReportEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewRemoteUEReport(0)
 	b := nasMessage.NewRemoteUEReport(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
 	a.PDUSessionID.SetPDUSessionID(0x01)
@@ -124,8 +141,12 @@ func TestRemoteUEReportEncodeDecodeWithOptionalIEs(t *testing.T) {
 
 	a := nasMessage.NewRemoteUEReport(0)
 	b := nasMessage.NewRemoteUEReport(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
 	a.PDUSessionID.SetPDUSessionID(0x01)
@@ -158,7 +179,9 @@ func TestRemoteUEReportEncodeDecodeWithOptionalIEs(t *testing.T) {
 
 func TestNasTypeNewRemoteUEReportResponse(t *testing.T) {
 	a := nasMessage.NewRemoteUEReportResponse(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestRemoteUEReportResponseEncodeDecode(t *testing.T) {
@@ -166,8 +189,12 @@ func TestRemoteUEReportResponseEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewRemoteUEReportResponse(0)
 	b := nasMessage.NewRemoteUEReportResponse(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
 	a.PDUSessionID.SetPDUSessionID(0x01)
