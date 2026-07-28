@@ -6,16 +6,18 @@
 package nasType_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/omec-project/nas/v2"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewPDUSESSIONMODIFICATIONCOMPLETEMessageIdentity(t *testing.T) {
 	a := nasType.NewPDUSESSIONMODIFICATIONCOMPLETEMessageIdentity()
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 type nasTypePDUSESSIONMODIFICATIONCOMPLETEMessageIdentityMessageType struct {
@@ -31,6 +33,8 @@ func TestNasTypeGetSetPDUSESSIONMODIFICATIONCOMPLETEMessageIdentityMessageType(t
 	a := nasType.NewPDUSESSIONMODIFICATIONCOMPLETEMessageIdentity()
 	for _, table := range nasTypePDUSESSIONMODIFICATIONCOMPLETEMessageIdentityMessageTypeTable {
 		a.SetMessageType(table.in)
-		assert.Equal(t, table.out, a.GetMessageType())
+		if !reflect.DeepEqual(table.out, a.GetMessageType()) {
+			t.Errorf("Not equal: expected %v, got %v", table.out, a.GetMessageType())
+		}
 	}
 }

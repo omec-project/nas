@@ -12,7 +12,6 @@ import (
 	"github.com/omec-project/nas/v2"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 type nasMessageRegistrationRequestData struct {
@@ -155,7 +154,9 @@ var nasMessageRegistrationRequestTable = []nasMessageRegistrationRequestData{
 
 func TestNasTypeNewRegistrationRequest(t *testing.T) {
 	a := nasMessage.NewRegistrationRequest(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
@@ -163,8 +164,12 @@ func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewRegistrationRequest(0)
 		b := nasMessage.NewRegistrationRequest(0)
-		assert.NotNil(t, a)
-		assert.NotNil(t, b)
+		if a == nil {
+			t.Fatal("Expected value not to be nil")
+		}
+		if b == nil {
+			t.Fatal("Expected value not to be nil")
+		}
 
 		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
 		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
@@ -250,8 +255,12 @@ func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
 func TestRegistrationRequestNewIEsEncodeDecode(t *testing.T) {
 	a := nasMessage.NewRegistrationRequest(0)
 	b := nasMessage.NewRegistrationRequest(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)

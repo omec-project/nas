@@ -11,12 +11,13 @@ import (
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewNetworkSliceSpecificAuthenticationCommand(t *testing.T) {
 	a := nasMessage.NewNetworkSliceSpecificAuthenticationCommand(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNetworkSliceSpecificAuthenticationCommandEncodeDecode(t *testing.T) {
@@ -24,8 +25,12 @@ func TestNetworkSliceSpecificAuthenticationCommandEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewNetworkSliceSpecificAuthenticationCommand(0)
 	b := nasMessage.NewNetworkSliceSpecificAuthenticationCommand(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -57,7 +62,9 @@ func TestNetworkSliceSpecificAuthenticationCommandEncodeDecode(t *testing.T) {
 
 func TestNasTypeNewNetworkSliceSpecificAuthenticationComplete(t *testing.T) {
 	a := nasMessage.NewNetworkSliceSpecificAuthenticationComplete(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNetworkSliceSpecificAuthenticationCompleteEncodeDecode(t *testing.T) {
@@ -65,8 +72,12 @@ func TestNetworkSliceSpecificAuthenticationCompleteEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewNetworkSliceSpecificAuthenticationComplete(0)
 	b := nasMessage.NewNetworkSliceSpecificAuthenticationComplete(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -98,7 +109,9 @@ func TestNetworkSliceSpecificAuthenticationCompleteEncodeDecode(t *testing.T) {
 
 func TestNasTypeNewNetworkSliceSpecificAuthenticationResult(t *testing.T) {
 	a := nasMessage.NewNetworkSliceSpecificAuthenticationResult(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNetworkSliceSpecificAuthenticationResultEncodeDecode(t *testing.T) {
@@ -106,8 +119,12 @@ func TestNetworkSliceSpecificAuthenticationResultEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewNetworkSliceSpecificAuthenticationResult(0)
 	b := nasMessage.NewNetworkSliceSpecificAuthenticationResult(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -139,27 +156,37 @@ func TestNetworkSliceSpecificAuthenticationResultEncodeDecode(t *testing.T) {
 
 func TestNasTypeNewRelayKeyRequest(t *testing.T) {
 	a := nasMessage.NewRelayKeyRequest(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewRelayKeyAccept(t *testing.T) {
 	a := nasMessage.NewRelayKeyAccept(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewRelayKeyReject(t *testing.T) {
 	a := nasMessage.NewRelayKeyReject(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewRelayAuthenticationRequest(t *testing.T) {
 	a := nasMessage.NewRelayAuthenticationRequest(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewRelayAuthenticationResponse(t *testing.T) {
 	a := nasMessage.NewRelayAuthenticationResponse(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestRelayKeyRequestEncodeDecode(t *testing.T) {
@@ -167,8 +194,12 @@ func TestRelayKeyRequestEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewRelayKeyRequest(0)
 	b := nasMessage.NewRelayKeyRequest(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -197,8 +228,12 @@ func TestRelayKeyAcceptEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewRelayKeyAccept(0)
 	b := nasMessage.NewRelayKeyAccept(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -227,8 +262,12 @@ func TestRelayKeyRejectEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewRelayKeyReject(0)
 	b := nasMessage.NewRelayKeyReject(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -255,8 +294,12 @@ func TestRelayAuthenticationRequestEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewRelayAuthenticationRequest(0)
 	b := nasMessage.NewRelayAuthenticationRequest(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -285,8 +328,12 @@ func TestRelayAuthenticationResponseEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewRelayAuthenticationResponse(0)
 	b := nasMessage.NewRelayAuthenticationResponse(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
@@ -312,7 +359,9 @@ func TestRelayAuthenticationResponseEncodeDecode(t *testing.T) {
 
 func TestNasTypeNewControlPlaneServiceRequest(t *testing.T) {
 	a := nasMessage.NewControlPlaneServiceRequest(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestControlPlaneServiceRequestEncodeDecode(t *testing.T) {
@@ -320,8 +369,12 @@ func TestControlPlaneServiceRequestEncodeDecode(t *testing.T) {
 
 	a := nasMessage.NewControlPlaneServiceRequest(0)
 	b := nasMessage.NewControlPlaneServiceRequest(0)
-	assert.NotNil(t, a)
-	assert.NotNil(t, b)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 
 	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
 	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)

@@ -13,7 +13,6 @@ import (
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 type nasMessagePDUSessionEstablishmentRequestData struct {
@@ -74,7 +73,9 @@ var nasMessagePDUSessionEstablishmentRequestTable = []nasMessagePDUSessionEstabl
 
 func TestNasTypeNewPDUSessionEstablishmentRequest(t *testing.T) {
 	a := nasMessage.NewPDUSessionEstablishmentRequest(0)
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 func TestNasTypeNewPDUSessionEstablishmentRequestMessage(t *testing.T) {
@@ -82,8 +83,12 @@ func TestNasTypeNewPDUSessionEstablishmentRequestMessage(t *testing.T) {
 		t.Logf("Test Cnt:%d", i)
 		a := nasMessage.NewPDUSessionEstablishmentRequest(0)
 		b := nasMessage.NewPDUSessionEstablishmentRequest(0)
-		assert.NotNil(t, a)
-		assert.NotNil(t, b)
+		if a == nil {
+			t.Fatal("Expected value not to be nil")
+		}
+		if b == nil {
+			t.Fatal("Expected value not to be nil")
+		}
 
 		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
 		a.PDUSessionID.SetPDUSessionID(table.inPDUSessionID)

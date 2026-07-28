@@ -6,15 +6,17 @@
 package nasType_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNasTypeNewSpareHalfOctetAndPayloadContainerType(t *testing.T) {
 	a := nasType.NewSpareHalfOctetAndPayloadContainerType()
-	assert.NotNil(t, a)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
 }
 
 type nasTypePayloadContainerTypeAndSparePayloadContainerType struct {
@@ -30,6 +32,8 @@ func TestNasTypeGetSetPayloadSpareHalfOctetAndPayloadContainerType(t *testing.T)
 	a := nasType.NewSpareHalfOctetAndPayloadContainerType()
 	for _, table := range nasTypePayloadContainerTypeAndSparePayloadContainerTypeTable {
 		a.SetPayloadContainerType(table.in)
-		assert.Equal(t, table.out, a.GetPayloadContainerType())
+		if !reflect.DeepEqual(table.out, a.GetPayloadContainerType()) {
+			t.Errorf("Not equal: expected %v, got %v", table.out, a.GetPayloadContainerType())
+		}
 	}
 }
