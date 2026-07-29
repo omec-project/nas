@@ -5,7 +5,7 @@ package nasType
 
 // Non3GPPNWProvidedPolicies 9.11.3.36A
 // Iei Row, sBit, len = [0, 0], 8 , 4
-// Non3GPPNWProvidedPoliciesValue Row, sBit, len = [0, 0], 4 , 4
+// Value Row, sBit, len = [0, 0], 4 , 4
 type Non3GPPNWProvidedPolicies struct {
 	Octet uint8
 }

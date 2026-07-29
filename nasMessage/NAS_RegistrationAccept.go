@@ -57,6 +57,20 @@ type RegistrationAccept struct {
 	*nasType.ListOfPLMNsForDisasterCondition
 	*nasType.ExtendedCAGInformationList
 	*nasType.NSAGInformation
+	*nasType.PendingNSSAI
+	NegotiatedNBN1ModeDRXParameters      *nasType.NBN1ModeDRXParameters
+	NegotiatedWUSAssistanceInformation   *nasType.WUSAssistanceInformation
+	NegotiatedPEIPSAssistanceInformation *nasType.PEIPSAssistanceInformation
+	ForbiddenTAIRoaming                  *nasType.TAIList
+	ForbiddenTAIRegionalProvision        *nasType.TAIList
+	*nasType.EquivalentSNPNs
+	*nasType.NID
+	*nasType.RANTimingSynchronization
+	*nasType.AlternativeNSSAI
+	*nasType.DiscontinuousCoverageMaxTimeOffset
+	*nasType.SNSSAITimeValidityInformation
+	UnavailabilityPeriodDuration *nasType.LowerBoundTimerValue
+	*nasType.FeatureAuthorizationIndication
 }
 
 func NewRegistrationAccept(iei uint8) (registrationAccept *RegistrationAccept) {
@@ -106,6 +120,20 @@ const (
 	RegistrationAcceptExtendedCAGInformationListType               uint8 = 0x71
 	RegistrationAcceptNSAGInformationType                          uint8 = 0x7C
 	RegistrationAcceptNon3GPPNWProvidedPoliciesType                uint8 = 0x0D
+	RegistrationAcceptPendingNSSAIType                             uint8 = 0x39
+	RegistrationAcceptNegotiatedNBN1ModeDRXParametersType          uint8 = 0x29
+	RegistrationAcceptNegotiatedWUSAssistanceInformationType       uint8 = 0x1C
+	RegistrationAcceptNegotiatedPEIPSAssistanceInformationType     uint8 = 0x33
+	RegistrationAcceptForbiddenTAIRoamingType                      uint8 = 0x1D
+	RegistrationAcceptForbiddenTAIRegionalProvisionType            uint8 = 0x1E
+	RegistrationAcceptEquivalentSNPNsType                          uint8 = 0x3D
+	RegistrationAcceptNIDType                                      uint8 = 0x32
+	RegistrationAcceptRANTimingSynchronizationType                 uint8 = 0x4B
+	RegistrationAcceptAlternativeNSSAIType                         uint8 = 0x4C
+	RegistrationAcceptDiscontinuousCoverageMaxTimeOffsetType       uint8 = 0x4F
+	RegistrationAcceptSNSSAITimeValidityInformationType            uint8 = 0x5B
+	RegistrationAcceptUnavailabilityPeriodDurationType             uint8 = 0x3C
+	RegistrationAcceptFeatureAuthorizationIndicationType           uint8 = 0x5C
 )
 
 func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
@@ -308,6 +336,76 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetIei())
 		binary.Write(buffer, binary.BigEndian, a.NSAGInformation.GetLen())
 		binary.Write(buffer, binary.BigEndian, &a.NSAGInformation.Buffer)
+	}
+	if a.PendingNSSAI != nil {
+		binary.Write(buffer, binary.BigEndian, a.PendingNSSAI.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.PendingNSSAI.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.PendingNSSAI.Buffer)
+	}
+	if a.NegotiatedNBN1ModeDRXParameters != nil {
+		binary.Write(buffer, binary.BigEndian, a.NegotiatedNBN1ModeDRXParameters.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.NegotiatedNBN1ModeDRXParameters.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.NegotiatedNBN1ModeDRXParameters.Buffer)
+	}
+	if a.NegotiatedWUSAssistanceInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.NegotiatedWUSAssistanceInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.NegotiatedWUSAssistanceInformation.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.NegotiatedWUSAssistanceInformation.Buffer[:uint8(a.NegotiatedWUSAssistanceInformation.GetLen())])
+	}
+	if a.NegotiatedPEIPSAssistanceInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.NegotiatedPEIPSAssistanceInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.NegotiatedPEIPSAssistanceInformation.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.NegotiatedPEIPSAssistanceInformation.Buffer[:uint8(a.NegotiatedPEIPSAssistanceInformation.GetLen())])
+	}
+	if a.ForbiddenTAIRoaming != nil {
+		binary.Write(buffer, binary.BigEndian, a.ForbiddenTAIRoaming.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.ForbiddenTAIRoaming.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.ForbiddenTAIRoaming.Buffer)
+	}
+	if a.ForbiddenTAIRegionalProvision != nil {
+		binary.Write(buffer, binary.BigEndian, a.ForbiddenTAIRegionalProvision.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.ForbiddenTAIRegionalProvision.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.ForbiddenTAIRegionalProvision.Buffer)
+	}
+	if a.EquivalentSNPNs != nil {
+		binary.Write(buffer, binary.BigEndian, a.EquivalentSNPNs.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.EquivalentSNPNs.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.EquivalentSNPNs.Buffer)
+	}
+	if a.NID != nil {
+		binary.Write(buffer, binary.BigEndian, a.NID.GetIei())
+		binary.Write(buffer, binary.BigEndian, uint8(a.NID.GetLen()))
+		binary.Write(buffer, binary.BigEndian, a.NID.Buffer[:uint8(a.NID.GetLen())])
+	}
+	if a.RANTimingSynchronization != nil {
+		binary.Write(buffer, binary.BigEndian, a.RANTimingSynchronization.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.RANTimingSynchronization.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.RANTimingSynchronization.Buffer)
+	}
+	if a.AlternativeNSSAI != nil {
+		binary.Write(buffer, binary.BigEndian, a.AlternativeNSSAI.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.AlternativeNSSAI.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.AlternativeNSSAI.Buffer)
+	}
+	if a.DiscontinuousCoverageMaxTimeOffset != nil {
+		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
+	}
+	if a.SNSSAITimeValidityInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.SNSSAITimeValidityInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.SNSSAITimeValidityInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.SNSSAITimeValidityInformation.Buffer)
+	}
+	if a.UnavailabilityPeriodDuration != nil {
+		binary.Write(buffer, binary.BigEndian, a.UnavailabilityPeriodDuration.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.UnavailabilityPeriodDuration.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.UnavailabilityPeriodDuration.Octet)
+	}
+	if a.FeatureAuthorizationIndication != nil {
+		binary.Write(buffer, binary.BigEndian, a.FeatureAuthorizationIndication.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.FeatureAuthorizationIndication.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.FeatureAuthorizationIndication.Buffer)
 	}
 }
 
@@ -533,6 +631,79 @@ func (a *RegistrationAccept) DecodeRegistrationAccept(byteArray *[]byte) {
 		case RegistrationAcceptNon3GPPNWProvidedPoliciesType:
 			a.Non3GPPNWProvidedPolicies = nasType.NewNon3GPPNWProvidedPolicies(ieiN)
 			a.Non3GPPNWProvidedPolicies.Octet = ieiN
+		case RegistrationAcceptPendingNSSAIType:
+			a.PendingNSSAI = nasType.NewPendingNSSAI(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.PendingNSSAI.Len)
+			a.PendingNSSAI.SetLen(a.PendingNSSAI.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.PendingNSSAI.Buffer[:a.PendingNSSAI.GetLen()])
+		case RegistrationAcceptNegotiatedNBN1ModeDRXParametersType:
+			a.NegotiatedNBN1ModeDRXParameters = nasType.NewNBN1ModeDRXParameters(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.NegotiatedNBN1ModeDRXParameters.Len)
+			a.NegotiatedNBN1ModeDRXParameters.SetLen(a.NegotiatedNBN1ModeDRXParameters.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.NegotiatedNBN1ModeDRXParameters.Buffer[:a.NegotiatedNBN1ModeDRXParameters.GetLen()])
+		case RegistrationAcceptNegotiatedWUSAssistanceInformationType:
+			a.NegotiatedWUSAssistanceInformation = nasType.NewWUSAssistanceInformation(ieiN)
+			var l uint8
+			binary.Read(buffer, binary.BigEndian, &l)
+			a.NegotiatedWUSAssistanceInformation.SetLen(uint16(l))
+			binary.Read(buffer, binary.BigEndian, a.NegotiatedWUSAssistanceInformation.Buffer[:l])
+		case RegistrationAcceptNegotiatedPEIPSAssistanceInformationType:
+			a.NegotiatedPEIPSAssistanceInformation = nasType.NewPEIPSAssistanceInformation(ieiN)
+			var l uint8
+			binary.Read(buffer, binary.BigEndian, &l)
+			a.NegotiatedPEIPSAssistanceInformation.SetLen(uint16(l))
+			binary.Read(buffer, binary.BigEndian, a.NegotiatedPEIPSAssistanceInformation.Buffer[:l])
+		case RegistrationAcceptForbiddenTAIRoamingType:
+			a.ForbiddenTAIRoaming = nasType.NewTAIList(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.ForbiddenTAIRoaming.Len)
+			a.ForbiddenTAIRoaming.SetLen(a.ForbiddenTAIRoaming.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.ForbiddenTAIRoaming.Buffer[:a.ForbiddenTAIRoaming.GetLen()])
+		case RegistrationAcceptForbiddenTAIRegionalProvisionType:
+			a.ForbiddenTAIRegionalProvision = nasType.NewTAIList(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.ForbiddenTAIRegionalProvision.Len)
+			a.ForbiddenTAIRegionalProvision.SetLen(a.ForbiddenTAIRegionalProvision.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.ForbiddenTAIRegionalProvision.Buffer[:a.ForbiddenTAIRegionalProvision.GetLen()])
+		case RegistrationAcceptEquivalentSNPNsType:
+			a.EquivalentSNPNs = nasType.NewEquivalentSNPNs(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.EquivalentSNPNs.Len)
+			a.EquivalentSNPNs.SetLen(a.EquivalentSNPNs.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.EquivalentSNPNs.Buffer[:a.EquivalentSNPNs.GetLen()])
+		case RegistrationAcceptNIDType:
+			a.NID = nasType.NewNID(ieiN)
+			var l uint8
+			binary.Read(buffer, binary.BigEndian, &l)
+			a.NID.SetLen(uint16(l))
+			binary.Read(buffer, binary.BigEndian, a.NID.Buffer[:l])
+		case RegistrationAcceptRANTimingSynchronizationType:
+			a.RANTimingSynchronization = nasType.NewRANTimingSynchronization(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.RANTimingSynchronization.Len)
+			a.RANTimingSynchronization.SetLen(a.RANTimingSynchronization.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.RANTimingSynchronization.Buffer[:a.RANTimingSynchronization.GetLen()])
+		case RegistrationAcceptAlternativeNSSAIType:
+			a.AlternativeNSSAI = nasType.NewAlternativeNSSAI(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.AlternativeNSSAI.Len)
+			a.AlternativeNSSAI.SetLen(a.AlternativeNSSAI.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.AlternativeNSSAI.Buffer[:a.AlternativeNSSAI.GetLen()])
+		case RegistrationAcceptDiscontinuousCoverageMaxTimeOffsetType:
+			a.DiscontinuousCoverageMaxTimeOffset = nasType.NewDiscontinuousCoverageMaxTimeOffset(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Len)
+			a.DiscontinuousCoverageMaxTimeOffset.SetLen(a.DiscontinuousCoverageMaxTimeOffset.GetLen())
+			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
+		case RegistrationAcceptSNSSAITimeValidityInformationType:
+			a.SNSSAITimeValidityInformation = nasType.NewSNSSAITimeValidityInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.SNSSAITimeValidityInformation.Len)
+			a.SNSSAITimeValidityInformation.SetLen(a.SNSSAITimeValidityInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.SNSSAITimeValidityInformation.Buffer[:a.SNSSAITimeValidityInformation.GetLen()])
+		case RegistrationAcceptUnavailabilityPeriodDurationType:
+			a.UnavailabilityPeriodDuration = nasType.NewLowerBoundTimerValue(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.UnavailabilityPeriodDuration.Len)
+			a.UnavailabilityPeriodDuration.SetLen(a.UnavailabilityPeriodDuration.GetLen())
+			binary.Read(buffer, binary.BigEndian, &a.UnavailabilityPeriodDuration.Octet)
+		case RegistrationAcceptFeatureAuthorizationIndicationType:
+			a.FeatureAuthorizationIndication = nasType.NewFeatureAuthorizationIndication(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.FeatureAuthorizationIndication.Len)
+			a.FeatureAuthorizationIndication.SetLen(a.FeatureAuthorizationIndication.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.FeatureAuthorizationIndication.Buffer[:a.FeatureAuthorizationIndication.GetLen()])
 		default:
 		}
 	}

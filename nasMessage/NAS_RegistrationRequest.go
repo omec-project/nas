@@ -56,6 +56,7 @@ type RegistrationRequest struct {
 	*nasType.TimeDuration
 	*nasType.Non3GPPPathSwitchingInformation
 	*nasType.AUN3Indication
+	*nasType.T3512Value
 }
 
 func NewRegistrationRequest(iei uint8) (registrationRequest *RegistrationRequest) {
@@ -103,6 +104,7 @@ const (
 	RegistrationRequestAUN3IndicationType                      uint8 = 0x56
 	RegistrationRequestMobileStationClassmark2Type             uint8 = 0x41
 	RegistrationRequestSupportedCodecsType                     uint8 = 0x42
+	RegistrationRequestRequestedT3512ValueType                 uint8 = 0x3B
 )
 
 func (a *RegistrationRequest) EncodeRegistrationRequest(buffer *bytes.Buffer) {
@@ -295,8 +297,13 @@ func (a *RegistrationRequest) EncodeRegistrationRequest(buffer *bytes.Buffer) {
 	}
 	if a.AUN3Indication != nil {
 		binary.Write(buffer, binary.BigEndian, a.AUN3Indication.GetIei())
-		binary.Write(buffer, binary.BigEndian, uint8(a.AUN3Indication.GetLen()))
-		binary.Write(buffer, binary.BigEndian, a.AUN3Indication.Buffer[:uint8(a.AUN3Indication.GetLen())])
+		binary.Write(buffer, binary.BigEndian, a.AUN3Indication.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.AUN3Indication.Octet)
+	}
+	if a.T3512Value != nil {
+		binary.Write(buffer, binary.BigEndian, a.T3512Value.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.T3512Value.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.T3512Value.Octet)
 	}
 }
 
@@ -505,10 +512,9 @@ func (a *RegistrationRequest) DecodeRegistrationRequest(byteArray *[]byte) {
 			binary.Read(buffer, binary.BigEndian, a.Non3GPPPathSwitchingInformation.Buffer[:lenN])
 		case RegistrationRequestAUN3IndicationType:
 			a.AUN3Indication = nasType.NewAUN3Indication(ieiN)
-			var lenN uint8
-			binary.Read(buffer, binary.BigEndian, &lenN)
-			a.AUN3Indication.SetLen(uint16(lenN))
-			binary.Read(buffer, binary.BigEndian, a.AUN3Indication.Buffer[:lenN])
+			binary.Read(buffer, binary.BigEndian, &a.AUN3Indication.Len)
+			a.AUN3Indication.SetLen(a.AUN3Indication.GetLen())
+			binary.Read(buffer, binary.BigEndian, &a.AUN3Indication.Octet)
 		case RegistrationRequestMobileStationClassmark2Type:
 			a.MobileStationClassmark2 = nasType.NewMobileStationClassmark2(ieiN)
 			var lenN uint8
@@ -521,6 +527,11 @@ func (a *RegistrationRequest) DecodeRegistrationRequest(byteArray *[]byte) {
 			binary.Read(buffer, binary.BigEndian, &lenN)
 			a.SupportedCodecs.SetLen(uint16(lenN))
 			binary.Read(buffer, binary.BigEndian, a.SupportedCodecs.Buffer[:lenN])
+		case RegistrationRequestRequestedT3512ValueType:
+			a.T3512Value = nasType.NewT3512Value(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.T3512Value.Len)
+			a.T3512Value.SetLen(a.T3512Value.GetLen())
+			binary.Read(buffer, binary.BigEndian, &a.T3512Value.Octet)
 		default:
 		}
 	}

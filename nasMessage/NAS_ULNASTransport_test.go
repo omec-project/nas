@@ -134,3 +134,54 @@ func TestNasTypeNewULNASTransportMessage(t *testing.T) {
 		}
 	}
 }
+
+func TestULNASTransportNewIEsEncodeDecode(t *testing.T) {
+	a := nasMessage.NewULNASTransport(0)
+	b := nasMessage.NewULNASTransport(0)
+	if a == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+	if b == nil {
+		t.Fatal("Expected value not to be nil")
+	}
+
+	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
+	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
+	a.ULNASTRANSPORTMessageIdentity.SetMessageType(nas.MsgTypeULNASTransport)
+	a.SpareHalfOctetAndPayloadContainerType.Octet = 0x01
+	a.PayloadContainer.SetLen(2)
+	copy(a.PayloadContainer.Buffer, []uint8{0x01, 0x02})
+
+	a.MAPDUSessionInformation = nasType.NewMAPDUSessionInformation(nasMessage.ULNASTransportMAPDUSessionInformationType)
+	a.MAPDUSessionInformation.SetMAPSI(0x03)
+
+	a.ReleaseAssistanceIndication = nasType.NewReleaseAssistanceIndication(nasMessage.ULNASTransportReleaseAssistanceIndicationType)
+	a.ReleaseAssistanceIndication.SetPDDEI(0x02)
+
+	a.Non3GPPAccessPathSwitchingIndication = nasType.NewNon3GPPAccessPathSwitchingIndication(nasMessage.ULNASTransportNon3GPPAccessPathSwitchingIndicationType)
+	a.Non3GPPAccessPathSwitchingIndication.SetLen(1)
+	a.Non3GPPAccessPathSwitchingIndication.SetNAPS(0x01)
+
+	a.AlternativeSNSSAI = nasType.NewSNSSAI(nasMessage.ULNASTransportAlternativeSNSSAIType)
+	a.AlternativeSNSSAI.SetLen(2)
+	a.AlternativeSNSSAI.Octet[0] = 0x11
+	a.AlternativeSNSSAI.Octet[1] = 0x22
+
+	a.PayloadContainerInformation = nasType.NewPayloadContainerInformation(nasMessage.ULNASTransportPayloadContainerInformationType)
+	a.PayloadContainerInformation.SetPRU(0x05)
+
+	buff := new(bytes.Buffer)
+	a.EncodeULNASTransport(buff)
+	logger.NasMsgLog.Debugln("Encode: ", a)
+
+	data := make([]byte, buff.Len())
+	buff.Read(data)
+	logger.NasMsgLog.Debugln(data)
+	b.DecodeULNASTransport(&data)
+	logger.NasMsgLog.Debugln("Decode: ", b)
+
+	if reflect.DeepEqual(a, b) != true {
+		t.Errorf("ULNASTransport new IEs encode/decode mismatch")
+	}
+}

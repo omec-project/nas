@@ -45,6 +45,18 @@ type ConfigurationUpdateCommand struct {
 	*nasType.ExtendedCAGInformationList
 	*nasType.NSAGInformation
 	*nasType.ExtendedLADNInformation
+	*nasType.RegistrationResult5GS
+	*nasType.AdditionalConfigurationIndication
+	*nasType.UpdatedPEIPSAssistanceInformation
+	*nasType.PriorityIndicator
+	*nasType.RANTimingSynchronization
+	*nasType.AlternativeNSSAI
+	*nasType.SNSSAILocationValidityInformation
+	*nasType.SNSSAITimeValidityInformation
+	*nasType.DiscontinuousCoverageMaxTimeOffset
+	*nasType.PartiallyAllowedNSSAI
+	*nasType.PartiallyRejectedNSSAI
+	*nasType.FeatureAuthorizationIndication
 }
 
 func NewConfigurationUpdateCommand(iei uint8) (configurationUpdateCommand *ConfigurationUpdateCommand) {
@@ -83,6 +95,18 @@ const (
 	ConfigurationUpdateCommandExtendedCAGInformationListType               uint8 = 0x71
 	ConfigurationUpdateCommandNSAGInformationType                          uint8 = 0x73
 	ConfigurationUpdateCommandExtendedLADNInformationType                  uint8 = 0x78
+	ConfigurationUpdateCommandRegistrationResult5GSType                    uint8 = 0x44
+	ConfigurationUpdateCommandAdditionalConfigurationIndicationType        uint8 = 0x0C
+	ConfigurationUpdateCommandUpdatedPEIPSAssistanceInformationType        uint8 = 0x1F
+	ConfigurationUpdateCommandPriorityIndicatorType                        uint8 = 0x0E
+	ConfigurationUpdateCommandRANTimingSynchronizationType                 uint8 = 0x4B
+	ConfigurationUpdateCommandAlternativeNSSAIType                         uint8 = 0x4C
+	ConfigurationUpdateCommandSNSSAILocationValidityInformationType        uint8 = 0x7D
+	ConfigurationUpdateCommandSNSSAITimeValidityInformationType            uint8 = 0x5B
+	ConfigurationUpdateCommandDiscontinuousCoverageMaxTimeOffsetType       uint8 = 0x4F
+	ConfigurationUpdateCommandPartiallyAllowedNSSAIType                    uint8 = 0x74
+	ConfigurationUpdateCommandPartiallyRejectedNSSAIType                   uint8 = 0x7A
+	ConfigurationUpdateCommandFeatureAuthorizationIndicationType           uint8 = 0x5C
 )
 
 func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *bytes.Buffer) {
@@ -226,6 +250,62 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 		binary.Write(buffer, binary.BigEndian, a.ExtendedLADNInformation.GetIei())
 		binary.Write(buffer, binary.BigEndian, a.ExtendedLADNInformation.GetLen())
 		binary.Write(buffer, binary.BigEndian, &a.ExtendedLADNInformation.Buffer)
+	}
+	if a.RegistrationResult5GS != nil {
+		binary.Write(buffer, binary.BigEndian, a.RegistrationResult5GS.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.RegistrationResult5GS.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.RegistrationResult5GS.Octet)
+	}
+	if a.AdditionalConfigurationIndication != nil {
+		binary.Write(buffer, binary.BigEndian, &a.AdditionalConfigurationIndication.Octet)
+	}
+	if a.UpdatedPEIPSAssistanceInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.UpdatedPEIPSAssistanceInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.UpdatedPEIPSAssistanceInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.UpdatedPEIPSAssistanceInformation.Buffer)
+	}
+	if a.PriorityIndicator != nil {
+		binary.Write(buffer, binary.BigEndian, &a.PriorityIndicator.Octet)
+	}
+	if a.RANTimingSynchronization != nil {
+		binary.Write(buffer, binary.BigEndian, a.RANTimingSynchronization.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.RANTimingSynchronization.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.RANTimingSynchronization.Buffer)
+	}
+	if a.AlternativeNSSAI != nil {
+		binary.Write(buffer, binary.BigEndian, a.AlternativeNSSAI.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.AlternativeNSSAI.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.AlternativeNSSAI.Buffer)
+	}
+	if a.SNSSAILocationValidityInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.SNSSAILocationValidityInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.SNSSAILocationValidityInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.SNSSAILocationValidityInformation.Buffer)
+	}
+	if a.SNSSAITimeValidityInformation != nil {
+		binary.Write(buffer, binary.BigEndian, a.SNSSAITimeValidityInformation.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.SNSSAITimeValidityInformation.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.SNSSAITimeValidityInformation.Buffer)
+	}
+	if a.DiscontinuousCoverageMaxTimeOffset != nil {
+		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
+	}
+	if a.PartiallyAllowedNSSAI != nil {
+		binary.Write(buffer, binary.BigEndian, a.PartiallyAllowedNSSAI.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.PartiallyAllowedNSSAI.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.PartiallyAllowedNSSAI.Buffer)
+	}
+	if a.PartiallyRejectedNSSAI != nil {
+		binary.Write(buffer, binary.BigEndian, a.PartiallyRejectedNSSAI.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.PartiallyRejectedNSSAI.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.PartiallyRejectedNSSAI.Buffer)
+	}
+	if a.FeatureAuthorizationIndication != nil {
+		binary.Write(buffer, binary.BigEndian, a.FeatureAuthorizationIndication.GetIei())
+		binary.Write(buffer, binary.BigEndian, a.FeatureAuthorizationIndication.GetLen())
+		binary.Write(buffer, binary.BigEndian, &a.FeatureAuthorizationIndication.Buffer)
 	}
 }
 
@@ -386,6 +466,62 @@ func (a *ConfigurationUpdateCommand) DecodeConfigurationUpdateCommand(byteArray 
 			binary.Read(buffer, binary.BigEndian, &a.ExtendedLADNInformation.Len)
 			a.ExtendedLADNInformation.SetLen(a.ExtendedLADNInformation.GetLen())
 			binary.Read(buffer, binary.BigEndian, a.ExtendedLADNInformation.Buffer[:a.ExtendedLADNInformation.GetLen()])
+		case ConfigurationUpdateCommandRegistrationResult5GSType:
+			a.RegistrationResult5GS = nasType.NewRegistrationResult5GS(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.RegistrationResult5GS.Len)
+			a.RegistrationResult5GS.SetLen(a.RegistrationResult5GS.GetLen())
+			binary.Read(buffer, binary.BigEndian, &a.RegistrationResult5GS.Octet)
+		case ConfigurationUpdateCommandAdditionalConfigurationIndicationType:
+			a.AdditionalConfigurationIndication = nasType.NewAdditionalConfigurationIndication(ieiN)
+			a.AdditionalConfigurationIndication.Octet = ieiN
+		case ConfigurationUpdateCommandUpdatedPEIPSAssistanceInformationType:
+			a.UpdatedPEIPSAssistanceInformation = nasType.NewUpdatedPEIPSAssistanceInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.UpdatedPEIPSAssistanceInformation.Len)
+			a.UpdatedPEIPSAssistanceInformation.SetLen(a.UpdatedPEIPSAssistanceInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.UpdatedPEIPSAssistanceInformation.Buffer[:a.UpdatedPEIPSAssistanceInformation.GetLen()])
+		case ConfigurationUpdateCommandPriorityIndicatorType:
+			a.PriorityIndicator = nasType.NewPriorityIndicator(ieiN)
+			a.PriorityIndicator.Octet = ieiN
+		case ConfigurationUpdateCommandRANTimingSynchronizationType:
+			a.RANTimingSynchronization = nasType.NewRANTimingSynchronization(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.RANTimingSynchronization.Len)
+			a.RANTimingSynchronization.SetLen(a.RANTimingSynchronization.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.RANTimingSynchronization.Buffer[:a.RANTimingSynchronization.GetLen()])
+		case ConfigurationUpdateCommandAlternativeNSSAIType:
+			a.AlternativeNSSAI = nasType.NewAlternativeNSSAI(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.AlternativeNSSAI.Len)
+			a.AlternativeNSSAI.SetLen(a.AlternativeNSSAI.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.AlternativeNSSAI.Buffer[:a.AlternativeNSSAI.GetLen()])
+		case ConfigurationUpdateCommandSNSSAILocationValidityInformationType:
+			a.SNSSAILocationValidityInformation = nasType.NewSNSSAILocationValidityInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.SNSSAILocationValidityInformation.Len)
+			a.SNSSAILocationValidityInformation.SetLen(a.SNSSAILocationValidityInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.SNSSAILocationValidityInformation.Buffer[:a.SNSSAILocationValidityInformation.GetLen()])
+		case ConfigurationUpdateCommandSNSSAITimeValidityInformationType:
+			a.SNSSAITimeValidityInformation = nasType.NewSNSSAITimeValidityInformation(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.SNSSAITimeValidityInformation.Len)
+			a.SNSSAITimeValidityInformation.SetLen(a.SNSSAITimeValidityInformation.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.SNSSAITimeValidityInformation.Buffer[:a.SNSSAITimeValidityInformation.GetLen()])
+		case ConfigurationUpdateCommandDiscontinuousCoverageMaxTimeOffsetType:
+			a.DiscontinuousCoverageMaxTimeOffset = nasType.NewDiscontinuousCoverageMaxTimeOffset(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Len)
+			a.DiscontinuousCoverageMaxTimeOffset.SetLen(a.DiscontinuousCoverageMaxTimeOffset.GetLen())
+			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
+		case ConfigurationUpdateCommandPartiallyAllowedNSSAIType:
+			a.PartiallyAllowedNSSAI = nasType.NewPartiallyAllowedNSSAI(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.PartiallyAllowedNSSAI.Len)
+			a.PartiallyAllowedNSSAI.SetLen(a.PartiallyAllowedNSSAI.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.PartiallyAllowedNSSAI.Buffer[:a.PartiallyAllowedNSSAI.GetLen()])
+		case ConfigurationUpdateCommandPartiallyRejectedNSSAIType:
+			a.PartiallyRejectedNSSAI = nasType.NewPartiallyRejectedNSSAI(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.PartiallyRejectedNSSAI.Len)
+			a.PartiallyRejectedNSSAI.SetLen(a.PartiallyRejectedNSSAI.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.PartiallyRejectedNSSAI.Buffer[:a.PartiallyRejectedNSSAI.GetLen()])
+		case ConfigurationUpdateCommandFeatureAuthorizationIndicationType:
+			a.FeatureAuthorizationIndication = nasType.NewFeatureAuthorizationIndication(ieiN)
+			binary.Read(buffer, binary.BigEndian, &a.FeatureAuthorizationIndication.Len)
+			a.FeatureAuthorizationIndication.SetLen(a.FeatureAuthorizationIndication.GetLen())
+			binary.Read(buffer, binary.BigEndian, a.FeatureAuthorizationIndication.Buffer[:a.FeatureAuthorizationIndication.GetLen()])
 		default:
 		}
 	}
