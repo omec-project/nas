@@ -3,11 +3,11 @@
 
 package nasType
 
-// PartiallyRejectedNSSAI 9.11.3.37
+// PartiallyRejectedNSSAI 9.11.3.103
 // SNSSAIValue Row, sBit, len = [0, 0], 0 , INF
 type PartiallyRejectedNSSAI struct {
 	Iei    uint8
-	Len    uint8
+	Len    uint16
 	Buffer []uint8
 }
 
@@ -17,10 +17,10 @@ func NewPartiallyRejectedNSSAI(iei uint8) (x *PartiallyRejectedNSSAI) {
 	return x
 }
 
-func (a *PartiallyRejectedNSSAI) GetIei() (iei uint8) { return a.Iei }
-func (a *PartiallyRejectedNSSAI) SetIei(iei uint8)    { a.Iei = iei }
-func (a *PartiallyRejectedNSSAI) GetLen() (len uint8) { return a.Len }
-func (a *PartiallyRejectedNSSAI) SetLen(len uint8) {
+func (a *PartiallyRejectedNSSAI) GetIei() (iei uint8)  { return a.Iei }
+func (a *PartiallyRejectedNSSAI) SetIei(iei uint8)     { a.Iei = iei }
+func (a *PartiallyRejectedNSSAI) GetLen() (len uint16) { return a.Len }
+func (a *PartiallyRejectedNSSAI) SetLen(len uint16) {
 	a.Len = len
 	a.Buffer = make([]uint8, a.Len)
 }

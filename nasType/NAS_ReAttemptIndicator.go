@@ -24,12 +24,12 @@ func (a *ReAttemptIndicator) GetIei() (iei uint8) { return a.Iei }
 func (a *ReAttemptIndicator) SetIei(iei uint8)    { a.Iei = iei }
 func (a *ReAttemptIndicator) GetLen() (len uint8) { return a.Len }
 func (a *ReAttemptIndicator) SetLen(len uint8)    { a.Len = len }
-func (a *ReAttemptIndicator) GetRATAC() uint8 {
+func (a *ReAttemptIndicator) GetRATC() uint8 {
 	return a.Octet & GetBitMask(2, 1) >> 1
 }
 
-func (a *ReAttemptIndicator) SetRATAC(ratac uint8) {
-	a.Octet = (a.Octet & 253) + ((ratac & 1) << 1)
+func (a *ReAttemptIndicator) SetRATC(ratc uint8) {
+	a.Octet = (a.Octet & 253) + ((ratc & 1) << 1)
 }
 
 func (a *ReAttemptIndicator) GetEPLMNC() uint8 {

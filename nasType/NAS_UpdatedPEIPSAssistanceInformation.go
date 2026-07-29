@@ -3,7 +3,7 @@
 
 package nasType
 
-// UpdatedPEIPSAssistanceInformation 9.11.3.x
+// UpdatedPEIPSAssistanceInformation 9.11.3.80
 type UpdatedPEIPSAssistanceInformation struct {
 	Iei    uint8
 	Len    uint8

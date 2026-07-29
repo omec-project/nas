@@ -5,7 +5,7 @@ package nasType
 
 // N5GCIndication 9.11.3.72
 // Iei Row, sBit, len = [0, 0], 8 , 4
-// N5GCIValue Row, sBit, len = [0, 0], 4 , 4
+// N5GCREG Row, sBit, len = [0, 0], 1 , 1
 type N5GCIndication struct {
 	Octet uint8
 }
@@ -29,13 +29,13 @@ func (a *N5GCIndication) SetIei(iei uint8) {
 }
 
 // N5GCIndication 9.11.3.72
-// N5GCIValue Row, sBit, len = [0, 0], 4 , 4
-func (a *N5GCIndication) GetN5GCIValue() (n5GCIValue uint8) {
-	return a.Octet & GetBitMask(4, 0)
+// N5GCREG Row, sBit, len = [0, 0], 1 , 1
+func (a *N5GCIndication) GetN5GCREG() (n5GCREG uint8) {
+	return a.Octet & GetBitMask(1, 0)
 }
 
 // N5GCIndication 9.11.3.72
-// N5GCIValue Row, sBit, len = [0, 0], 4 , 4
-func (a *N5GCIndication) SetN5GCIValue(n5GCIValue uint8) {
-	a.Octet = (a.Octet & 240) + (n5GCIValue & 15)
+// N5GCREG Row, sBit, len = [0, 0], 1 , 1
+func (a *N5GCIndication) SetN5GCREG(n5GCREG uint8) {
+	a.Octet = (a.Octet & 0xFE) | (n5GCREG & 0x01)
 }

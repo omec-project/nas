@@ -290,7 +290,7 @@ func (a *ConfigurationUpdateCommand) EncodeConfigurationUpdateCommand(buffer *by
 	if a.DiscontinuousCoverageMaxTimeOffset != nil {
 		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetIei())
 		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Buffer)
+		binary.Write(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
 	}
 	if a.PartiallyAllowedNSSAI != nil {
 		binary.Write(buffer, binary.BigEndian, a.PartiallyAllowedNSSAI.GetIei())
@@ -506,7 +506,7 @@ func (a *ConfigurationUpdateCommand) DecodeConfigurationUpdateCommand(byteArray 
 			a.DiscontinuousCoverageMaxTimeOffset = nasType.NewDiscontinuousCoverageMaxTimeOffset(ieiN)
 			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Len)
 			a.DiscontinuousCoverageMaxTimeOffset.SetLen(a.DiscontinuousCoverageMaxTimeOffset.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.Buffer[:a.DiscontinuousCoverageMaxTimeOffset.GetLen()])
+			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
 		case ConfigurationUpdateCommandPartiallyAllowedNSSAIType:
 			a.PartiallyAllowedNSSAI = nasType.NewPartiallyAllowedNSSAI(ieiN)
 			binary.Read(buffer, binary.BigEndian, &a.PartiallyAllowedNSSAI.Len)

@@ -3,7 +3,10 @@
 
 package nasType
 
-// FeatureAuthorizationIndication 9.11.3.x
+// FeatureAuthorizationIndication 9.11.3.105
+// Iei Row, sBit, len = [], 8, 8
+// Len Row, sBit, len = [], 8, 8
+// MBSRAI Row, sBit, len = [0, 0], 2, 2
 type FeatureAuthorizationIndication struct {
 	Iei    uint8
 	Len    uint8
@@ -32,4 +35,17 @@ func (a *FeatureAuthorizationIndication) GetFeatureAuthorizationIndication() []u
 
 func (a *FeatureAuthorizationIndication) SetFeatureAuthorizationIndication(v []uint8) {
 	copy(a.Buffer, v)
+}
+
+func (a *FeatureAuthorizationIndication) GetMBSRAI() uint8 {
+	if len(a.Buffer) == 0 {
+		return 0
+	}
+	return a.Buffer[0] & GetBitMask(2, 0)
+}
+
+func (a *FeatureAuthorizationIndication) SetMBSRAI(mbsrai uint8) {
+	if len(a.Buffer) > 0 {
+		a.Buffer[0] = (a.Buffer[0] & 0xFC) | (mbsrai & 0x03)
+	}
 }

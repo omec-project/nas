@@ -6,7 +6,7 @@ package nasType
 // EthernetHeaderCompressionConfiguration 9.11.4.28
 // Iei Row, sBit, len = [], 8, 8
 // Len Row, sBit, len = [], 8, 8
-// Value Row, sBit, len = [0, 0], 8, 8
+// CIDLen Row, sBit, len = [0, 0], 2, 2
 type EthernetHeaderCompressionConfiguration struct {
 	Iei   uint8
 	Len   uint8
@@ -23,10 +23,10 @@ func (a *EthernetHeaderCompressionConfiguration) GetIei() (iei uint8) { return a
 func (a *EthernetHeaderCompressionConfiguration) SetIei(iei uint8)    { a.Iei = iei }
 func (a *EthernetHeaderCompressionConfiguration) GetLen() (len uint8) { return a.Len }
 func (a *EthernetHeaderCompressionConfiguration) SetLen(len uint8)    { a.Len = len }
-func (a *EthernetHeaderCompressionConfiguration) GetEHCI() (ehci uint8) {
-	return a.Octet & GetBitMask(2, 1) >> 1
+func (a *EthernetHeaderCompressionConfiguration) GetCIDLen() (cidLen uint8) {
+	return a.Octet & GetBitMask(2, 0)
 }
 
-func (a *EthernetHeaderCompressionConfiguration) SetEHCI(ehci uint8) {
-	a.Octet = (a.Octet & 253) + ((ehci & 1) << 1)
+func (a *EthernetHeaderCompressionConfiguration) SetCIDLen(cidLen uint8) {
+	a.Octet = (a.Octet & 0xFC) | (cidLen & 0x03)
 }

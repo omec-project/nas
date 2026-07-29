@@ -6,7 +6,7 @@ package nasType
 // Non3GPPAccessPathSwitchingIndication 9.11.3.99
 // Iei Row, sBit, len = [], 8, 8
 // Len Row, sBit, len = [], 8, 8
-// NAPSI Row, sBit, len = [0, 0], 1 , 1
+// NAPS Row, sBit, len = [0, 0], 1 , 1
 type Non3GPPAccessPathSwitchingIndication struct {
 	Iei   uint8
 	Len   uint8
@@ -23,10 +23,10 @@ func (a *Non3GPPAccessPathSwitchingIndication) GetIei() (iei uint8) { return a.I
 func (a *Non3GPPAccessPathSwitchingIndication) SetIei(iei uint8)    { a.Iei = iei }
 func (a *Non3GPPAccessPathSwitchingIndication) GetLen() (len uint8) { return a.Len }
 func (a *Non3GPPAccessPathSwitchingIndication) SetLen(len uint8)    { a.Len = len }
-func (a *Non3GPPAccessPathSwitchingIndication) GetNAPSI() uint8 {
+func (a *Non3GPPAccessPathSwitchingIndication) GetNAPS() uint8 {
 	return a.Octet & GetBitMask(1, 0)
 }
 
-func (a *Non3GPPAccessPathSwitchingIndication) SetNAPSI(napsi uint8) {
-	a.Octet = (a.Octet & 0xFE) | (napsi & 0x01)
+func (a *Non3GPPAccessPathSwitchingIndication) SetNAPS(naps uint8) {
+	a.Octet = (a.Octet & 0xFE) | (naps & 0x01)
 }

@@ -3,7 +3,7 @@
 
 package nasType
 
-// EquivalentSNPNs 9.11.3.x
+// EquivalentSNPNs 9.11.3.92
 type EquivalentSNPNs struct {
 	Iei    uint8
 	Len    uint8

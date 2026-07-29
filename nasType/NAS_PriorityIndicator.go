@@ -5,7 +5,7 @@ package nasType
 
 // PriorityIndicator 9.11.3.91
 // Iei Row, sBit, len = [0, 0], 8 , 4
-// MPP Row, sBit, len = [0, 0], 1 , 1
+// MPSI Row, sBit, len = [0, 0], 1 , 1
 type PriorityIndicator struct {
 	Octet uint8
 }
@@ -24,10 +24,10 @@ func (a *PriorityIndicator) SetIei(iei uint8) {
 	a.Octet = (a.Octet & 0x0F) | ((iei & 0x0F) << 4)
 }
 
-func (a *PriorityIndicator) GetMPP() (mpp uint8) {
+func (a *PriorityIndicator) GetMPSI() (mpsi uint8) {
 	return a.Octet & GetBitMask(1, 0)
 }
 
-func (a *PriorityIndicator) SetMPP(mpp uint8) {
-	a.Octet = (a.Octet & 0xFE) | (mpp & 0x01)
+func (a *PriorityIndicator) SetMPSI(mpsi uint8) {
+	a.Octet = (a.Octet & 0xFE) | (mpsi & 0x01)
 }

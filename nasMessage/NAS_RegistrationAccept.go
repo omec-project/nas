@@ -390,7 +390,7 @@ func (a *RegistrationAccept) EncodeRegistrationAccept(buffer *bytes.Buffer) {
 	if a.DiscontinuousCoverageMaxTimeOffset != nil {
 		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetIei())
 		binary.Write(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Buffer)
+		binary.Write(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
 	}
 	if a.SNSSAITimeValidityInformation != nil {
 		binary.Write(buffer, binary.BigEndian, a.SNSSAITimeValidityInformation.GetIei())
@@ -688,7 +688,7 @@ func (a *RegistrationAccept) DecodeRegistrationAccept(byteArray *[]byte) {
 			a.DiscontinuousCoverageMaxTimeOffset = nasType.NewDiscontinuousCoverageMaxTimeOffset(ieiN)
 			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Len)
 			a.DiscontinuousCoverageMaxTimeOffset.SetLen(a.DiscontinuousCoverageMaxTimeOffset.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.DiscontinuousCoverageMaxTimeOffset.Buffer[:a.DiscontinuousCoverageMaxTimeOffset.GetLen()])
+			binary.Read(buffer, binary.BigEndian, &a.DiscontinuousCoverageMaxTimeOffset.Octet)
 		case RegistrationAcceptSNSSAITimeValidityInformationType:
 			a.SNSSAITimeValidityInformation = nasType.NewSNSSAITimeValidityInformation(ieiN)
 			binary.Read(buffer, binary.BigEndian, &a.SNSSAITimeValidityInformation.Len)
