@@ -55,11 +55,11 @@ func TestNasTypeNewStatus5GMMMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
 
-		a.STATUSMessageIdentity5GMM.SetMessageType(table.inStatus5GMMMessageIdentity)
+		a.SetMessageType(table.inStatus5GMMMessageIdentity)
 
 		a.Cause5GMM = table.inCause5GMM
 
@@ -68,7 +68,9 @@ func TestNasTypeNewStatus5GMMMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodeStatus5GMM(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)

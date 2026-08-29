@@ -122,14 +122,14 @@ func (a *EquivalentPlmns) SetIei(iei uint8) {
 
 // EquivalentPlmns 9.11.3.45
 // Len Row, sBit, len = [], 8, 8
-func (a *EquivalentPlmns) GetLen() (len uint8) {
+func (a *EquivalentPlmns) GetLen() (length uint8) {
 	return a.Len
 }
 
 // EquivalentPlmns 9.11.3.45
 // Len Row, sBit, len = [], 8, 8
-func (a *EquivalentPlmns) SetLen(len uint8) {
-	a.Len = len
+func (a *EquivalentPlmns) SetLen(length uint8) {
+	a.Len = length
 }
 
 // EquivalentPlmns 9.11.3.45

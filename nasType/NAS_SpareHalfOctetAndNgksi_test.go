@@ -48,6 +48,5 @@ func TestNasTypeGetSetSpareHalfOctetAndNgksi(t *testing.T) {
 		if !reflect.DeepEqual(table.outSpareHalfOctet, a.GetSpareHalfOctet()) {
 			t.Errorf("Not equal: expected %v, got %v", table.outSpareHalfOctet, a.GetSpareHalfOctet())
 		}
-
 	}
 }

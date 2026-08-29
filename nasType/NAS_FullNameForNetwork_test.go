@@ -208,6 +208,5 @@ func TestNasTypeFullNameForNetwork(t *testing.T) {
 		if !reflect.DeepEqual(table.outTextString, a.GetTextString()) {
 			t.Errorf("in(%v): out %v, actual %x", table.inTextString, table.outTextString, a.GetTextString())
 		}
-
 	}
 }

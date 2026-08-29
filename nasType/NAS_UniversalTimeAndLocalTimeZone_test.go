@@ -47,7 +47,6 @@ var nasTypeUniversalTimeAndLocalTimeZoneYearTable = []nasTypeUniversalTimeAndLoc
 func TestNasTypeUniversalTimeAndLocalTimeZoneGetSetYear(t *testing.T) {
 	a := nasType.NewUniversalTimeAndLocalTimeZone(nasMessage.ConfigurationUpdateCommandUniversalTimeAndLocalTimeZoneType)
 	for _, table := range nasTypeUniversalTimeAndLocalTimeZoneYearTable {
-
 		a.SetYear(table.in)
 
 		if !reflect.DeepEqual(table.out, a.GetYear()) {
@@ -132,7 +131,6 @@ var nasTypeUniversalTimeAndLocalTimeZoneMinuteTable = []nasTypeUniversalTimeAndL
 func TestNasTypeUniversalTimeAndLocalTimeZoneGetSetMinute(t *testing.T) {
 	a := nasType.NewUniversalTimeAndLocalTimeZone(nasMessage.ConfigurationUpdateCommandUniversalTimeAndLocalTimeZoneType)
 	for _, table := range nasTypeUniversalTimeAndLocalTimeZoneMinuteTable {
-
 		a.SetMinute(table.in)
 
 		if !reflect.DeepEqual(table.out, a.GetMinute()) {
@@ -154,7 +152,6 @@ var nasTypeUniversalTimeAndLocalTimeZoneSecondTable = []nasTypeUniversalTimeAndL
 func TestNasTypeUniversalTimeAndLocalTimeZoneGetSetSecond(t *testing.T) {
 	a := nasType.NewUniversalTimeAndLocalTimeZone(nasMessage.ConfigurationUpdateCommandUniversalTimeAndLocalTimeZoneType)
 	for _, table := range nasTypeUniversalTimeAndLocalTimeZoneSecondTable {
-
 		a.SetSecond(table.in)
 
 		if !reflect.DeepEqual(table.out, a.GetSecond()) {
@@ -176,7 +173,6 @@ var nasTypeUniversalTimeAndLocalTimeZoneTimeZoneTable = []nasTypeUniversalTimeAn
 func TestNasTypeUniversalTimeAndLocalTimeZoneGetSetTimeZone(t *testing.T) {
 	a := nasType.NewUniversalTimeAndLocalTimeZone(nasMessage.ConfigurationUpdateCommandUniversalTimeAndLocalTimeZoneType)
 	for _, table := range nasTypeUniversalTimeAndLocalTimeZoneTimeZoneTable {
-
 		a.SetTimeZone(table.in)
 
 		if !reflect.DeepEqual(table.out, a.GetTimeZone()) {

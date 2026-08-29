@@ -31,14 +31,14 @@ func (a *RemoteUEContextList) SetIei(iei uint8) {
 
 // RemoteUEContextList 9.11.4.29
 // Len Row, sBit, len = [], 8, 16
-func (a *RemoteUEContextList) GetLen() (len uint16) {
+func (a *RemoteUEContextList) GetLen() (length uint16) {
 	return a.Len
 }
 
 // RemoteUEContextList 9.11.4.29
 // Len Row, sBit, len = [], 8, 16
-func (a *RemoteUEContextList) SetLen(len uint16) {
-	a.Len = len
+func (a *RemoteUEContextList) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

@@ -57,7 +57,6 @@ var RegistrationRejectMessageIdentityTable = []RegistrationRejectMessageIdentity
 
 func TestNasTypeRegistrationRejectMessageIdentity(t *testing.T) {
 	for _, table := range RegistrationRejectMessageIdentityTable {
-
 		a := nasType.NewRegistrationRejectMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

@@ -32,10 +32,10 @@ func TestNetworkSliceSpecificAuthenticationCommandEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.NETWORKSLICESPECIFICAUTHENTICATIONCOMMANDMessageIdentity.SetMessageType(0x50)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x50)
 
 	// Set S-NSSAI (1 byte SST)
 	a.SNSSAI.Len = 1
@@ -44,14 +44,16 @@ func TestNetworkSliceSpecificAuthenticationCommandEncodeDecode(t *testing.T) {
 	// Set EAP message
 	a.EAPMessage = nasType.EAPMessage{}
 	a.EAPMessage.SetLen(4)
-	copy(a.EAPMessage.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
+	copy(a.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
 
 	buff := new(bytes.Buffer)
 	a.EncodeNetworkSliceSpecificAuthenticationCommand(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeNetworkSliceSpecificAuthenticationCommand(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -79,10 +81,10 @@ func TestNetworkSliceSpecificAuthenticationCompleteEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.NETWORKSLICESPECIFICAUTHENTICATIONCOMPLETEMessageIdentity.SetMessageType(0x51)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x51)
 
 	// Set S-NSSAI (1 byte SST only)
 	a.SNSSAI.Len = 1
@@ -91,14 +93,16 @@ func TestNetworkSliceSpecificAuthenticationCompleteEncodeDecode(t *testing.T) {
 	// Set EAP message
 	a.EAPMessage = nasType.EAPMessage{}
 	a.EAPMessage.SetLen(4)
-	copy(a.EAPMessage.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
+	copy(a.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
 
 	buff := new(bytes.Buffer)
 	a.EncodeNetworkSliceSpecificAuthenticationComplete(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeNetworkSliceSpecificAuthenticationComplete(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -126,10 +130,10 @@ func TestNetworkSliceSpecificAuthenticationResultEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.NETWORKSLICESPECIFICAUTHENTICATIONRESULTMessageIdentity.SetMessageType(0x52)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x52)
 
 	// Set S-NSSAI (1 byte SST only)
 	a.SNSSAI.Len = 1
@@ -138,14 +142,16 @@ func TestNetworkSliceSpecificAuthenticationResultEncodeDecode(t *testing.T) {
 	// Set EAP message
 	a.EAPMessage = nasType.EAPMessage{}
 	a.EAPMessage.SetLen(4)
-	copy(a.EAPMessage.Buffer, []byte{0x03, 0x01, 0x00, 0x04})
+	copy(a.Buffer, []byte{0x03, 0x01, 0x00, 0x04})
 
 	buff := new(bytes.Buffer)
 	a.EncodeNetworkSliceSpecificAuthenticationResult(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeNetworkSliceSpecificAuthenticationResult(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -201,20 +207,22 @@ func TestRelayKeyRequestEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.RELAYKEYREQUESTMessageIdentity.SetMessageType(0x69)
-	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
-	a.RelayKeyRequestParameters.SetLen(4)
-	copy(a.RelayKeyRequestParameters.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x69)
+	a.SetProSeRelayTransactionIdentityValue(0x01)
+	a.SetLen(4)
+	copy(a.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
 
 	buff := new(bytes.Buffer)
 	a.EncodeRelayKeyRequest(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRelayKeyRequest(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -235,11 +243,11 @@ func TestRelayKeyAcceptEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.RELAYKEYACCEPTMessageIdentity.SetMessageType(0x6A)
-	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x6A)
+	a.SetProSeRelayTransactionIdentityValue(0x01)
 	a.RelayKeyResponseParameters.SetLen(4)
 	copy(a.RelayKeyResponseParameters.Buffer, []byte{0x0A, 0x0B, 0x0C, 0x0D})
 
@@ -248,7 +256,9 @@ func TestRelayKeyAcceptEncodeDecode(t *testing.T) {
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRelayKeyAccept(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -269,18 +279,20 @@ func TestRelayKeyRejectEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.RELAYKEYREJECTMessageIdentity.SetMessageType(0x6B)
-	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x02)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x6B)
+	a.SetProSeRelayTransactionIdentityValue(0x02)
 
 	buff := new(bytes.Buffer)
 	a.EncodeRelayKeyReject(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRelayKeyReject(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -301,20 +313,22 @@ func TestRelayAuthenticationRequestEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.RELAYAUTHENTICATIONREQUESTMessageIdentity.SetMessageType(0x6C)
-	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
-	a.EAPMessage.SetLen(4)
-	copy(a.EAPMessage.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x6C)
+	a.SetProSeRelayTransactionIdentityValue(0x01)
+	a.SetLen(4)
+	copy(a.Buffer, []byte{0x02, 0x01, 0x00, 0x04})
 
 	buff := new(bytes.Buffer)
 	a.EncodeRelayAuthenticationRequest(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRelayAuthenticationRequest(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -335,20 +349,22 @@ func TestRelayAuthenticationResponseEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.RELAYAUTHENTICATIONRESPONSEMessageIdentity.SetMessageType(0x6D)
-	a.ProSeRelayTransactionIdentity.SetProSeRelayTransactionIdentityValue(0x01)
-	a.EAPMessage.SetLen(4)
-	copy(a.EAPMessage.Buffer, []byte{0x03, 0x01, 0x00, 0x04})
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x6D)
+	a.SetProSeRelayTransactionIdentityValue(0x01)
+	a.SetLen(4)
+	copy(a.Buffer, []byte{0x03, 0x01, 0x00, 0x04})
 
 	buff := new(bytes.Buffer)
 	a.EncodeRelayAuthenticationResponse(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRelayAuthenticationResponse(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -376,12 +392,12 @@ func TestControlPlaneServiceRequestEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.CONTROLPLANESERVICEREQUESTMessageIdentity.SetMessageType(0x4F)
-	a.ControlPlaneServiceTypeAndNgksi.SetControlPlaneServiceType(0x01)
-	a.ControlPlaneServiceTypeAndNgksi.SetNasKeySetIdentifiler(0x07)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(0x4F)
+	a.SetControlPlaneServiceType(0x01)
+	a.SetNasKeySetIdentifiler(0x07)
 
 	a.UERequestType = nasType.NewUERequestType(nasMessage.ControlPlaneServiceRequestUERequestTypeType)
 	a.UERequestType.SetLen(1)
@@ -396,7 +412,9 @@ func TestControlPlaneServiceRequestEncodeDecode(t *testing.T) {
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeControlPlaneServiceRequest(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 

@@ -56,10 +56,10 @@ func TestNasTypeNewPDUSessionModificationCompleteMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.PDUSessionID.SetPDUSessionID(table.inPDUSessionID)
-		a.PTI.SetPTI(table.inPTI)
-		a.PDUSESSIONMODIFICATIONCOMPLETEMessageIdentity.SetMessageType(table.inPDUSESSIONMODIFICATIONCOMPLETEMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetPDUSessionID(table.inPDUSessionID)
+		a.SetPTI(table.inPTI)
+		a.SetMessageType(table.inPDUSESSIONMODIFICATIONCOMPLETEMessageIdentity)
 
 		a.ExtendedProtocolConfigurationOptions = nasType.NewExtendedProtocolConfigurationOptions(nasMessage.PDUSessionModificationCompleteExtendedProtocolConfigurationOptionsType)
 		a.ExtendedProtocolConfigurationOptions = &table.inExtendedProtocolConfigurationOptions
@@ -69,7 +69,9 @@ func TestNasTypeNewPDUSessionModificationCompleteMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodePDUSessionModificationComplete(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
@@ -77,6 +79,5 @@ func TestNasTypeNewPDUSessionModificationCompleteMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

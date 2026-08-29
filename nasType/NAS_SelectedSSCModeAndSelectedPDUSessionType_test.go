@@ -76,7 +76,6 @@ var SelectedSSCModeAndSelectedPDUSessionTypeTable = []SelectedSSCModeAndSelected
 
 func TestNasTypeSelectedSSCModeAndSelectedPDUSessionType(t *testing.T) {
 	for _, table := range SelectedSSCModeAndSelectedPDUSessionTypeTable {
-
 		a := nasType.NewSelectedSSCModeAndSelectedPDUSessionType()
 		a.SetSSCMode(0x01)
 		a.SetPDUSessionType(0x01)

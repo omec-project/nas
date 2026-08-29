@@ -16,11 +16,11 @@ func NewSNSSAITimeValidityInformation(iei uint8) (x *SNSSAITimeValidityInformati
 	return x
 }
 
-func (a *SNSSAITimeValidityInformation) GetIei() (iei uint8) { return a.Iei }
-func (a *SNSSAITimeValidityInformation) SetIei(iei uint8)    { a.Iei = iei }
-func (a *SNSSAITimeValidityInformation) GetLen() (len uint8) { return a.Len }
-func (a *SNSSAITimeValidityInformation) SetLen(len uint8) {
-	a.Len = len
+func (a *SNSSAITimeValidityInformation) GetIei() (iei uint8)    { return a.Iei }
+func (a *SNSSAITimeValidityInformation) SetIei(iei uint8)       { a.Iei = iei }
+func (a *SNSSAITimeValidityInformation) GetLen() (length uint8) { return a.Len }
+func (a *SNSSAITimeValidityInformation) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

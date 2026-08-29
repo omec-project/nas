@@ -25,21 +25,45 @@ func NewServiceLevelAuthenticationComplete(iei uint8) (serviceLevelAuthenticatio
 }
 
 func (a *ServiceLevelAuthenticationComplete) EncodeServiceLevelAuthenticationComplete(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.PDUSessionID.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.PTI.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.SERVICELEVELAUTHENTICATIONCOMPLETEMessageIdentity.Octet)
-	binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetLen())
-	binary.Write(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Buffer)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.PDUSessionID.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.PTI.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.SERVICELEVELAUTHENTICATIONCOMPLETEMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, a.GetLen()); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.Buffer); err != nil {
+		return
+	}
 }
 
 func (a *ServiceLevelAuthenticationComplete) DecodeServiceLevelAuthenticationComplete(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.PDUSessionID.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.PTI.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SERVICELEVELAUTHENTICATIONCOMPLETEMessageIdentity.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Len)
-	a.ServiceLevelAAContainer.SetLen(a.ServiceLevelAAContainer.GetLen())
-	binary.Read(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Buffer)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.PDUSessionID.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.PTI.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SERVICELEVELAUTHENTICATIONCOMPLETEMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.Len); err != nil {
+		return
+	}
+	a.SetLen(a.GetLen())
+	if err := binary.Read(buffer, binary.BigEndian, &a.Buffer); err != nil {
+		return
+	}
 }

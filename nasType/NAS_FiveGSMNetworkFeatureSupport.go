@@ -16,11 +16,11 @@ func NewFiveGSMNetworkFeatureSupport(iei uint8) (x *FiveGSMNetworkFeatureSupport
 	return x
 }
 
-func (a *FiveGSMNetworkFeatureSupport) GetIei() (iei uint8) { return a.Iei }
-func (a *FiveGSMNetworkFeatureSupport) SetIei(iei uint8)    { a.Iei = iei }
-func (a *FiveGSMNetworkFeatureSupport) GetLen() (len uint8) { return a.Len }
-func (a *FiveGSMNetworkFeatureSupport) SetLen(len uint8) {
-	a.Len = len
+func (a *FiveGSMNetworkFeatureSupport) GetIei() (iei uint8)    { return a.Iei }
+func (a *FiveGSMNetworkFeatureSupport) SetIei(iei uint8)       { a.Iei = iei }
+func (a *FiveGSMNetworkFeatureSupport) GetLen() (length uint8) { return a.Len }
+func (a *FiveGSMNetworkFeatureSupport) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

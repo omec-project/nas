@@ -34,14 +34,14 @@ func (a *RegistrationResult5GS) SetIei(iei uint8) {
 
 // RegistrationResult5GS 9.11.3.6
 // Len Row, sBit, len = [], 8, 8
-func (a *RegistrationResult5GS) GetLen() (len uint8) {
+func (a *RegistrationResult5GS) GetLen() (length uint8) {
 	return a.Len
 }
 
 // RegistrationResult5GS 9.11.3.6
 // Len Row, sBit, len = [], 8, 8
-func (a *RegistrationResult5GS) SetLen(len uint8) {
-	a.Len = len
+func (a *RegistrationResult5GS) SetLen(length uint8) {
+	a.Len = length
 }
 
 // RegistrationResult5GS 9.11.3.6

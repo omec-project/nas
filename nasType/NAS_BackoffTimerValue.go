@@ -34,14 +34,14 @@ func (a *BackoffTimerValue) SetIei(iei uint8) {
 
 // BackoffTimerValue 9.11.2.5
 // Len Row, sBit, len = [], 8, 8
-func (a *BackoffTimerValue) GetLen() (len uint8) {
+func (a *BackoffTimerValue) GetLen() (length uint8) {
 	return a.Len
 }
 
 // BackoffTimerValue 9.11.2.5
 // Len Row, sBit, len = [], 8, 8
-func (a *BackoffTimerValue) SetLen(len uint8) {
-	a.Len = len
+func (a *BackoffTimerValue) SetLen(length uint8) {
+	a.Len = length
 }
 
 // BackoffTimerValue 9.11.2.5

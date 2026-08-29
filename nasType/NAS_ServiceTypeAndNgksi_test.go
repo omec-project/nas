@@ -49,6 +49,5 @@ func TestNasTypeGetSetNgksiAndServiceType(t *testing.T) {
 		if !reflect.DeepEqual(table.outServiceTypeValue, a.GetServiceTypeValue()) {
 			t.Errorf("Not equal: expected %v, got %v", table.outServiceTypeValue, a.GetServiceTypeValue())
 		}
-
 	}
 }

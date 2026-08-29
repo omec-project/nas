@@ -41,14 +41,14 @@ func (a *NetworkFeatureSupport5GS) SetIei(iei uint8) {
 
 // NetworkFeatureSupport5GS 9.11.3.5
 // Len Row, sBit, len = [], 8, 8
-func (a *NetworkFeatureSupport5GS) GetLen() (len uint8) {
+func (a *NetworkFeatureSupport5GS) GetLen() (length uint8) {
 	return a.Len
 }
 
 // NetworkFeatureSupport5GS 9.11.3.5
 // Len Row, sBit, len = [], 8, 8
-func (a *NetworkFeatureSupport5GS) SetLen(len uint8) {
-	a.Len = len
+func (a *NetworkFeatureSupport5GS) SetLen(length uint8) {
+	a.Len = length
 }
 
 // NetworkFeatureSupport5GS 9.11.3.5

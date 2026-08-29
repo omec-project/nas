@@ -54,18 +54,20 @@ func TestNasTypeNewIdentityRequestMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet1)
-		a.IdentityRequestMessageIdentity.SetMessageType(table.inIdentityRequestMessageIdentity)
-		a.SpareHalfOctetAndIdentityType.SetTypeOfIdentity(table.inIdentityType)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet1)
+		a.SetMessageType(table.inIdentityRequestMessageIdentity)
+		a.SetTypeOfIdentity(table.inIdentityType)
 
 		buff := new(bytes.Buffer)
 		a.EncodeIdentityRequest(buff)
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		b.DecodeIdentityRequest(&data)
 		logger.NasMsgLog.Debugln(data)
 		logger.NasMsgLog.Debugln("Dncode: ", b)
@@ -73,6 +75,5 @@ func TestNasTypeNewIdentityRequestMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

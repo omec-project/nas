@@ -89,14 +89,14 @@ func (a *S1UENetworkCapability) SetIei(iei uint8) {
 
 // S1UENetworkCapability 9.11.3.48
 // Len Row, sBit, len = [], 8, 8
-func (a *S1UENetworkCapability) GetLen() (len uint8) {
+func (a *S1UENetworkCapability) GetLen() (length uint8) {
 	return a.Len
 }
 
 // S1UENetworkCapability 9.11.3.48
 // Len Row, sBit, len = [], 8, 8
-func (a *S1UENetworkCapability) SetLen(len uint8) {
-	a.Len = len
+func (a *S1UENetworkCapability) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

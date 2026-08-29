@@ -35,14 +35,14 @@ func (a *Capability5GSM) SetIei(iei uint8) {
 
 // Capability5GSM 9.11.4.1
 // Len Row, sBit, len = [], 8, 8
-func (a *Capability5GSM) GetLen() (len uint8) {
+func (a *Capability5GSM) GetLen() (length uint8) {
 	return a.Len
 }
 
 // Capability5GSM 9.11.4.1
 // Len Row, sBit, len = [], 8, 8
-func (a *Capability5GSM) SetLen(len uint8) {
-	a.Len = len
+func (a *Capability5GSM) SetLen(length uint8) {
+	a.Len = length
 }
 
 // Capability5GSM 9.11.4.1

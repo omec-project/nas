@@ -57,7 +57,6 @@ var PDUSESSIONRELEASEREJECTMessageIdentityTable = []PDUSESSIONRELEASEREJECTMessa
 
 func TestNasTypePDUSESSIONRELEASEREJECTMessageIdentity(t *testing.T) {
 	for _, table := range PDUSESSIONRELEASEREJECTMessageIdentityTable {
-
 		a := nasType.NewPDUSESSIONRELEASEREJECTMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

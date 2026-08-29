@@ -25,12 +25,12 @@ func (a *EPSBearerContextStatus) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *EPSBearerContextStatus) GetLen() (len uint16) {
+func (a *EPSBearerContextStatus) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *EPSBearerContextStatus) SetLen(len uint16) {
-	a.Len = len
+func (a *EPSBearerContextStatus) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

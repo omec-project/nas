@@ -19,10 +19,10 @@ func NewNon3GPPAccessPathSwitchingIndication(iei uint8) (x *Non3GPPAccessPathSwi
 	return x
 }
 
-func (a *Non3GPPAccessPathSwitchingIndication) GetIei() (iei uint8) { return a.Iei }
-func (a *Non3GPPAccessPathSwitchingIndication) SetIei(iei uint8)    { a.Iei = iei }
-func (a *Non3GPPAccessPathSwitchingIndication) GetLen() (len uint8) { return a.Len }
-func (a *Non3GPPAccessPathSwitchingIndication) SetLen(len uint8)    { a.Len = len }
+func (a *Non3GPPAccessPathSwitchingIndication) GetIei() (iei uint8)    { return a.Iei }
+func (a *Non3GPPAccessPathSwitchingIndication) SetIei(iei uint8)       { a.Iei = iei }
+func (a *Non3GPPAccessPathSwitchingIndication) GetLen() (length uint8) { return a.Len }
+func (a *Non3GPPAccessPathSwitchingIndication) SetLen(length uint8)    { a.Len = length }
 func (a *Non3GPPAccessPathSwitchingIndication) GetNAPS() uint8 {
 	return a.Octet & GetBitMask(1, 0)
 }

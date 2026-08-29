@@ -44,14 +44,14 @@ func (a *AdditionalGUTI) SetIei(iei uint8) {
 
 // AdditionalGUTI 9.11.3.4
 // Len Row, sBit, len = [], 8, 16
-func (a *AdditionalGUTI) GetLen() (len uint16) {
+func (a *AdditionalGUTI) GetLen() (n uint16) {
 	return a.Len
 }
 
 // AdditionalGUTI 9.11.3.4
 // Len Row, sBit, len = [], 8, 16
-func (a *AdditionalGUTI) SetLen(len uint16) {
-	a.Len = len
+func (a *AdditionalGUTI) SetLen(n uint16) {
+	a.Len = n
 }
 
 // AdditionalGUTI 9.11.3.4

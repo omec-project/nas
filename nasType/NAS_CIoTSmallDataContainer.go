@@ -16,11 +16,11 @@ func NewCIoTSmallDataContainer(iei uint8) (x *CIoTSmallDataContainer) {
 	return x
 }
 
-func (a *CIoTSmallDataContainer) GetIei() (iei uint8) { return a.Iei }
-func (a *CIoTSmallDataContainer) SetIei(iei uint8)    { a.Iei = iei }
-func (a *CIoTSmallDataContainer) GetLen() (len uint8) { return a.Len }
-func (a *CIoTSmallDataContainer) SetLen(len uint8) {
-	a.Len = len
+func (a *CIoTSmallDataContainer) GetIei() (iei uint8)    { return a.Iei }
+func (a *CIoTSmallDataContainer) SetIei(iei uint8)       { a.Iei = iei }
+func (a *CIoTSmallDataContainer) GetLen() (length uint8) { return a.Len }
+func (a *CIoTSmallDataContainer) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

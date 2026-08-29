@@ -75,7 +75,6 @@ var SMSIndicationTable = []SMSIndicationTestDataTemplate{
 
 func TestNasTypeSMSIndication(t *testing.T) {
 	for _, table := range SMSIndicationTable {
-
 		a := nasType.NewSMSIndication(nasMessage.ConfigurationUpdateCommandSMSIndicationType)
 		a.SetIei(0x01)
 		a.SetSAI(0x01)
@@ -83,6 +82,5 @@ func TestNasTypeSMSIndication(t *testing.T) {
 		if !reflect.DeepEqual(table.out.Octet, a.Octet) {
 			t.Errorf("Not equal: expected %v, got %v", table.out.Octet, a.Octet)
 		}
-
 	}
 }

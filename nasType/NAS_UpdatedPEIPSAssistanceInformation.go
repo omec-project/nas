@@ -16,11 +16,11 @@ func NewUpdatedPEIPSAssistanceInformation(iei uint8) (x *UpdatedPEIPSAssistanceI
 	return x
 }
 
-func (a *UpdatedPEIPSAssistanceInformation) GetIei() (iei uint8) { return a.Iei }
-func (a *UpdatedPEIPSAssistanceInformation) SetIei(iei uint8)    { a.Iei = iei }
-func (a *UpdatedPEIPSAssistanceInformation) GetLen() (len uint8) { return a.Len }
-func (a *UpdatedPEIPSAssistanceInformation) SetLen(len uint8) {
-	a.Len = len
+func (a *UpdatedPEIPSAssistanceInformation) GetIei() (iei uint8)    { return a.Iei }
+func (a *UpdatedPEIPSAssistanceInformation) SetIei(iei uint8)       { a.Iei = iei }
+func (a *UpdatedPEIPSAssistanceInformation) GetLen() (length uint8) { return a.Len }
+func (a *UpdatedPEIPSAssistanceInformation) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

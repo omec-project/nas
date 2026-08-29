@@ -57,7 +57,6 @@ var SecurityModeCompleteMessageIdentityTable = []SecurityModeCompleteMessageIden
 
 func TestNasTypeSecurityModeCompleteMessageIdentity(t *testing.T) {
 	for _, table := range SecurityModeCompleteMessageIdentityTable {
-
 		a := nasType.NewSecurityModeCompleteMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

@@ -32,37 +32,75 @@ const (
 )
 
 func (a *DeregistrationRequestUEOriginatingDeregistration) EncodeDeregistrationRequestUEOriginatingDeregistration(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.DeregistrationRequestMessageIdentity.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.NgksiAndDeregistrationType.Octet)
-	binary.Write(buffer, binary.BigEndian, a.MobileIdentity5GS.GetLen())
-	binary.Write(buffer, binary.BigEndian, &a.MobileIdentity5GS.Buffer)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.DeregistrationRequestMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.NgksiAndDeregistrationType.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, a.MobileIdentity5GS.GetLen()); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.MobileIdentity5GS.Buffer); err != nil {
+		return
+	}
 	if a.LowerBoundTimerValue != nil {
-		binary.Write(buffer, binary.BigEndian, a.LowerBoundTimerValue.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.LowerBoundTimerValue.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.LowerBoundTimerValue.Octet)
+		if err := binary.Write(buffer, binary.BigEndian, a.LowerBoundTimerValue.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.LowerBoundTimerValue.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.LowerBoundTimerValue.Octet); err != nil {
+			return
+		}
 	}
 	if a.NASMessageContainer != nil {
-		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.NASMessageContainer.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.NASMessageContainer.Buffer); err != nil {
+			return
+		}
 	}
 }
 
 func (a *DeregistrationRequestUEOriginatingDeregistration) DecodeDeregistrationRequestUEOriginatingDeregistration(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.DeregistrationRequestMessageIdentity.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.NgksiAndDeregistrationType.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.MobileIdentity5GS.Len)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.DeregistrationRequestMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.NgksiAndDeregistrationType.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.MobileIdentity5GS.Len); err != nil {
+		return
+	}
 	a.MobileIdentity5GS.SetLen(a.MobileIdentity5GS.GetLen())
-	binary.Read(buffer, binary.BigEndian, &a.MobileIdentity5GS.Buffer)
+	if err := binary.Read(buffer, binary.BigEndian, &a.MobileIdentity5GS.Buffer); err != nil {
+		return
+	}
 	for buffer.Len() > 0 {
 		var ieiN uint8
 		var tmpIeiN uint8
-		binary.Read(buffer, binary.BigEndian, &ieiN)
+		if err := binary.Read(buffer, binary.BigEndian, &ieiN); err != nil {
+			return
+		}
 		if ieiN >= 0x80 {
 			tmpIeiN = (ieiN & 0xf0) >> 4
 		} else {
@@ -71,14 +109,22 @@ func (a *DeregistrationRequestUEOriginatingDeregistration) DecodeDeregistrationR
 		switch tmpIeiN {
 		case DeregistrationRequestUEOriginatingDeregistrationUnavailabilityPeriodType:
 			a.LowerBoundTimerValue = nasType.NewLowerBoundTimerValue(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.LowerBoundTimerValue.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.LowerBoundTimerValue.Len); err != nil {
+				return
+			}
 			a.LowerBoundTimerValue.SetLen(a.LowerBoundTimerValue.GetLen())
-			binary.Read(buffer, binary.BigEndian, &a.LowerBoundTimerValue.Octet)
+			if err := binary.Read(buffer, binary.BigEndian, &a.LowerBoundTimerValue.Octet); err != nil {
+				return
+			}
 		case DeregistrationRequestUEOriginatingDeregistrationNASMessageContainerType:
 			a.NASMessageContainer = nasType.NewNASMessageContainer(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Len); err != nil {
+				return
+			}
 			a.NASMessageContainer.SetLen(a.NASMessageContainer.GetLen())
-			binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Buffer)
+			if err := binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Buffer); err != nil {
+				return
+			}
 		default:
 		}
 	}

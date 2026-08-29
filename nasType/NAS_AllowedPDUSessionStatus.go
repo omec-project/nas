@@ -49,14 +49,14 @@ func (a *AllowedPDUSessionStatus) SetIei(iei uint8) {
 
 // AllowedPDUSessionStatus 9.11.3.13
 // Len Row, sBit, len = [], 8, 8
-func (a *AllowedPDUSessionStatus) GetLen() (len uint8) {
+func (a *AllowedPDUSessionStatus) GetLen() (length uint8) {
 	return a.Len
 }
 
 // AllowedPDUSessionStatus 9.11.3.13
 // Len Row, sBit, len = [], 8, 8
-func (a *AllowedPDUSessionStatus) SetLen(len uint8) {
-	a.Len = len
+func (a *AllowedPDUSessionStatus) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

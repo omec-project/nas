@@ -16,11 +16,11 @@ func NewN3IWFIdentifier(iei uint8) (x *N3IWFIdentifier) {
 	return x
 }
 
-func (a *N3IWFIdentifier) GetIei() (iei uint8) { return a.Iei }
-func (a *N3IWFIdentifier) SetIei(iei uint8)    { a.Iei = iei }
-func (a *N3IWFIdentifier) GetLen() (len uint8) { return a.Len }
-func (a *N3IWFIdentifier) SetLen(len uint8) {
-	a.Len = len
+func (a *N3IWFIdentifier) GetIei() (iei uint8)    { return a.Iei }
+func (a *N3IWFIdentifier) SetIei(iei uint8)       { a.Iei = iei }
+func (a *N3IWFIdentifier) GetLen() (length uint8) { return a.Len }
+func (a *N3IWFIdentifier) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

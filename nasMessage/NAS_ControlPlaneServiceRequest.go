@@ -47,69 +47,141 @@ const (
 )
 
 func (a *ControlPlaneServiceRequest) EncodeControlPlaneServiceRequest(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.CONTROLPLANESERVICEREQUESTMessageIdentity.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.ControlPlaneServiceTypeAndNgksi.Octet)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.CONTROLPLANESERVICEREQUESTMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.ControlPlaneServiceTypeAndNgksi.Octet); err != nil {
+		return
+	}
 	if a.PDUSessionStatus != nil {
-		binary.Write(buffer, binary.BigEndian, a.PDUSessionStatus.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.PDUSessionStatus.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.PDUSessionStatus.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.PDUSessionStatus.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.PDUSessionStatus.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.PDUSessionStatus.Buffer); err != nil {
+			return
+		}
 	}
 	if a.UplinkDataStatus != nil {
-		binary.Write(buffer, binary.BigEndian, a.UplinkDataStatus.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.UplinkDataStatus.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.UplinkDataStatus.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.UplinkDataStatus.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.UplinkDataStatus.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.UplinkDataStatus.Buffer); err != nil {
+			return
+		}
 	}
 	if a.NASMessageContainer != nil {
-		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.NASMessageContainer.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.NASMessageContainer.Buffer); err != nil {
+			return
+		}
 	}
 	if a.AllowedPDUSessionStatus != nil {
-		binary.Write(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.AllowedPDUSessionStatus.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.AllowedPDUSessionStatus.Buffer); err != nil {
+			return
+		}
 	}
 	if a.UERequestType != nil {
-		binary.Write(buffer, binary.BigEndian, a.UERequestType.GetIei())
-		binary.Write(buffer, binary.BigEndian, uint8(a.UERequestType.GetLen()))
-		binary.Write(buffer, binary.BigEndian, a.UERequestType.Buffer[:uint8(a.UERequestType.GetLen())])
+		if err := binary.Write(buffer, binary.BigEndian, a.UERequestType.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, uint8(a.UERequestType.GetLen())); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.UERequestType.Buffer[:uint8(a.UERequestType.GetLen())]); err != nil {
+			return
+		}
 	}
 	if a.PagingRestriction != nil {
-		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.GetIei())
-		binary.Write(buffer, binary.BigEndian, uint8(a.PagingRestriction.GetLen()))
-		binary.Write(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:uint8(a.PagingRestriction.GetLen())])
+		if err := binary.Write(buffer, binary.BigEndian, a.PagingRestriction.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, uint8(a.PagingRestriction.GetLen())); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:uint8(a.PagingRestriction.GetLen())]); err != nil {
+			return
+		}
 	}
 	if a.CIoTSmallDataContainer != nil {
-		binary.Write(buffer, binary.BigEndian, a.CIoTSmallDataContainer.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.CIoTSmallDataContainer.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.CIoTSmallDataContainer.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.CIoTSmallDataContainer.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.CIoTSmallDataContainer.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.CIoTSmallDataContainer.Buffer); err != nil {
+			return
+		}
 	}
 	if a.PduSessionID2Value != nil {
-		binary.Write(buffer, binary.BigEndian, a.PduSessionID2Value.GetIei())
-		binary.Write(buffer, binary.BigEndian, &a.PduSessionID2Value.Octet)
+		if err := binary.Write(buffer, binary.BigEndian, a.PduSessionID2Value.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.PduSessionID2Value.Octet); err != nil {
+			return
+		}
 	}
 	if a.AdditionalInformation != nil {
-		binary.Write(buffer, binary.BigEndian, a.AdditionalInformation.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.AdditionalInformation.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.AdditionalInformation.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.AdditionalInformation.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.AdditionalInformation.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.AdditionalInformation.Buffer); err != nil {
+			return
+		}
 	}
 	if a.ReleaseAssistanceIndication != nil {
-		binary.Write(buffer, binary.BigEndian, &a.ReleaseAssistanceIndication.Octet)
+		if err := binary.Write(buffer, binary.BigEndian, &a.ReleaseAssistanceIndication.Octet); err != nil {
+			return
+		}
 	}
 }
 
 func (a *ControlPlaneServiceRequest) DecodeControlPlaneServiceRequest(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.CONTROLPLANESERVICEREQUESTMessageIdentity.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.ControlPlaneServiceTypeAndNgksi.Octet)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.CONTROLPLANESERVICEREQUESTMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.ControlPlaneServiceTypeAndNgksi.Octet); err != nil {
+		return
+	}
 	for buffer.Len() > 0 {
 		var ieiN uint8
 		var tmpIeiN uint8
-		binary.Read(buffer, binary.BigEndian, &ieiN)
+		if err := binary.Read(buffer, binary.BigEndian, &ieiN); err != nil {
+			return
+		}
 		if ieiN >= 0x80 {
 			tmpIeiN = (ieiN & 0xf0) >> 4
 		} else {
@@ -118,49 +190,83 @@ func (a *ControlPlaneServiceRequest) DecodeControlPlaneServiceRequest(byteArray 
 		switch tmpIeiN {
 		case ControlPlaneServiceRequestPDUSessionStatusType:
 			a.PDUSessionStatus = nasType.NewPDUSessionStatus(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.PDUSessionStatus.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.PDUSessionStatus.Len); err != nil {
+				return
+			}
 			a.PDUSessionStatus.SetLen(a.PDUSessionStatus.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.PDUSessionStatus.Buffer)
+			if err := binary.Read(buffer, binary.BigEndian, a.PDUSessionStatus.Buffer); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestUplinkDataStatusType:
 			a.UplinkDataStatus = nasType.NewUplinkDataStatus(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.UplinkDataStatus.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.UplinkDataStatus.Len); err != nil {
+				return
+			}
 			a.UplinkDataStatus.SetLen(a.UplinkDataStatus.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.UplinkDataStatus.Buffer)
+			if err := binary.Read(buffer, binary.BigEndian, a.UplinkDataStatus.Buffer); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestNASMessageContainerType:
 			a.NASMessageContainer = nasType.NewNASMessageContainer(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Len); err != nil {
+				return
+			}
 			a.NASMessageContainer.SetLen(a.NASMessageContainer.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.NASMessageContainer.Buffer)
+			if err := binary.Read(buffer, binary.BigEndian, a.NASMessageContainer.Buffer); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestAllowedPDUSessionStatusType:
 			a.AllowedPDUSessionStatus = nasType.NewAllowedPDUSessionStatus(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.AllowedPDUSessionStatus.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.AllowedPDUSessionStatus.Len); err != nil {
+				return
+			}
 			a.AllowedPDUSessionStatus.SetLen(a.AllowedPDUSessionStatus.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.Buffer)
+			if err := binary.Read(buffer, binary.BigEndian, a.AllowedPDUSessionStatus.Buffer); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestUERequestTypeType:
 			a.UERequestType = nasType.NewUERequestType(ieiN)
 			var lenN0 uint8
-			binary.Read(buffer, binary.BigEndian, &lenN0)
+			if err := binary.Read(buffer, binary.BigEndian, &lenN0); err != nil {
+				return
+			}
 			a.UERequestType.SetLen(uint16(lenN0))
-			binary.Read(buffer, binary.BigEndian, a.UERequestType.Buffer[:lenN0])
+			if err := binary.Read(buffer, binary.BigEndian, a.UERequestType.Buffer[:lenN0]); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestPagingRestrictionType:
 			a.PagingRestriction = nasType.NewPagingRestriction(ieiN)
 			var lenN1 uint8
-			binary.Read(buffer, binary.BigEndian, &lenN1)
+			if err := binary.Read(buffer, binary.BigEndian, &lenN1); err != nil {
+				return
+			}
 			a.PagingRestriction.SetLen(uint16(lenN1))
-			binary.Read(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:lenN1])
+			if err := binary.Read(buffer, binary.BigEndian, a.PagingRestriction.Buffer[:lenN1]); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestCIoTSmallDataContainerType:
 			a.CIoTSmallDataContainer = nasType.NewCIoTSmallDataContainer(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.CIoTSmallDataContainer.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.CIoTSmallDataContainer.Len); err != nil {
+				return
+			}
 			a.CIoTSmallDataContainer.SetLen(a.CIoTSmallDataContainer.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.CIoTSmallDataContainer.Buffer[:a.CIoTSmallDataContainer.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.CIoTSmallDataContainer.Buffer[:a.CIoTSmallDataContainer.GetLen()]); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestPduSessionIDType:
 			a.PduSessionID2Value = nasType.NewPduSessionID2Value(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.PduSessionID2Value.Octet)
+			if err := binary.Read(buffer, binary.BigEndian, &a.PduSessionID2Value.Octet); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestAdditionalInformationType:
 			a.AdditionalInformation = nasType.NewAdditionalInformation(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.AdditionalInformation.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.AdditionalInformation.Len); err != nil {
+				return
+			}
 			a.AdditionalInformation.SetLen(a.AdditionalInformation.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.AdditionalInformation.Buffer[:a.AdditionalInformation.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.AdditionalInformation.Buffer[:a.AdditionalInformation.GetLen()]); err != nil {
+				return
+			}
 		case ControlPlaneServiceRequestReleaseAssistanceIndicationType:
 			a.ReleaseAssistanceIndication = nasType.NewReleaseAssistanceIndication(ieiN)
 			a.ReleaseAssistanceIndication.Octet = ieiN

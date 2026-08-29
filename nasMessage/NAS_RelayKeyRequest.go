@@ -25,21 +25,45 @@ func NewRelayKeyRequest(iei uint8) (relayKeyRequest *RelayKeyRequest) {
 }
 
 func (a *RelayKeyRequest) EncodeRelayKeyRequest(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.RELAYKEYREQUESTMessageIdentity.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.ProSeRelayTransactionIdentity.Octet)
-	binary.Write(buffer, binary.BigEndian, a.RelayKeyRequestParameters.GetLen())
-	binary.Write(buffer, binary.BigEndian, &a.RelayKeyRequestParameters.Buffer)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.RELAYKEYREQUESTMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.ProSeRelayTransactionIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, a.GetLen()); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.Buffer); err != nil {
+		return
+	}
 }
 
 func (a *RelayKeyRequest) DecodeRelayKeyRequest(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.RELAYKEYREQUESTMessageIdentity.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.ProSeRelayTransactionIdentity.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.RelayKeyRequestParameters.Len)
-	a.RelayKeyRequestParameters.SetLen(a.RelayKeyRequestParameters.GetLen())
-	binary.Read(buffer, binary.BigEndian, &a.RelayKeyRequestParameters.Buffer)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.RELAYKEYREQUESTMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.ProSeRelayTransactionIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.Len); err != nil {
+		return
+	}
+	a.SetLen(a.GetLen())
+	if err := binary.Read(buffer, binary.BigEndian, &a.Buffer); err != nil {
+		return
+	}
 }

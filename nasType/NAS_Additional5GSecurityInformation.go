@@ -34,14 +34,14 @@ func (a *Additional5GSecurityInformation) SetIei(iei uint8) {
 
 // Additional5GSecurityInformation 9.11.3.12
 // Len Row, sBit, len = [], 8, 8
-func (a *Additional5GSecurityInformation) GetLen() (len uint8) {
+func (a *Additional5GSecurityInformation) GetLen() (n uint8) {
 	return a.Len
 }
 
 // Additional5GSecurityInformation 9.11.3.12
 // Len Row, sBit, len = [], 8, 8
-func (a *Additional5GSecurityInformation) SetLen(len uint8) {
-	a.Len = len
+func (a *Additional5GSecurityInformation) SetLen(n uint8) {
+	a.Len = n
 }
 
 // Additional5GSecurityInformation 9.11.3.12

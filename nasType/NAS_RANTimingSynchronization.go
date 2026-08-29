@@ -16,11 +16,11 @@ func NewRANTimingSynchronization(iei uint8) (x *RANTimingSynchronization) {
 	return x
 }
 
-func (a *RANTimingSynchronization) GetIei() (iei uint8) { return a.Iei }
-func (a *RANTimingSynchronization) SetIei(iei uint8)    { a.Iei = iei }
-func (a *RANTimingSynchronization) GetLen() (len uint8) { return a.Len }
-func (a *RANTimingSynchronization) SetLen(len uint8) {
-	a.Len = len
+func (a *RANTimingSynchronization) GetIei() (iei uint8)    { return a.Iei }
+func (a *RANTimingSynchronization) SetIei(iei uint8)       { a.Iei = iei }
+func (a *RANTimingSynchronization) GetLen() (length uint8) { return a.Len }
+func (a *RANTimingSynchronization) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

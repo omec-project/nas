@@ -99,10 +99,10 @@ func TestNasTypeNewPDUSessionModificationRequestMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.PDUSessionID.SetPDUSessionID(table.inPDUSessionID)
-		a.PTI.SetPTI(table.inPTI)
-		a.PDUSESSIONMODIFICATIONREQUESTMessageIdentity.SetMessageType(table.inPDUSessionModificationRequestMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetPDUSessionID(table.inPDUSessionID)
+		a.SetPTI(table.inPTI)
+		a.SetMessageType(table.inPDUSessionModificationRequestMessageIdentity)
 
 		a.Capability5GSM = nasType.NewCapability5GSM(nasMessage.PDUSessionModificationRequestCapability5GSMType)
 		a.Capability5GSM = &table.inCapability5GSM
@@ -136,7 +136,9 @@ func TestNasTypeNewPDUSessionModificationRequestMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodePDUSessionModificationRequest(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
@@ -144,6 +146,5 @@ func TestNasTypeNewPDUSessionModificationRequestMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

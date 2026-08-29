@@ -57,7 +57,6 @@ var SecurityModeRejectMessageIdentityTable = []SecurityModeRejectMessageIdentity
 
 func TestNasTypeSecurityModeRejectMessageIdentity(t *testing.T) {
 	for _, table := range SecurityModeRejectMessageIdentityTable {
-
 		a := nasType.NewSecurityModeRejectMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

@@ -16,11 +16,11 @@ func NewTNANInformation(iei uint8) (x *TNANInformation) {
 	return x
 }
 
-func (a *TNANInformation) GetIei() (iei uint8) { return a.Iei }
-func (a *TNANInformation) SetIei(iei uint8)    { a.Iei = iei }
-func (a *TNANInformation) GetLen() (len uint8) { return a.Len }
-func (a *TNANInformation) SetLen(len uint8) {
-	a.Len = len
+func (a *TNANInformation) GetIei() (iei uint8)    { return a.Iei }
+func (a *TNANInformation) SetIei(iei uint8)       { a.Iei = iei }
+func (a *TNANInformation) GetLen() (length uint8) { return a.Len }
+func (a *TNANInformation) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

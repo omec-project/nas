@@ -57,7 +57,6 @@ var RegistrationCompleteMessageIdentityTable = []RegistrationCompleteMessageIden
 
 func TestNasTypeRegistrationCompleteMessageIdentity(t *testing.T) {
 	for _, table := range RegistrationCompleteMessageIdentityTable {
-
 		a := nasType.NewRegistrationCompleteMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

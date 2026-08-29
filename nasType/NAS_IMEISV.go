@@ -51,14 +51,14 @@ func (a *IMEISV) SetIei(iei uint8) {
 
 // IMEISV 9.11.3.4
 // Len Row, sBit, len = [], 8, 16
-func (a *IMEISV) GetLen() (len uint16) {
+func (a *IMEISV) GetLen() (length uint16) {
 	return a.Len
 }
 
 // IMEISV 9.11.3.4
 // Len Row, sBit, len = [], 8, 16
-func (a *IMEISV) SetLen(len uint16) {
-	a.Len = len
+func (a *IMEISV) SetLen(length uint16) {
+	a.Len = length
 }
 
 // IMEISV 9.11.3.4

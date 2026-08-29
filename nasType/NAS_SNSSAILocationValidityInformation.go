@@ -16,11 +16,11 @@ func NewSNSSAILocationValidityInformation(iei uint8) (x *SNSSAILocationValidityI
 	return x
 }
 
-func (a *SNSSAILocationValidityInformation) GetIei() (iei uint8) { return a.Iei }
-func (a *SNSSAILocationValidityInformation) SetIei(iei uint8)    { a.Iei = iei }
-func (a *SNSSAILocationValidityInformation) GetLen() (len uint8) { return a.Len }
-func (a *SNSSAILocationValidityInformation) SetLen(len uint8) {
-	a.Len = len
+func (a *SNSSAILocationValidityInformation) GetIei() (iei uint8)    { return a.Iei }
+func (a *SNSSAILocationValidityInformation) SetIei(iei uint8)       { a.Iei = iei }
+func (a *SNSSAILocationValidityInformation) GetLen() (length uint8) { return a.Len }
+func (a *SNSSAILocationValidityInformation) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

@@ -57,7 +57,6 @@ var PTITable = []PTITestDataTemplate{
 
 func TestNasTypePTI(t *testing.T) {
 	for _, table := range PTITable {
-
 		a := nasType.NewPTI()
 
 		a.SetPTI(table.in.GetPTI())

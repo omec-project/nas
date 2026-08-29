@@ -57,7 +57,6 @@ var PDUSESSIONRELEASEREQUESTMessageIdentityTable = []PDUSESSIONRELEASEREQUESTMes
 
 func TestNasTypePDUSESSIONRELEASEREQUESTMessageIdentity(t *testing.T) {
 	for _, table := range PDUSESSIONRELEASEREQUESTMessageIdentityTable {
-
 		a := nasType.NewPDUSESSIONRELEASEREQUESTMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

@@ -57,7 +57,6 @@ var SequenceNumberTable = []SequenceNumberTestDataTemplate{
 
 func TestNasTypeSequenceNumber(t *testing.T) {
 	for _, table := range SequenceNumberTable {
-
 		a := nasType.NewSequenceNumber()
 
 		a.SetSQN(table.in.GetSQN())

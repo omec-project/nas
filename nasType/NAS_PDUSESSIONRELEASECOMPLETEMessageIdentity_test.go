@@ -57,7 +57,6 @@ var PDUSESSIONRELEASECOMPLETEMessageIdentityTable = []PDUSESSIONRELEASECOMPLETEM
 
 func TestNasTypePDUSESSIONRELEASECOMPLETEMessageIdentity(t *testing.T) {
 	for _, table := range PDUSESSIONRELEASECOMPLETEMessageIdentityTable {
-
 		a := nasType.NewPDUSESSIONRELEASECOMPLETEMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

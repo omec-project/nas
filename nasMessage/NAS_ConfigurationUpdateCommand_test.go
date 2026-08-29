@@ -142,10 +142,10 @@ func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeaderType)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
-		a.ConfigurationUpdateCommandMessageIdentity.SetMessageType(table.inConfigurationUpdateCommandMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeaderType)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetMessageType(table.inConfigurationUpdateCommandMessageIdentity)
 
 		a.ConfigurationUpdateIndication = nasType.NewConfigurationUpdateIndication(nasMessage.ConfigurationUpdateCommandConfigurationUpdateIndicationType)
 		a.ConfigurationUpdateIndication = &table.inConfigurationUpdateIndication
@@ -203,7 +203,9 @@ func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodeConfigurationUpdateCommand(&data)
 		logger.NasMsgLog.Debugln("Dncode: ", b)
@@ -211,7 +213,6 @@ func TestNasTypeNewConfigurationUpdateCommandMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }
 
@@ -225,10 +226,10 @@ func TestConfigurationUpdateCommandNewIEsEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.ConfigurationUpdateCommandMessageIdentity.SetMessageType(nas.MsgTypeConfigurationUpdateCommand)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(nas.MsgTypeConfigurationUpdateCommand)
 
 	a.UERadioCapabilityID = nasType.NewUERadioCapabilityID(nasMessage.ConfigurationUpdateCommandUERadioCapabilityIDType)
 	a.UERadioCapabilityID.SetLen(3)
@@ -243,7 +244,7 @@ func TestConfigurationUpdateCommandNewIEsEncodeDecode(t *testing.T) {
 	copy(a.ExtendedLADNInformation.Buffer, []byte{0xAA, 0xBB, 0xCC, 0xDD, 0xEE})
 
 	a.UERadioCapabilityIDDeletionIndicationIE = nasType.NewUERadioCapabilityIDDeletionIndicationIE(nasMessage.ConfigurationUpdateCommandUERadioCapabilityIDDeletionIndicationType)
-	a.UERadioCapabilityIDDeletionIndicationIE.SetDeletionIndicationValue(0x01)
+	a.SetDeletionIndicationValue(0x01)
 
 	a.DisasterReturnWaitRange = nasType.NewRegistrationWaitRange(nasMessage.ConfigurationUpdateCommandDisasterReturnWaitRangeType)
 	a.DisasterReturnWaitRange.SetLen(2)
@@ -258,7 +259,9 @@ func TestConfigurationUpdateCommandNewIEsEncodeDecode(t *testing.T) {
 	logger.NasMsgLog.Debugln("Encode: ", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeConfigurationUpdateCommand(&data)
 	logger.NasMsgLog.Debugln("Decode: ", b)
 
@@ -277,24 +280,24 @@ func TestConfigurationUpdateCommandRel1718IEsEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.ConfigurationUpdateCommandMessageIdentity.SetMessageType(nas.MsgTypeConfigurationUpdateCommand)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(nas.MsgTypeConfigurationUpdateCommand)
 
 	a.RegistrationResult5GS = nasType.NewRegistrationResult5GS(nasMessage.ConfigurationUpdateCommandRegistrationResult5GSType)
 	a.RegistrationResult5GS.SetLen(1)
 	a.RegistrationResult5GS.Octet = 0x01
 
 	a.AdditionalConfigurationIndication = nasType.NewAdditionalConfigurationIndication(nasMessage.ConfigurationUpdateCommandAdditionalConfigurationIndicationType)
-	a.AdditionalConfigurationIndication.SetSCMR(0x01)
+	a.SetSCMR(0x01)
 
 	a.UpdatedPEIPSAssistanceInformation = nasType.NewUpdatedPEIPSAssistanceInformation(nasMessage.ConfigurationUpdateCommandUpdatedPEIPSAssistanceInformationType)
 	a.UpdatedPEIPSAssistanceInformation.SetLen(2)
 	copy(a.UpdatedPEIPSAssistanceInformation.Buffer, []byte{0xAA, 0xBB})
 
 	a.PriorityIndicator = nasType.NewPriorityIndicator(nasMessage.ConfigurationUpdateCommandPriorityIndicatorType)
-	a.PriorityIndicator.SetMPSI(0x01)
+	a.SetMPSI(0x01)
 
 	a.RANTimingSynchronization = nasType.NewRANTimingSynchronization(nasMessage.ConfigurationUpdateCommandRANTimingSynchronizationType)
 	a.RANTimingSynchronization.SetLen(2)
@@ -305,7 +308,9 @@ func TestConfigurationUpdateCommandRel1718IEsEncodeDecode(t *testing.T) {
 	logger.NasMsgLog.Debugln("Encode: ", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeConfigurationUpdateCommand(&data)
 	logger.NasMsgLog.Debugln("Decode: ", b)
 

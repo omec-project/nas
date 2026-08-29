@@ -20,10 +20,10 @@ func NewFivegsmcongestionreattemptindicator(iei uint8) (x *Fivegsmcongestionreat
 	return x
 }
 
-func (a *Fivegsmcongestionreattemptindicator) GetIei() (iei uint8) { return a.Iei }
-func (a *Fivegsmcongestionreattemptindicator) SetIei(iei uint8)    { a.Iei = iei }
-func (a *Fivegsmcongestionreattemptindicator) GetLen() (len uint8) { return a.Len }
-func (a *Fivegsmcongestionreattemptindicator) SetLen(len uint8)    { a.Len = len }
+func (a *Fivegsmcongestionreattemptindicator) GetIei() (iei uint8)    { return a.Iei }
+func (a *Fivegsmcongestionreattemptindicator) SetIei(iei uint8)       { a.Iei = iei }
+func (a *Fivegsmcongestionreattemptindicator) GetLen() (length uint8) { return a.Len }
+func (a *Fivegsmcongestionreattemptindicator) SetLen(length uint8)    { a.Len = length }
 func (a *Fivegsmcongestionreattemptindicator) GetCATBO() uint8 {
 	return a.Octet & GetBitMask(2, 1) >> 1
 }

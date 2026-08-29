@@ -25,12 +25,12 @@ func (a *NID) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *NID) GetLen() (len uint16) {
+func (a *NID) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *NID) SetLen(len uint16) {
-	a.Len = len
+func (a *NID) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

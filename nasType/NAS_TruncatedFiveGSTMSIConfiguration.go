@@ -25,12 +25,12 @@ func (a *TruncatedFiveGSTMSIConfiguration) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *TruncatedFiveGSTMSIConfiguration) GetLen() (len uint16) {
+func (a *TruncatedFiveGSTMSIConfiguration) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *TruncatedFiveGSTMSIConfiguration) SetLen(len uint16) {
-	a.Len = len
+func (a *TruncatedFiveGSTMSIConfiguration) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

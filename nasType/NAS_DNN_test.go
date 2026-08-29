@@ -105,6 +105,5 @@ func TestNasTypeDNN(t *testing.T) {
 		}
 		t.Log(table.out.Buffer, a.Buffer, "in(%v): out %v, actual %x", table.in.Buffer, table.out.Buffer, a.Buffer)
 		t.Log(a.Len)
-
 	}
 }

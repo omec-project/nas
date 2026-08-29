@@ -34,14 +34,14 @@ func (a *T3512Value) SetIei(iei uint8) {
 
 // T3512Value 9.11.2.5
 // Len Row, sBit, len = [], 8, 8
-func (a *T3512Value) GetLen() (len uint8) {
+func (a *T3512Value) GetLen() (length uint8) {
 	return a.Len
 }
 
 // T3512Value 9.11.2.5
 // Len Row, sBit, len = [], 8, 8
-func (a *T3512Value) SetLen(len uint8) {
-	a.Len = len
+func (a *T3512Value) SetLen(length uint8) {
+	a.Len = length
 }
 
 // T3512Value 9.11.2.5

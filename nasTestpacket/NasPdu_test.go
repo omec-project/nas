@@ -205,31 +205,31 @@ func validateSecurityModeCompleteMessage(t *testing.T, result []byte, expectedCo
 		t.Fatalf("Failed to decode Security Mode Complete: %v", err)
 	}
 
-	if message.GmmMessage == nil || message.GmmMessage.SecurityModeComplete == nil {
+	if message.GmmMessage == nil || message.SecurityModeComplete == nil {
 		t.Fatal("Decoded message does not contain Security Mode Complete")
 	}
 
-	securityModeComplete := message.GmmMessage.SecurityModeComplete
+	securityModeComplete := message.SecurityModeComplete
 
 	// Validate Extended Protocol Discriminator (should be 0x7E for 5GS MM)
-	if securityModeComplete.ExtendedProtocolDiscriminator.GetExtendedProtocolDiscriminator() !=
+	if securityModeComplete.GetExtendedProtocolDiscriminator() !=
 		nasMessage.Epd5GSMobilityManagementMessage {
 		t.Errorf("Invalid Extended Protocol Discriminator: expected 0x%02X, got 0x%02X",
 			nasMessage.Epd5GSMobilityManagementMessage,
-			securityModeComplete.ExtendedProtocolDiscriminator.GetExtendedProtocolDiscriminator())
+			securityModeComplete.GetExtendedProtocolDiscriminator())
 	}
 
 	// Validate Security Header Type (should be 0x00 for plain NAS)
-	securityHeaderType := securityModeComplete.SpareHalfOctetAndSecurityHeaderType.GetSecurityHeaderType()
+	securityHeaderType := securityModeComplete.GetSecurityHeaderType()
 	if securityHeaderType != 0x00 {
 		t.Errorf("Invalid Security Header Type: expected 0x00, got 0x%02X", securityHeaderType)
 	}
 
 	// Validate Message Type (should be 0x5E for Security Mode Complete)
-	if securityModeComplete.SecurityModeCompleteMessageIdentity.GetMessageType() != nas.MsgTypeSecurityModeComplete {
+	if securityModeComplete.GetMessageType() != nas.MsgTypeSecurityModeComplete {
 		t.Errorf("Invalid Message Type: expected 0x%02X, got 0x%02X",
 			nas.MsgTypeSecurityModeComplete,
-			securityModeComplete.SecurityModeCompleteMessageIdentity.GetMessageType())
+			securityModeComplete.GetMessageType())
 	}
 
 	if validateIMEISV {
@@ -250,9 +250,9 @@ func validateSecurityModeCompleteMessage(t *testing.T, result []byte, expectedCo
 				len(expectedContainer), securityModeComplete.NASMessageContainer.GetLen())
 		}
 
-		if !bytes.Equal(securityModeComplete.NASMessageContainer.GetNASMessageContainerContents(), expectedContainer) {
+		if !bytes.Equal(securityModeComplete.GetNASMessageContainerContents(), expectedContainer) {
 			t.Errorf("NAS message container contents mismatch: expected %x, got %x",
-				expectedContainer, securityModeComplete.NASMessageContainer.GetNASMessageContainerContents())
+				expectedContainer, securityModeComplete.GetNASMessageContainerContents())
 		}
 	}
 }

@@ -16,16 +16,17 @@ linters:
   enable:
     - asciicheck
     - dogsled
+    - govet
     - goconst
     - godox
+    - gomodguard_v2
     - misspell
     - nakedret
     - noctx
-    - unconvert
-  disable:
-    - errcheck
-    - govet
+    - predeclared
     - staticcheck
+    - unconvert
+    - whitespace
   settings:
     errcheck:
       check-type-assertions: false
@@ -59,6 +60,8 @@ linters:
         - XXX
     govet:
       enable-all: true
+      disable:
+        - fieldalignment
       settings:
         printf:
           funcs:
