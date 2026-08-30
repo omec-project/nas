@@ -31,32 +31,62 @@ const (
 )
 
 func (a *RemoteUEReport) EncodeRemoteUEReport(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.PDUSessionID.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.PTI.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.REMOTEUEREPORTMessageIdentity.Octet)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.PDUSessionID.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.PTI.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.REMOTEUEREPORTMessageIdentity.Octet); err != nil {
+		return
+	}
 	if a.RemoteUEContextList != nil {
-		binary.Write(buffer, binary.BigEndian, a.RemoteUEContextList.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.RemoteUEContextList.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.RemoteUEContextList.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.Buffer); err != nil {
+			return
+		}
 	}
 	if a.RemoteUEContextDisconnected != nil {
-		binary.Write(buffer, binary.BigEndian, a.RemoteUEContextDisconnected.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.RemoteUEContextDisconnected.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.RemoteUEContextDisconnected.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.RemoteUEContextDisconnected.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.RemoteUEContextDisconnected.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.RemoteUEContextDisconnected.Buffer); err != nil {
+			return
+		}
 	}
 }
 
 func (a *RemoteUEReport) DecodeRemoteUEReport(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.PDUSessionID.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.PTI.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.REMOTEUEREPORTMessageIdentity.Octet)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.PDUSessionID.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.PTI.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.REMOTEUEREPORTMessageIdentity.Octet); err != nil {
+		return
+	}
 	for buffer.Len() > 0 {
 		var ieiN uint8
 		var tmpIeiN uint8
-		binary.Read(buffer, binary.BigEndian, &ieiN)
+		if err := binary.Read(buffer, binary.BigEndian, &ieiN); err != nil {
+			return
+		}
 		if ieiN >= 0x80 {
 			tmpIeiN = (ieiN & 0xf0) >> 4
 		} else {
@@ -65,14 +95,22 @@ func (a *RemoteUEReport) DecodeRemoteUEReport(byteArray *[]byte) {
 		switch tmpIeiN {
 		case RemoteUEReportRemoteUEContextConnectedType:
 			a.RemoteUEContextList = nasType.NewRemoteUEContextList(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.RemoteUEContextList.Len)
-			a.RemoteUEContextList.SetLen(a.RemoteUEContextList.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.RemoteUEContextList.Buffer)
+			if err := binary.Read(buffer, binary.BigEndian, &a.Len); err != nil {
+				return
+			}
+			a.SetLen(a.GetLen())
+			if err := binary.Read(buffer, binary.BigEndian, a.Buffer); err != nil {
+				return
+			}
 		case RemoteUEReportRemoteUEContextDisconnectedType:
 			a.RemoteUEContextDisconnected = nasType.NewRemoteUEContextList(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.RemoteUEContextDisconnected.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.RemoteUEContextDisconnected.Len); err != nil {
+				return
+			}
 			a.RemoteUEContextDisconnected.SetLen(a.RemoteUEContextDisconnected.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.RemoteUEContextDisconnected.Buffer)
+			if err := binary.Read(buffer, binary.BigEndian, a.RemoteUEContextDisconnected.Buffer); err != nil {
+				return
+			}
 		default:
 		}
 	}

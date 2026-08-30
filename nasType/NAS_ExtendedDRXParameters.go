@@ -25,12 +25,12 @@ func (a *ExtendedDRXParameters) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *ExtendedDRXParameters) GetLen() (len uint16) {
+func (a *ExtendedDRXParameters) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *ExtendedDRXParameters) SetLen(len uint16) {
-	a.Len = len
+func (a *ExtendedDRXParameters) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

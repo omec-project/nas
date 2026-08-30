@@ -73,10 +73,10 @@ func TestNasTypeNewPDUSessionReleaseCommandMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.PDUSessionID.SetPDUSessionID(table.inPDUSessionID)
-		a.PTI.SetPTI(table.inPTI)
-		a.PDUSESSIONRELEASECOMMANDMessageIdentity.SetMessageType(table.inPDUSessionReleaseCommandMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetPDUSessionID(table.inPDUSessionID)
+		a.SetPTI(table.inPTI)
+		a.SetMessageType(table.inPDUSessionReleaseCommandMessageIdentity)
 
 		a.Cause5GSM = table.inCause5GSM
 
@@ -94,7 +94,9 @@ func TestNasTypeNewPDUSessionReleaseCommandMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodePDUSessionReleaseCommand(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
@@ -103,6 +105,5 @@ func TestNasTypeNewPDUSessionReleaseCommandMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

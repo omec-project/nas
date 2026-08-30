@@ -106,6 +106,5 @@ func TestNasTypeIntegrityProtectionMaximumDataRate(t *testing.T) {
 		if !reflect.DeepEqual(table.outMaximumDataRatePerUEForUserPlaneIntegrityProtectionForDownLink, a.GetMaximumDataRatePerUEForUserPlaneIntegrityProtectionForDownLink()) {
 			t.Errorf("in(%v): out %v, actual %x", table.inMaximumDataRatePerUEForUserPlaneIntegrityProtectionForDownLink, table.outMaximumDataRatePerUEForUserPlaneIntegrityProtectionForDownLink, a.GetMaximumDataRatePerUEForUserPlaneIntegrityProtectionForDownLink())
 		}
-
 	}
 }

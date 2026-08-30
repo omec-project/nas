@@ -31,14 +31,14 @@ func (a *ServiceLevelAAContainer) SetIei(iei uint8) {
 
 // ServiceLevelAAContainer 9.11.2.10
 // Len Row, sBit, len = [], 8, 16
-func (a *ServiceLevelAAContainer) GetLen() (len uint16) {
+func (a *ServiceLevelAAContainer) GetLen() (length uint16) {
 	return a.Len
 }
 
 // ServiceLevelAAContainer 9.11.2.10
 // Len Row, sBit, len = [], 8, 16
-func (a *ServiceLevelAAContainer) SetLen(len uint16) {
-	a.Len = len
+func (a *ServiceLevelAAContainer) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

@@ -19,10 +19,10 @@ func NewEthernetHeaderCompressionConfiguration(iei uint8) (x *EthernetHeaderComp
 	return x
 }
 
-func (a *EthernetHeaderCompressionConfiguration) GetIei() (iei uint8) { return a.Iei }
-func (a *EthernetHeaderCompressionConfiguration) SetIei(iei uint8)    { a.Iei = iei }
-func (a *EthernetHeaderCompressionConfiguration) GetLen() (len uint8) { return a.Len }
-func (a *EthernetHeaderCompressionConfiguration) SetLen(len uint8)    { a.Len = len }
+func (a *EthernetHeaderCompressionConfiguration) GetIei() (iei uint8)    { return a.Iei }
+func (a *EthernetHeaderCompressionConfiguration) SetIei(iei uint8)       { a.Iei = iei }
+func (a *EthernetHeaderCompressionConfiguration) GetLen() (length uint8) { return a.Len }
+func (a *EthernetHeaderCompressionConfiguration) SetLen(length uint8)    { a.Len = length }
 func (a *EthernetHeaderCompressionConfiguration) GetCIDLen() (cidLen uint8) {
 	return a.Octet & GetBitMask(2, 0)
 }

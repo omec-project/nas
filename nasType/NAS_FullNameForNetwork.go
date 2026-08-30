@@ -37,14 +37,14 @@ func (a *FullNameForNetwork) SetIei(iei uint8) {
 
 // FullNameForNetwork 9.11.3.35
 // Len Row, sBit, len = [], 8, 8
-func (a *FullNameForNetwork) GetLen() (len uint8) {
+func (a *FullNameForNetwork) GetLen() (length uint8) {
 	return a.Len
 }
 
 // FullNameForNetwork 9.11.3.35
 // Len Row, sBit, len = [], 8, 8
-func (a *FullNameForNetwork) SetLen(len uint8) {
-	a.Len = len
+func (a *FullNameForNetwork) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

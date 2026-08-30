@@ -104,6 +104,5 @@ func TestNasTypeRequestedNSSAI(t *testing.T) {
 		if !reflect.DeepEqual(table.out.Buffer, a.Buffer) {
 			t.Errorf("in(%v): out %v, actual %x", table.in.Buffer, table.out.Buffer, a.Buffer)
 		}
-
 	}
 }

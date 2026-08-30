@@ -25,23 +25,51 @@ func NewNetworkSliceSpecificAuthenticationCommand(iei uint8) (networkSliceSpecif
 }
 
 func (a *NetworkSliceSpecificAuthenticationCommand) EncodeNetworkSliceSpecificAuthenticationCommand(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.NETWORKSLICESPECIFICAUTHENTICATIONCOMMANDMessageIdentity.Octet)
-	binary.Write(buffer, binary.BigEndian, a.SNSSAI.GetLen())
-	binary.Write(buffer, binary.BigEndian, a.SNSSAI.Octet[:a.SNSSAI.GetLen()])
-	binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetLen())
-	binary.Write(buffer, binary.BigEndian, &a.EAPMessage.Buffer)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.NETWORKSLICESPECIFICAUTHENTICATIONCOMMANDMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, a.SNSSAI.GetLen()); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, a.SNSSAI.Octet[:a.SNSSAI.GetLen()]); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetLen()); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.Buffer); err != nil {
+		return
+	}
 }
 
 func (a *NetworkSliceSpecificAuthenticationCommand) DecodeNetworkSliceSpecificAuthenticationCommand(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.NETWORKSLICESPECIFICAUTHENTICATIONCOMMANDMessageIdentity.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SNSSAI.Len)
-	binary.Read(buffer, binary.BigEndian, a.SNSSAI.Octet[:a.SNSSAI.GetLen()])
-	binary.Read(buffer, binary.BigEndian, &a.EAPMessage.Len)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.NETWORKSLICESPECIFICAUTHENTICATIONCOMMANDMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SNSSAI.Len); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, a.SNSSAI.Octet[:a.SNSSAI.GetLen()]); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.EAPMessage.Len); err != nil {
+		return
+	}
 	a.EAPMessage.SetLen(a.EAPMessage.GetLen())
-	binary.Read(buffer, binary.BigEndian, &a.EAPMessage.Buffer)
+	if err := binary.Read(buffer, binary.BigEndian, &a.Buffer); err != nil {
+		return
+	}
 }

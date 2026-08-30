@@ -22,8 +22,8 @@ func NewAUN3Indication(iei uint8) (x *AUN3Indication) {
 
 func (a *AUN3Indication) GetIei() (iei uint8) { return a.Iei }
 func (a *AUN3Indication) SetIei(iei uint8)    { a.Iei = iei }
-func (a *AUN3Indication) GetLen() (len uint8) { return a.Len }
-func (a *AUN3Indication) SetLen(len uint8)    { a.Len = len }
+func (a *AUN3Indication) GetLen() (n uint8)   { return a.Len }
+func (a *AUN3Indication) SetLen(n uint8)      { a.Len = n }
 
 func (a *AUN3Indication) GetAUN3REG() uint8 {
 	return a.Octet & GetBitMask(1, 0)

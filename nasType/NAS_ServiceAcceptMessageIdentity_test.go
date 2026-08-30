@@ -57,7 +57,6 @@ var ServiceAcceptMessageIdentityTable = []ServiceAcceptMessageIdentityTestDataTe
 
 func TestNasTypeServiceAcceptMessageIdentity(t *testing.T) {
 	for _, table := range ServiceAcceptMessageIdentityTable {
-
 		a := nasType.NewServiceAcceptMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

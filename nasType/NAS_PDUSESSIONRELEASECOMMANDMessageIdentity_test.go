@@ -57,7 +57,6 @@ var pDUSESSIONRELEASECOMMANDMessageIdentityTable = []PDUSESSIONRELEASECOMMANDMes
 
 func TestNasTypePDUSESSIONRELEASECOMMANDMessageIdentity(t *testing.T) {
 	for _, table := range pDUSESSIONRELEASECOMMANDMessageIdentityTable {
-
 		a := nasType.NewPDUSESSIONRELEASECOMMANDMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

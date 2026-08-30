@@ -104,6 +104,5 @@ func TestNasTypeAuthenticationFailureParameter(t *testing.T) {
 		if !reflect.DeepEqual(table.out.Octet, a.Octet) {
 			t.Errorf("in(%v): out %v, actual %x", table.in.Octet, table.out.Octet, a.Octet)
 		}
-
 	}
 }

@@ -25,12 +25,12 @@ func (a *UERadioCapabilityIDDeletionIndication) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *UERadioCapabilityIDDeletionIndication) GetLen() (len uint16) {
+func (a *UERadioCapabilityIDDeletionIndication) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *UERadioCapabilityIDDeletionIndication) SetLen(len uint16) {
-	a.Len = len
+func (a *UERadioCapabilityIDDeletionIndication) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

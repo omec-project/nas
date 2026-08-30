@@ -15,9 +15,12 @@ import (
 var hexString = "7e00560102000021e440b883d63a9f9c56b3703217152eba2010068f241c77748000b2180e54a9760068"
 
 func TestNasGmmMessage(t *testing.T) {
-	data, _ := hex.DecodeString(hexString)
+	data, err := hex.DecodeString(hexString)
+	if err != nil {
+		t.Fatal(err)
+	}
 	m := NewMessage()
-	err := m.GmmMessageDecode(&data)
+	err = m.GmmMessageDecode(&data)
 	if err != nil {
 		t.Fatalf("Unexpected non-nil value: %v", err)
 	}
@@ -30,9 +33,12 @@ func TestNasGmmMessage(t *testing.T) {
 }
 
 func TestNasGsmMessage(t *testing.T) {
-	data, _ := hex.DecodeString(hexString)
+	data, err := hex.DecodeString(hexString)
+	if err != nil {
+		t.Fatal(err)
+	}
 	m := NewMessage()
-	err := m.GsmMessageDecode(&data)
+	err = m.GsmMessageDecode(&data)
 	if err == nil {
 		t.Fatal("Expected value not to be nil")
 	}
@@ -45,9 +51,12 @@ func TestNasGsmMessage(t *testing.T) {
 }
 
 func TestPlainNas(t *testing.T) {
-	data, _ := hex.DecodeString(hexString)
+	data, err := hex.DecodeString(hexString)
+	if err != nil {
+		t.Fatal(err)
+	}
 	m := NewMessage()
-	err := m.PlainNasDecode(&data)
+	err = m.PlainNasDecode(&data)
 	if err != nil {
 		t.Fatalf("Unexpected non-nil value: %v", err)
 	}

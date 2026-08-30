@@ -21,10 +21,10 @@ func NewDiscontinuousCoverageMaxTimeOffset(iei uint8) (x *DiscontinuousCoverageM
 	return x
 }
 
-func (a *DiscontinuousCoverageMaxTimeOffset) GetIei() (iei uint8) { return a.Iei }
-func (a *DiscontinuousCoverageMaxTimeOffset) SetIei(iei uint8)    { a.Iei = iei }
-func (a *DiscontinuousCoverageMaxTimeOffset) GetLen() (len uint8) { return a.Len }
-func (a *DiscontinuousCoverageMaxTimeOffset) SetLen(len uint8)    { a.Len = len }
+func (a *DiscontinuousCoverageMaxTimeOffset) GetIei() (iei uint8)    { return a.Iei }
+func (a *DiscontinuousCoverageMaxTimeOffset) SetIei(iei uint8)       { a.Iei = iei }
+func (a *DiscontinuousCoverageMaxTimeOffset) GetLen() (length uint8) { return a.Len }
+func (a *DiscontinuousCoverageMaxTimeOffset) SetLen(length uint8)    { a.Len = length }
 
 func (a *DiscontinuousCoverageMaxTimeOffset) GetUnitTimerValue() uint8 {
 	return a.Octet & GetBitMask(8, 5) >> 5

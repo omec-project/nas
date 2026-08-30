@@ -54,18 +54,20 @@ func TestNasTypeNewNotificationMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet1)
-		a.NotificationMessageIdentity.SetMessageType(table.inNotificationMessageIdentity)
-		a.SpareHalfOctetAndAccessType.SetAccessType(table.inAccessType)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet1)
+		a.SetMessageType(table.inNotificationMessageIdentity)
+		a.SetAccessType(table.inAccessType)
 
 		buff := new(bytes.Buffer)
 		a.EncodeNotification(buff)
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		b.DecodeNotification(&data)
 		logger.NasMsgLog.Debugln(data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
@@ -73,6 +75,5 @@ func TestNasTypeNewNotificationMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

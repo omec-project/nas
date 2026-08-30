@@ -17,14 +17,14 @@ func NewRelayKeyRequestParameters() (relayKeyRequestParameters *RelayKeyRequestP
 
 // RelayKeyRequestParameters 9.11.3.89
 // Len Row, sBit, len = [], 8, 16
-func (a *RelayKeyRequestParameters) GetLen() (len uint16) {
+func (a *RelayKeyRequestParameters) GetLen() (length uint16) {
 	return a.Len
 }
 
 // RelayKeyRequestParameters 9.11.3.89
 // Len Row, sBit, len = [], 8, 16
-func (a *RelayKeyRequestParameters) SetLen(len uint16) {
-	a.Len = len
+func (a *RelayKeyRequestParameters) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

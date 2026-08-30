@@ -20,10 +20,10 @@ func NewReAttemptIndicator(iei uint8) (x *ReAttemptIndicator) {
 	return x
 }
 
-func (a *ReAttemptIndicator) GetIei() (iei uint8) { return a.Iei }
-func (a *ReAttemptIndicator) SetIei(iei uint8)    { a.Iei = iei }
-func (a *ReAttemptIndicator) GetLen() (len uint8) { return a.Len }
-func (a *ReAttemptIndicator) SetLen(len uint8)    { a.Len = len }
+func (a *ReAttemptIndicator) GetIei() (iei uint8)    { return a.Iei }
+func (a *ReAttemptIndicator) SetIei(iei uint8)       { a.Iei = iei }
+func (a *ReAttemptIndicator) GetLen() (length uint8) { return a.Len }
+func (a *ReAttemptIndicator) SetLen(length uint8)    { a.Len = length }
 func (a *ReAttemptIndicator) GetRATC() uint8 {
 	return a.Octet & GetBitMask(2, 1) >> 1
 }

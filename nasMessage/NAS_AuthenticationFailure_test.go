@@ -63,10 +63,10 @@ func TestNasTypeNewAuthenticationFailureMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
-		a.AuthenticationFailureMessageIdentity.SetMessageType(table.inAuthenticationFailureMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetMessageType(table.inAuthenticationFailureMessageIdentity)
 		a.Cause5GMM = table.in5GMMCause
 		a.AuthenticationFailureParameter = nasType.NewAuthenticationFailureParameter(nasMessage.AuthenticationFailureAuthenticationFailureParameterType)
 		a.AuthenticationFailureParameter = &table.inAuthenticationFailureParameter
@@ -76,7 +76,9 @@ func TestNasTypeNewAuthenticationFailureMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("encode:", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln("data:", data)
 		b.DecodeAuthenticationFailure(&data)
 		logger.NasMsgLog.Debugln("decode:", b)
@@ -84,6 +86,5 @@ func TestNasTypeNewAuthenticationFailureMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

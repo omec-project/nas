@@ -19,11 +19,11 @@ func NewFeatureAuthorizationIndication(iei uint8) (x *FeatureAuthorizationIndica
 	return x
 }
 
-func (a *FeatureAuthorizationIndication) GetIei() (iei uint8) { return a.Iei }
-func (a *FeatureAuthorizationIndication) SetIei(iei uint8)    { a.Iei = iei }
-func (a *FeatureAuthorizationIndication) GetLen() (len uint8) { return a.Len }
-func (a *FeatureAuthorizationIndication) SetLen(len uint8) {
-	a.Len = len
+func (a *FeatureAuthorizationIndication) GetIei() (iei uint8)    { return a.Iei }
+func (a *FeatureAuthorizationIndication) SetIei(iei uint8)       { a.Iei = iei }
+func (a *FeatureAuthorizationIndication) GetLen() (length uint8) { return a.Len }
+func (a *FeatureAuthorizationIndication) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

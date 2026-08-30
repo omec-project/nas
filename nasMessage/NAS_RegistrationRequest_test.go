@@ -171,12 +171,12 @@ func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
-		a.RegistrationRequestMessageIdentity.SetMessageType(table.inRegistrationRequestMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetMessageType(table.inRegistrationRequestMessageIdentity)
 		a.NgksiAndRegistrationType5GS.SetNasKeySetIdentifiler(table.inNgksi)
-		a.NgksiAndRegistrationType5GS.SetRegistrationType5GS(table.inRegistrationType5GS)
+		a.SetRegistrationType5GS(table.inRegistrationType5GS)
 		a.MobileIdentity5GS = table.inMobileIdentity5GS
 
 		a.NoncurrentNativeNASKeySetIdentifier = nasType.NewNoncurrentNativeNASKeySetIdentifier(nasMessage.RegistrationRequestNoncurrentNativeNASKeySetIdentifierType)
@@ -243,7 +243,9 @@ func TestNasTypeNewRegistrationRequestMessage(t *testing.T) {
 		a.EncodeRegistrationRequest(buff)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		b.DecodeRegistrationRequest(&data)
 
 		if reflect.DeepEqual(a, b) != true {
@@ -262,12 +264,12 @@ func TestRegistrationRequestNewIEsEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.RegistrationRequestMessageIdentity.SetMessageType(nas.MsgTypeRegistrationRequest)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(nas.MsgTypeRegistrationRequest)
 	a.NgksiAndRegistrationType5GS.SetNasKeySetIdentifiler(0x01)
-	a.NgksiAndRegistrationType5GS.SetRegistrationType5GS(0x01)
+	a.SetRegistrationType5GS(0x01)
 	a.MobileIdentity5GS = nasType.MobileIdentity5GS{Len: 2, Buffer: []uint8{0x01, 0x01}}
 
 	a.EPSBearerContextStatus = nasType.NewEPSBearerContextStatus(nasMessage.RegistrationRequestEPSBearerContextStatusType)
@@ -286,7 +288,9 @@ func TestRegistrationRequestNewIEsEncodeDecode(t *testing.T) {
 	a.EncodeRegistrationRequest(buff)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRegistrationRequest(&data)
 
 	if reflect.DeepEqual(a, b) != true {

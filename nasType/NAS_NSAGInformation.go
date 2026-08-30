@@ -25,12 +25,12 @@ func (a *NSAGInformation) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *NSAGInformation) GetLen() (len uint16) {
+func (a *NSAGInformation) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *NSAGInformation) SetLen(len uint16) {
-	a.Len = len
+func (a *NSAGInformation) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

@@ -58,9 +58,9 @@ func TestNasTypeNewSecurityProtected5GSNASMessageMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
 
 		a.MessageAuthenticationCode = table.inMessageAuthenticationCode
 		a.SequenceNumber = table.inSequenceNumber
@@ -71,7 +71,9 @@ func TestNasTypeNewSecurityProtected5GSNASMessageMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodeSecurityProtected5GSNASMessage(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)

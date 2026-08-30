@@ -57,7 +57,6 @@ var STATUSMessageIdentity5GMMTable = []STATUSMessageIdentity5GMMTestDataTemplate
 
 func TestNasTypeSTATUSMessageIdentity5GMM(t *testing.T) {
 	for _, table := range STATUSMessageIdentity5GMMTable {
-
 		a := nasType.NewSTATUSMessageIdentity5GMM()
 
 		a.SetMessageType(table.in.GetMessageType())

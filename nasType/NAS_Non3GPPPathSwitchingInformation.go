@@ -25,12 +25,12 @@ func (a *Non3GPPPathSwitchingInformation) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *Non3GPPPathSwitchingInformation) GetLen() (len uint16) {
+func (a *Non3GPPPathSwitchingInformation) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *Non3GPPPathSwitchingInformation) SetLen(len uint16) {
-	a.Len = len
+func (a *Non3GPPPathSwitchingInformation) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

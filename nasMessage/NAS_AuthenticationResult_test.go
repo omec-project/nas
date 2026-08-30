@@ -72,13 +72,13 @@ func TestNasTypeNewAuthenticationResultMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeaderType)
-		a.AuthenticationResultMessageIdentity.SetMessageType(table.inMessageType)
-		a.SpareHalfOctetAndNgksi.SetTSC(table.inTsc)
-		a.SpareHalfOctetAndNgksi.SetNasKeySetIdentifiler(table.inNASKeySetIdentifier)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeaderType)
+		a.SetMessageType(table.inMessageType)
+		a.SetTSC(table.inTsc)
+		a.SetNasKeySetIdentifiler(table.inNASKeySetIdentifier)
 		a.EAPMessage.SetLen(table.inEAPLen)
-		a.EAPMessage.SetEAPMessage(table.inEAPMessage)
+		a.SetEAPMessage(table.inEAPMessage)
 
 		a.ABBA = nasType.NewABBA(nasMessage.AuthenticationResultABBAType)
 		a.ABBA = &table.inABBA
@@ -88,7 +88,9 @@ func TestNasTypeNewAuthenticationResultMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln(buff)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		b.DecodeAuthenticationResult(&data)
 		logger.NasMsgLog.Debugln(data)
 		logger.NasMsgLog.Debugln("Decode: ", b)

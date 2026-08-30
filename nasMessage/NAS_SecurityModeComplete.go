@@ -33,35 +33,67 @@ const (
 )
 
 func (a *SecurityModeComplete) EncodeSecurityModeComplete(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.SecurityModeCompleteMessageIdentity.Octet)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.SecurityModeCompleteMessageIdentity.Octet); err != nil {
+		return
+	}
 	if a.IMEISV != nil {
-		binary.Write(buffer, binary.BigEndian, a.IMEISV.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.IMEISV.GetLen())
-		binary.Write(buffer, binary.BigEndian, a.IMEISV.Octet[:a.IMEISV.GetLen()])
+		if err := binary.Write(buffer, binary.BigEndian, a.IMEISV.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.IMEISV.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.IMEISV.Octet[:a.IMEISV.GetLen()]); err != nil {
+			return
+		}
 	}
 	if a.NASMessageContainer != nil {
-		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.NASMessageContainer.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.NASMessageContainer.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.Buffer); err != nil {
+			return
+		}
 	}
 	if a.NonIMEISVPEI != nil {
-		binary.Write(buffer, binary.BigEndian, a.NonIMEISVPEI.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.NonIMEISVPEI.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.NonIMEISVPEI.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.NonIMEISVPEI.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.NonIMEISVPEI.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.NonIMEISVPEI.Buffer); err != nil {
+			return
+		}
 	}
 }
 
 func (a *SecurityModeComplete) DecodeSecurityModeComplete(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.SecurityModeCompleteMessageIdentity.Octet)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SpareHalfOctetAndSecurityHeaderType.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.SecurityModeCompleteMessageIdentity.Octet); err != nil {
+		return
+	}
 	for buffer.Len() > 0 {
 		var ieiN uint8
 		var tmpIeiN uint8
-		binary.Read(buffer, binary.BigEndian, &ieiN)
+		if err := binary.Read(buffer, binary.BigEndian, &ieiN); err != nil {
+			return
+		}
 		if ieiN >= 0x80 {
 			tmpIeiN = (ieiN & 0xf0) >> 4
 		} else {
@@ -70,19 +102,31 @@ func (a *SecurityModeComplete) DecodeSecurityModeComplete(byteArray *[]byte) {
 		switch tmpIeiN {
 		case SecurityModeCompleteIMEISVType:
 			a.IMEISV = nasType.NewIMEISV(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.IMEISV.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.IMEISV.Len); err != nil {
+				return
+			}
 			a.IMEISV.SetLen(a.IMEISV.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.IMEISV.Octet[:a.IMEISV.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.IMEISV.Octet[:a.IMEISV.GetLen()]); err != nil {
+				return
+			}
 		case SecurityModeCompleteNASMessageContainerType:
 			a.NASMessageContainer = nasType.NewNASMessageContainer(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.NASMessageContainer.Len); err != nil {
+				return
+			}
 			a.NASMessageContainer.SetLen(a.NASMessageContainer.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.NASMessageContainer.Buffer[:a.NASMessageContainer.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.Buffer[:a.NASMessageContainer.GetLen()]); err != nil {
+				return
+			}
 		case SecurityModeCompleteNonIMEISVPEIType:
 			a.NonIMEISVPEI = nasType.NewMobileIdentity5GS(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.NonIMEISVPEI.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.NonIMEISVPEI.Len); err != nil {
+				return
+			}
 			a.NonIMEISVPEI.SetLen(a.NonIMEISVPEI.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.NonIMEISVPEI.Buffer[:a.NonIMEISVPEI.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.NonIMEISVPEI.Buffer[:a.NonIMEISVPEI.GetLen()]); err != nil {
+				return
+			}
 		default:
 		}
 	}

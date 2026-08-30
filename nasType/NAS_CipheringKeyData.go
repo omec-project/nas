@@ -25,12 +25,12 @@ func (a *CipheringKeyData) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *CipheringKeyData) GetLen() (len uint16) {
+func (a *CipheringKeyData) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *CipheringKeyData) SetLen(len uint16) {
-	a.Len = len
+func (a *CipheringKeyData) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

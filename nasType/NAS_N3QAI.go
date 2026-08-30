@@ -16,11 +16,11 @@ func NewN3QAI(iei uint8) (x *N3QAI) {
 	return x
 }
 
-func (a *N3QAI) GetIei() (iei uint8)  { return a.Iei }
-func (a *N3QAI) SetIei(iei uint8)     { a.Iei = iei }
-func (a *N3QAI) GetLen() (len uint16) { return a.Len }
-func (a *N3QAI) SetLen(len uint16) {
-	a.Len = len
+func (a *N3QAI) GetIei() (iei uint8)     { return a.Iei }
+func (a *N3QAI) SetIei(iei uint8)        { a.Iei = iei }
+func (a *N3QAI) GetLen() (length uint16) { return a.Len }
+func (a *N3QAI) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

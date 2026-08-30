@@ -32,22 +32,24 @@ func TestServiceLevelAuthenticationCommandEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
-	a.PDUSessionID.SetPDUSessionID(0x01)
-	a.PTI.SetPTI(0x01)
-	a.SERVICELEVELAUTHENTICATIONCOMMANDMessageIdentity.SetMessageType(0xD8)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
+	a.SetPDUSessionID(0x01)
+	a.SetPTI(0x01)
+	a.SetMessageType(0xD8)
 
 	// Set ServiceLevelAAContainer
 	a.ServiceLevelAAContainer = nasType.ServiceLevelAAContainer{}
-	a.ServiceLevelAAContainer.SetLen(4)
-	copy(a.ServiceLevelAAContainer.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
+	a.SetLen(4)
+	copy(a.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
 
 	buff := new(bytes.Buffer)
 	a.EncodeServiceLevelAuthenticationCommand(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeServiceLevelAuthenticationCommand(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -75,21 +77,23 @@ func TestServiceLevelAuthenticationCompleteEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
-	a.PDUSessionID.SetPDUSessionID(0x01)
-	a.PTI.SetPTI(0x01)
-	a.SERVICELEVELAUTHENTICATIONCOMPLETEMessageIdentity.SetMessageType(0xD9)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
+	a.SetPDUSessionID(0x01)
+	a.SetPTI(0x01)
+	a.SetMessageType(0xD9)
 
 	// Set ServiceLevelAAContainer
-	a.ServiceLevelAAContainer.SetLen(4)
-	copy(a.ServiceLevelAAContainer.Buffer, []byte{0x05, 0x06, 0x07, 0x08})
+	a.SetLen(4)
+	copy(a.Buffer, []byte{0x05, 0x06, 0x07, 0x08})
 
 	buff := new(bytes.Buffer)
 	a.EncodeServiceLevelAuthenticationComplete(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeServiceLevelAuthenticationComplete(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -117,17 +121,19 @@ func TestRemoteUEReportEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
-	a.PDUSessionID.SetPDUSessionID(0x01)
-	a.PTI.SetPTI(0x02)
-	a.REMOTEUEREPORTMessageIdentity.SetMessageType(0xDA)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
+	a.SetPDUSessionID(0x01)
+	a.SetPTI(0x02)
+	a.SetMessageType(0xDA)
 
 	buff := new(bytes.Buffer)
 	a.EncodeRemoteUEReport(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRemoteUEReport(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -148,15 +154,15 @@ func TestRemoteUEReportEncodeDecodeWithOptionalIEs(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
-	a.PDUSessionID.SetPDUSessionID(0x01)
-	a.PTI.SetPTI(0x02)
-	a.REMOTEUEREPORTMessageIdentity.SetMessageType(0xDA)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
+	a.SetPDUSessionID(0x01)
+	a.SetPTI(0x02)
+	a.SetMessageType(0xDA)
 
 	// Set Remote UE Context Connected (IEI 0x76)
 	a.RemoteUEContextList = nasType.NewRemoteUEContextList(nasMessage.RemoteUEReportRemoteUEContextConnectedType)
-	a.RemoteUEContextList.SetLen(4)
-	copy(a.RemoteUEContextList.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
+	a.SetLen(4)
+	copy(a.Buffer, []byte{0x01, 0x02, 0x03, 0x04})
 
 	// Set Remote UE Context Disconnected (IEI 0x70)
 	a.RemoteUEContextDisconnected = nasType.NewRemoteUEContextList(nasMessage.RemoteUEReportRemoteUEContextDisconnectedType)
@@ -168,7 +174,9 @@ func TestRemoteUEReportEncodeDecodeWithOptionalIEs(t *testing.T) {
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRemoteUEReport(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 
@@ -196,17 +204,19 @@ func TestRemoteUEReportResponseEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
-	a.PDUSessionID.SetPDUSessionID(0x01)
-	a.PTI.SetPTI(0x02)
-	a.REMOTEUEREPORTRESPONSEMessageIdentity.SetMessageType(0xDB)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSSessionManagementMessage)
+	a.SetPDUSessionID(0x01)
+	a.SetPTI(0x02)
+	a.SetMessageType(0xDB)
 
 	buff := new(bytes.Buffer)
 	a.EncodeRemoteUEReportResponse(buff)
 	logger.NasMsgLog.Debugln("encode:", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRemoteUEReportResponse(&data)
 	logger.NasMsgLog.Debugln("decode:", b)
 

@@ -94,7 +94,6 @@ var SSCModeTable = []SSCModeTestDataTemplate{
 
 func TestNasTypeSSCMode(t *testing.T) {
 	for _, table := range SSCModeTable {
-
 		a := nasType.NewSSCMode(nasMessage.PDUSessionEstablishmentRequestSSCModeType)
 		a.SetIei(0x01)
 		a.SetSpare(0x01)
@@ -103,6 +102,5 @@ func TestNasTypeSSCMode(t *testing.T) {
 		if !reflect.DeepEqual(table.out.Octet, a.Octet) {
 			t.Errorf("Not equal: expected %v, got %v", table.out.Octet, a.Octet)
 		}
-
 	}
 }

@@ -52,7 +52,6 @@ var nasTypeNSSAIInclusionModeTable = []nasTypeNSSAIInclusionMode{
 func TestNasTypeNSSAIInclusionMode(t *testing.T) {
 	a := nasType.NewNSSAIInclusionMode(RegistrationAcceptNSSAIInclusionModeTypeIeiInput)
 	for _, table := range nasTypeNSSAIInclusionModeTable {
-
 		a.SetNSSAIInclusionMode(table.inNSSAIInclusionMode)
 
 		if !reflect.DeepEqual(table.outIei, a.GetIei()) {

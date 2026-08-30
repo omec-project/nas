@@ -43,57 +43,117 @@ const (
 )
 
 func (a *PDUSessionEstablishmentReject) EncodePDUSessionEstablishmentReject(buffer *bytes.Buffer) {
-	binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.PDUSessionID.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.PTI.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.PDUSESSIONESTABLISHMENTREJECTMessageIdentity.Octet)
-	binary.Write(buffer, binary.BigEndian, &a.Cause5GSM.Octet)
+	if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.PDUSessionID.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.PTI.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.PDUSESSIONESTABLISHMENTREJECTMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Write(buffer, binary.BigEndian, &a.Cause5GSM.Octet); err != nil {
+		return
+	}
 	if a.BackoffTimerValue != nil {
-		binary.Write(buffer, binary.BigEndian, a.BackoffTimerValue.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.BackoffTimerValue.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.BackoffTimerValue.Octet)
+		if err := binary.Write(buffer, binary.BigEndian, a.BackoffTimerValue.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.BackoffTimerValue.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.BackoffTimerValue.Octet); err != nil {
+			return
+		}
 	}
 	if a.AllowedSSCMode != nil {
-		binary.Write(buffer, binary.BigEndian, &a.AllowedSSCMode.Octet)
+		if err := binary.Write(buffer, binary.BigEndian, &a.AllowedSSCMode.Octet); err != nil {
+			return
+		}
 	}
 	if a.EAPMessage != nil {
-		binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.EAPMessage.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.EAPMessage.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.EAPMessage.Buffer); err != nil {
+			return
+		}
 	}
 	if a.ExtendedProtocolConfigurationOptions != nil {
-		binary.Write(buffer, binary.BigEndian, a.ExtendedProtocolConfigurationOptions.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.ExtendedProtocolConfigurationOptions.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolConfigurationOptions.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.ExtendedProtocolConfigurationOptions.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.ExtendedProtocolConfigurationOptions.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.ExtendedProtocolConfigurationOptions.Buffer); err != nil {
+			return
+		}
 	}
 	if a.Fivegsmcongestionreattemptindicator != nil {
-		binary.Write(buffer, binary.BigEndian, a.Fivegsmcongestionreattemptindicator.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.Fivegsmcongestionreattemptindicator.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.Fivegsmcongestionreattemptindicator.Octet)
+		if err := binary.Write(buffer, binary.BigEndian, a.Fivegsmcongestionreattemptindicator.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.Fivegsmcongestionreattemptindicator.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.Fivegsmcongestionreattemptindicator.Octet); err != nil {
+			return
+		}
 	}
 	if a.ReAttemptIndicator != nil {
-		binary.Write(buffer, binary.BigEndian, a.ReAttemptIndicator.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.ReAttemptIndicator.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.ReAttemptIndicator.Octet)
+		if err := binary.Write(buffer, binary.BigEndian, a.ReAttemptIndicator.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.ReAttemptIndicator.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.ReAttemptIndicator.Octet); err != nil {
+			return
+		}
 	}
 	if a.ServiceLevelAAContainer != nil {
-		binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetIei())
-		binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetLen())
-		binary.Write(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Buffer)
+		if err := binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetIei()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, a.ServiceLevelAAContainer.GetLen()); err != nil {
+			return
+		}
+		if err := binary.Write(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Buffer); err != nil {
+			return
+		}
 	}
 }
 
 func (a *PDUSessionEstablishmentReject) DecodePDUSessionEstablishmentReject(byteArray *[]byte) {
 	buffer := bytes.NewBuffer(*byteArray)
-	binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.PDUSessionID.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.PTI.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.PDUSESSIONESTABLISHMENTREJECTMessageIdentity.Octet)
-	binary.Read(buffer, binary.BigEndian, &a.Cause5GSM.Octet)
+	if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolDiscriminator.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.PDUSessionID.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.PTI.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.PDUSESSIONESTABLISHMENTREJECTMessageIdentity.Octet); err != nil {
+		return
+	}
+	if err := binary.Read(buffer, binary.BigEndian, &a.Cause5GSM.Octet); err != nil {
+		return
+	}
 	for buffer.Len() > 0 {
 		var ieiN uint8
 		var tmpIeiN uint8
-		binary.Read(buffer, binary.BigEndian, &ieiN)
+		if err := binary.Read(buffer, binary.BigEndian, &ieiN); err != nil {
+			return
+		}
 		if ieiN >= 0x80 {
 			tmpIeiN = (ieiN & 0xf0) >> 4
 		} else {
@@ -102,37 +162,61 @@ func (a *PDUSessionEstablishmentReject) DecodePDUSessionEstablishmentReject(byte
 		switch tmpIeiN {
 		case PDUSessionEstablishmentRejectBackoffTimerValueType:
 			a.BackoffTimerValue = nasType.NewBackoffTimerValue(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.BackoffTimerValue.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.BackoffTimerValue.Len); err != nil {
+				return
+			}
 			a.BackoffTimerValue.SetLen(a.BackoffTimerValue.GetLen())
-			binary.Read(buffer, binary.BigEndian, &a.BackoffTimerValue.Octet)
+			if err := binary.Read(buffer, binary.BigEndian, &a.BackoffTimerValue.Octet); err != nil {
+				return
+			}
 		case PDUSessionEstablishmentRejectAllowedSSCModeType:
 			a.AllowedSSCMode = nasType.NewAllowedSSCMode(ieiN)
 			a.AllowedSSCMode.Octet = ieiN
 		case PDUSessionEstablishmentRejectEAPMessageType:
 			a.EAPMessage = nasType.NewEAPMessage(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.EAPMessage.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.EAPMessage.Len); err != nil {
+				return
+			}
 			a.EAPMessage.SetLen(a.EAPMessage.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.EAPMessage.Buffer[:a.EAPMessage.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.EAPMessage.Buffer[:a.EAPMessage.GetLen()]); err != nil {
+				return
+			}
 		case PDUSessionEstablishmentRejectExtendedProtocolConfigurationOptionsType:
 			a.ExtendedProtocolConfigurationOptions = nasType.NewExtendedProtocolConfigurationOptions(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolConfigurationOptions.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.ExtendedProtocolConfigurationOptions.Len); err != nil {
+				return
+			}
 			a.ExtendedProtocolConfigurationOptions.SetLen(a.ExtendedProtocolConfigurationOptions.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.ExtendedProtocolConfigurationOptions.Buffer[:a.ExtendedProtocolConfigurationOptions.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.ExtendedProtocolConfigurationOptions.Buffer[:a.ExtendedProtocolConfigurationOptions.GetLen()]); err != nil {
+				return
+			}
 		case PDUSessionEstablishmentRejectFivegsmcongestionreattemptindicatorType:
 			a.Fivegsmcongestionreattemptindicator = nasType.NewFivegsmcongestionreattemptindicator(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.Fivegsmcongestionreattemptindicator.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.Fivegsmcongestionreattemptindicator.Len); err != nil {
+				return
+			}
 			a.Fivegsmcongestionreattemptindicator.SetLen(a.Fivegsmcongestionreattemptindicator.GetLen())
-			binary.Read(buffer, binary.BigEndian, &a.Fivegsmcongestionreattemptindicator.Octet)
+			if err := binary.Read(buffer, binary.BigEndian, &a.Fivegsmcongestionreattemptindicator.Octet); err != nil {
+				return
+			}
 		case PDUSessionEstablishmentRejectReAttemptIndicatorType:
 			a.ReAttemptIndicator = nasType.NewReAttemptIndicator(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.ReAttemptIndicator.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.ReAttemptIndicator.Len); err != nil {
+				return
+			}
 			a.ReAttemptIndicator.SetLen(a.ReAttemptIndicator.GetLen())
-			binary.Read(buffer, binary.BigEndian, &a.ReAttemptIndicator.Octet)
+			if err := binary.Read(buffer, binary.BigEndian, &a.ReAttemptIndicator.Octet); err != nil {
+				return
+			}
 		case PDUSessionEstablishmentRejectServiceLevelAAContainerType:
 			a.ServiceLevelAAContainer = nasType.NewServiceLevelAAContainer(ieiN)
-			binary.Read(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Len)
+			if err := binary.Read(buffer, binary.BigEndian, &a.ServiceLevelAAContainer.Len); err != nil {
+				return
+			}
 			a.ServiceLevelAAContainer.SetLen(a.ServiceLevelAAContainer.GetLen())
-			binary.Read(buffer, binary.BigEndian, a.ServiceLevelAAContainer.Buffer[:a.ServiceLevelAAContainer.GetLen()])
+			if err := binary.Read(buffer, binary.BigEndian, a.ServiceLevelAAContainer.Buffer[:a.ServiceLevelAAContainer.GetLen()]); err != nil {
+				return
+			}
 		default:
 		}
 	}

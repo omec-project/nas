@@ -212,6 +212,5 @@ func TestNasTypeIMEISV(t *testing.T) {
 		if !reflect.DeepEqual(table.outIdentityDigitP, a.GetIdentityDigitP()) {
 			t.Errorf("in(%v): out %v, actual %x", table.inIdentityDigitP, table.outIdentityDigitP, a.GetIdentityDigitP())
 		}
-
 	}
 }

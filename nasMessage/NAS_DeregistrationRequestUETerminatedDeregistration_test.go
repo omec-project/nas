@@ -65,10 +65,10 @@ func TestNasTypeNewDeregistrationRequestUETerminatedDeregistrationMessage(t *tes
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeaderType)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet1)
-		a.DeregistrationRequestMessageIdentity.SetMessageType(table.inDeregistrationRequestMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeaderType)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet1)
+		a.SetMessageType(table.inDeregistrationRequestMessageIdentity)
 
 		a.SpareHalfOctetAndDeregistrationType = table.inSpareHalfOctetAndDeregistrationType
 
@@ -83,7 +83,9 @@ func TestNasTypeNewDeregistrationRequestUETerminatedDeregistrationMessage(t *tes
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodeDeregistrationRequestUETerminatedDeregistration(&data)
 		logger.NasMsgLog.Debugln("Dncode: ", b)
@@ -91,6 +93,5 @@ func TestNasTypeNewDeregistrationRequestUETerminatedDeregistrationMessage(t *tes
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

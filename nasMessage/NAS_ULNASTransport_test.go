@@ -92,10 +92,10 @@ func TestNasTypeNewULNASTransportMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
-		a.ULNASTRANSPORTMessageIdentity.SetMessageType(table.inULNASTRANSPORTMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetMessageType(table.inULNASTRANSPORTMessageIdentity)
 
 		a.SpareHalfOctetAndPayloadContainerType = table.inSpareHalfOctetAndPayloadContainerType
 
@@ -124,7 +124,9 @@ func TestNasTypeNewULNASTransportMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodeULNASTransport(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
@@ -145,23 +147,23 @@ func TestULNASTransportNewIEsEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.ULNASTRANSPORTMessageIdentity.SetMessageType(nas.MsgTypeULNASTransport)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(nas.MsgTypeULNASTransport)
 	a.SpareHalfOctetAndPayloadContainerType.Octet = 0x01
 	a.PayloadContainer.SetLen(2)
 	copy(a.PayloadContainer.Buffer, []uint8{0x01, 0x02})
 
 	a.MAPDUSessionInformation = nasType.NewMAPDUSessionInformation(nasMessage.ULNASTransportMAPDUSessionInformationType)
-	a.MAPDUSessionInformation.SetMAPSI(0x03)
+	a.SetMAPSI(0x03)
 
 	a.ReleaseAssistanceIndication = nasType.NewReleaseAssistanceIndication(nasMessage.ULNASTransportReleaseAssistanceIndicationType)
-	a.ReleaseAssistanceIndication.SetPDDEI(0x02)
+	a.SetPDDEI(0x02)
 
 	a.Non3GPPAccessPathSwitchingIndication = nasType.NewNon3GPPAccessPathSwitchingIndication(nasMessage.ULNASTransportNon3GPPAccessPathSwitchingIndicationType)
 	a.Non3GPPAccessPathSwitchingIndication.SetLen(1)
-	a.Non3GPPAccessPathSwitchingIndication.SetNAPS(0x01)
+	a.SetNAPS(0x01)
 
 	a.AlternativeSNSSAI = nasType.NewSNSSAI(nasMessage.ULNASTransportAlternativeSNSSAIType)
 	a.AlternativeSNSSAI.SetLen(2)
@@ -169,14 +171,16 @@ func TestULNASTransportNewIEsEncodeDecode(t *testing.T) {
 	a.AlternativeSNSSAI.Octet[1] = 0x22
 
 	a.PayloadContainerInformation = nasType.NewPayloadContainerInformation(nasMessage.ULNASTransportPayloadContainerInformationType)
-	a.PayloadContainerInformation.SetPRU(0x05)
+	a.SetPRU(0x05)
 
 	buff := new(bytes.Buffer)
 	a.EncodeULNASTransport(buff)
 	logger.NasMsgLog.Debugln("Encode: ", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	logger.NasMsgLog.Debugln(data)
 	b.DecodeULNASTransport(&data)
 	logger.NasMsgLog.Debugln("Decode: ", b)

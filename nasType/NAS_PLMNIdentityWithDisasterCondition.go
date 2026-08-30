@@ -25,12 +25,12 @@ func (a *PLMNIdentityWithDisasterCondition) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *PLMNIdentityWithDisasterCondition) GetLen() (len uint16) {
+func (a *PLMNIdentityWithDisasterCondition) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *PLMNIdentityWithDisasterCondition) SetLen(len uint16) {
-	a.Len = len
+func (a *PLMNIdentityWithDisasterCondition) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

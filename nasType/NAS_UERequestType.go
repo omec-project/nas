@@ -25,12 +25,12 @@ func (a *UERequestType) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *UERequestType) GetLen() (len uint16) {
+func (a *UERequestType) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *UERequestType) SetLen(len uint16) {
-	a.Len = len
+func (a *UERequestType) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

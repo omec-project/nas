@@ -25,12 +25,12 @@ func (a *NSSRGInformation) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *NSSRGInformation) GetLen() (len uint16) {
+func (a *NSSRGInformation) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *NSSRGInformation) SetLen(len uint16) {
-	a.Len = len
+func (a *NSSRGInformation) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

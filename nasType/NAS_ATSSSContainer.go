@@ -16,11 +16,11 @@ func NewATSSSContainer(iei uint8) (x *ATSSSContainer) {
 	return x
 }
 
-func (a *ATSSSContainer) GetIei() (iei uint8)  { return a.Iei }
-func (a *ATSSSContainer) SetIei(iei uint8)     { a.Iei = iei }
-func (a *ATSSSContainer) GetLen() (len uint16) { return a.Len }
-func (a *ATSSSContainer) SetLen(len uint16) {
-	a.Len = len
+func (a *ATSSSContainer) GetIei() (iei uint8) { return a.Iei }
+func (a *ATSSSContainer) SetIei(iei uint8)    { a.Iei = iei }
+func (a *ATSSSContainer) GetLen() (n uint16)  { return a.Len }
+func (a *ATSSSContainer) SetLen(n uint16) {
+	a.Len = n
 	a.Buffer = make([]uint8, a.Len)
 }
 

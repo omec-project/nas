@@ -65,10 +65,10 @@ func TestNasTypeNewAuthenticationRequestMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
 		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet1)
-		a.AuthenticationRequestMessageIdentity.SetMessageType(table.inAuthenticationRequestMessageIdentity)
+		a.SetMessageType(table.inAuthenticationRequestMessageIdentity)
 
 		a.ABBA = table.inABBA
 
@@ -86,7 +86,9 @@ func TestNasTypeNewAuthenticationRequestMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("encode:", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		b.DecodeAuthenticationRequest(&data)
 		logger.NasMsgLog.Debugln("decode:", b)
 

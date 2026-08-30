@@ -107,6 +107,5 @@ func TestNasTypeDeregistrationTypeAndSpareHalfOctet(t *testing.T) {
 		if !reflect.DeepEqual(table.out.Octet, a.Octet) {
 			t.Errorf("Not equal: expected %v, got %v", table.out.Octet, a.Octet)
 		}
-
 	}
 }

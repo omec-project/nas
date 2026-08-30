@@ -32,14 +32,14 @@ func (a *LowerBoundTimerValue) SetIei(iei uint8) {
 
 // LowerBoundTimerValue 9.11.2.5
 // Len Row, sBit, len = [], 8, 8
-func (a *LowerBoundTimerValue) GetLen() (len uint8) {
+func (a *LowerBoundTimerValue) GetLen() (length uint8) {
 	return a.Len
 }
 
 // LowerBoundTimerValue 9.11.2.5
 // Len Row, sBit, len = [], 8, 8
-func (a *LowerBoundTimerValue) SetLen(len uint8) {
-	a.Len = len
+func (a *LowerBoundTimerValue) SetLen(length uint8) {
+	a.Len = length
 }
 
 // LowerBoundTimerValue 9.11.2.5

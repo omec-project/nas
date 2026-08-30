@@ -193,10 +193,10 @@ func TestNasTypeNewRegistrationAcceptMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
-		a.RegistrationAcceptMessageIdentity.SetMessageType(table.inRegistrationAcceptMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetMessageType(table.inRegistrationAcceptMessageIdentity)
 
 		a.RegistrationResult5GS = table.inRegistrationResult5GS
 
@@ -280,7 +280,9 @@ func TestNasTypeNewRegistrationAcceptMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodeRegistrationAccept(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
@@ -288,7 +290,6 @@ func TestNasTypeNewRegistrationAcceptMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }
 
@@ -302,10 +303,10 @@ func TestRegistrationAcceptNewIEsEncodeDecode(t *testing.T) {
 		t.Fatal("Expected value not to be nil")
 	}
 
-	a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(0x00)
-	a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(0x00)
-	a.RegistrationAcceptMessageIdentity.SetMessageType(nas.MsgTypeRegistrationAccept)
+	a.SetExtendedProtocolDiscriminator(nasMessage.Epd5GSMobilityManagementMessage)
+	a.SetSecurityHeaderType(0x00)
+	a.SetSpareHalfOctet(0x00)
+	a.SetMessageType(nas.MsgTypeRegistrationAccept)
 	a.RegistrationResult5GS = nasType.RegistrationResult5GS{Len: 1, Octet: 0x01}
 
 	a.EPSBearerContextStatus = nasType.NewEPSBearerContextStatus(nasMessage.RegistrationAcceptEPSBearerContextStatusType)
@@ -321,7 +322,7 @@ func TestRegistrationAcceptNewIEsEncodeDecode(t *testing.T) {
 	a.ExtendedDRXParameters.Buffer[0] = 0x25
 
 	a.UERadioCapabilityIDDeletionIndicationIE = nasType.NewUERadioCapabilityIDDeletionIndicationIE(nasMessage.RegistrationAcceptUERadioCapabilityIDDeletionIndicationType)
-	a.UERadioCapabilityIDDeletionIndicationIE.SetDeletionIndicationValue(0x01)
+	a.SetDeletionIndicationValue(0x01)
 
 	a.DisasterReturnWaitRange = nasType.NewRegistrationWaitRange(nasMessage.RegistrationAcceptDisasterReturnWaitRangeType)
 	a.DisasterReturnWaitRange.SetLen(2)
@@ -336,7 +337,9 @@ func TestRegistrationAcceptNewIEsEncodeDecode(t *testing.T) {
 	logger.NasMsgLog.Debugln("Encode: ", a)
 
 	data := make([]byte, buff.Len())
-	buff.Read(data)
+	if _, err := buff.Read(data); err != nil {
+		t.Fatal(err)
+	}
 	b.DecodeRegistrationAccept(&data)
 	logger.NasMsgLog.Debugln("Decode: ", b)
 

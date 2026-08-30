@@ -75,7 +75,6 @@ var RequestTypeTable = []RequestTypeTestDataTemplate{
 
 func TestNasTypeRequestType(t *testing.T) {
 	for _, table := range RequestTypeTable {
-
 		a := nasType.NewRequestType(nasMessage.ULNASTransportRequestTypeType)
 		a.SetIei(0x08)
 		a.SetRequestTypeValue(0x01)
@@ -83,6 +82,5 @@ func TestNasTypeRequestType(t *testing.T) {
 		if !reflect.DeepEqual(table.out.Octet, a.Octet) {
 			t.Errorf("Not equal: expected %v, got %v", table.out.Octet, a.Octet)
 		}
-
 	}
 }

@@ -51,10 +51,10 @@ func TestNasTypeNewAuthenticationRejectMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSecurityHeaderType(table.inSecurityHeader)
-		a.SpareHalfOctetAndSecurityHeaderType.SetSpareHalfOctet(table.inSpareHalfOctet)
-		a.AuthenticationRejectMessageIdentity.SetMessageType(table.inAuthenticationRejectMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetSecurityHeaderType(table.inSecurityHeader)
+		a.SetSpareHalfOctet(table.inSpareHalfOctet)
+		a.SetMessageType(table.inAuthenticationRejectMessageIdentity)
 
 		a.EAPMessage = nasType.NewEAPMessage(nasMessage.AuthenticationRejectEAPMessageType)
 		a.EAPMessage = &table.inEAPMessage
@@ -64,7 +64,9 @@ func TestNasTypeNewAuthenticationRejectMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln(a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		b.DecodeAuthenticationReject(&data)
 		logger.NasMsgLog.Debugln("decode:", data)
 		logger.NasMsgLog.Infoln(b)
@@ -72,6 +74,5 @@ func TestNasTypeNewAuthenticationRejectMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

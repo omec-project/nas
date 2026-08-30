@@ -16,11 +16,11 @@ func NewReceivedMBSContainer(iei uint8) (x *ReceivedMBSContainer) {
 	return x
 }
 
-func (a *ReceivedMBSContainer) GetIei() (iei uint8)  { return a.Iei }
-func (a *ReceivedMBSContainer) SetIei(iei uint8)     { a.Iei = iei }
-func (a *ReceivedMBSContainer) GetLen() (len uint16) { return a.Len }
-func (a *ReceivedMBSContainer) SetLen(len uint16) {
-	a.Len = len
+func (a *ReceivedMBSContainer) GetIei() (iei uint8)     { return a.Iei }
+func (a *ReceivedMBSContainer) SetIei(iei uint8)        { a.Iei = iei }
+func (a *ReceivedMBSContainer) GetLen() (length uint16) { return a.Len }
+func (a *ReceivedMBSContainer) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

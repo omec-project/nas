@@ -16,11 +16,11 @@ func NewMasterSessionKey(iei uint8) (x *MasterSessionKey) {
 	return x
 }
 
-func (a *MasterSessionKey) GetIei() (iei uint8)  { return a.Iei }
-func (a *MasterSessionKey) SetIei(iei uint8)     { a.Iei = iei }
-func (a *MasterSessionKey) GetLen() (len uint16) { return a.Len }
-func (a *MasterSessionKey) SetLen(len uint16) {
-	a.Len = len
+func (a *MasterSessionKey) GetIei() (iei uint8)     { return a.Iei }
+func (a *MasterSessionKey) SetIei(iei uint8)        { a.Iei = iei }
+func (a *MasterSessionKey) GetLen() (length uint16) { return a.Len }
+func (a *MasterSessionKey) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

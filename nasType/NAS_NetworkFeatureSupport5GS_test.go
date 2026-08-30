@@ -301,6 +301,5 @@ func TestNasTypeNetworkFeatureSupport5GS(t *testing.T) {
 		if !reflect.DeepEqual(table.outSpare, a.GetSpare()) {
 			t.Errorf("in(%v): out %v, actual %x", table.inSpare, table.outSpare, a.GetSpare())
 		}
-
 	}
 }

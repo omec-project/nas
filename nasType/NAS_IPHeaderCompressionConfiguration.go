@@ -16,11 +16,11 @@ func NewIPHeaderCompressionConfiguration(iei uint8) (x *IPHeaderCompressionConfi
 	return x
 }
 
-func (a *IPHeaderCompressionConfiguration) GetIei() (iei uint8) { return a.Iei }
-func (a *IPHeaderCompressionConfiguration) SetIei(iei uint8)    { a.Iei = iei }
-func (a *IPHeaderCompressionConfiguration) GetLen() (len uint8) { return a.Len }
-func (a *IPHeaderCompressionConfiguration) SetLen(len uint8) {
-	a.Len = len
+func (a *IPHeaderCompressionConfiguration) GetIei() (iei uint8)    { return a.Iei }
+func (a *IPHeaderCompressionConfiguration) SetIei(iei uint8)       { a.Iei = iei }
+func (a *IPHeaderCompressionConfiguration) GetLen() (length uint8) { return a.Len }
+func (a *IPHeaderCompressionConfiguration) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

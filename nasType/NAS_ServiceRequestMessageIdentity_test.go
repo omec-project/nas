@@ -57,7 +57,6 @@ var ServiceRequestMessageIdentityTable = []ServiceRequestMessageIdentityTestData
 
 func TestNasTypeServiceRequestMessageIdentity(t *testing.T) {
 	for _, table := range ServiceRequestMessageIdentityTable {
-
 		a := nasType.NewServiceRequestMessageIdentity()
 
 		a.SetMessageType(table.in.GetMessageType())

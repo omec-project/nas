@@ -63,10 +63,10 @@ func TestNasTypeNewPDUSessionAuthenticationResultMessage(t *testing.T) {
 			t.Fatal("Expected value not to be nil")
 		}
 
-		a.ExtendedProtocolDiscriminator.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
-		a.PDUSessionID.SetPDUSessionID(table.inPDUSessionID)
-		a.PTI.SetPTI(table.inPTI)
-		a.PDUSESSIONAUTHENTICATIONRESULTMessageIdentity.SetMessageType(table.inPDUSESSIONAUTHENTICATIONRESULTMessageIdentity)
+		a.SetExtendedProtocolDiscriminator(table.inExtendedProtocolDiscriminator)
+		a.SetPDUSessionID(table.inPDUSessionID)
+		a.SetPTI(table.inPTI)
+		a.SetMessageType(table.inPDUSESSIONAUTHENTICATIONRESULTMessageIdentity)
 
 		a.EAPMessage = nasType.NewEAPMessage(nasMessage.PDUSessionAuthenticationResultEAPMessageType)
 		a.EAPMessage = &table.inEAPMessage
@@ -79,7 +79,9 @@ func TestNasTypeNewPDUSessionAuthenticationResultMessage(t *testing.T) {
 		logger.NasMsgLog.Debugln("Encode: ", a)
 
 		data := make([]byte, buff.Len())
-		buff.Read(data)
+		if _, err := buff.Read(data); err != nil {
+			t.Fatal(err)
+		}
 		logger.NasMsgLog.Debugln(data)
 		b.DecodePDUSessionAuthenticationResult(&data)
 		logger.NasMsgLog.Debugln("Decode: ", b)
@@ -87,6 +89,5 @@ func TestNasTypeNewPDUSessionAuthenticationResultMessage(t *testing.T) {
 		if reflect.DeepEqual(a, b) != true {
 			t.Errorf("Not correct")
 		}
-
 	}
 }

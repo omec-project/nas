@@ -49,14 +49,14 @@ func (a *UplinkDataStatus) SetIei(iei uint8) {
 
 // UplinkDataStatus 9.11.3.57
 // Len Row, sBit, len = [], 8, 8
-func (a *UplinkDataStatus) GetLen() (len uint8) {
+func (a *UplinkDataStatus) GetLen() (length uint8) {
 	return a.Len
 }
 
 // UplinkDataStatus 9.11.3.57
 // Len Row, sBit, len = [], 8, 8
-func (a *UplinkDataStatus) SetLen(len uint8) {
-	a.Len = len
+func (a *UplinkDataStatus) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

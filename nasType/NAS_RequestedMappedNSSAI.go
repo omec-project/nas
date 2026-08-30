@@ -25,12 +25,12 @@ func (a *RequestedMappedNSSAI) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *RequestedMappedNSSAI) GetLen() (len uint16) {
+func (a *RequestedMappedNSSAI) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *RequestedMappedNSSAI) SetLen(len uint16) {
-	a.Len = len
+func (a *RequestedMappedNSSAI) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

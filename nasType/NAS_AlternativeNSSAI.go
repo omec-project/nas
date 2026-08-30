@@ -25,12 +25,12 @@ func (a *AlternativeNSSAI) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *AlternativeNSSAI) GetLen() (len uint8) {
+func (a *AlternativeNSSAI) GetLen() (length uint8) {
 	return a.Len
 }
 
-func (a *AlternativeNSSAI) SetLen(len uint8) {
-	a.Len = len
+func (a *AlternativeNSSAI) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

@@ -38,14 +38,14 @@ func (a *TMSI5GS) SetIei(iei uint8) {
 
 // TMSI5GS 9.11.3.4
 // Len Row, sBit, len = [], 8, 16
-func (a *TMSI5GS) GetLen() (len uint16) {
+func (a *TMSI5GS) GetLen() (length uint16) {
 	return a.Len
 }
 
 // TMSI5GS 9.11.3.4
 // Len Row, sBit, len = [], 8, 16
-func (a *TMSI5GS) SetLen(len uint16) {
-	a.Len = len
+func (a *TMSI5GS) SetLen(length uint16) {
+	a.Len = length
 }
 
 // TMSI5GS 9.11.3.4

@@ -25,12 +25,12 @@ func (a *MobileStationClassmark2) SetIei(iei uint8) {
 	a.Iei = iei
 }
 
-func (a *MobileStationClassmark2) GetLen() (len uint16) {
+func (a *MobileStationClassmark2) GetLen() (length uint16) {
 	return a.Len
 }
 
-func (a *MobileStationClassmark2) SetLen(len uint16) {
-	a.Len = len
+func (a *MobileStationClassmark2) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

@@ -16,11 +16,11 @@ func NewEquivalentSNPNs(iei uint8) (x *EquivalentSNPNs) {
 	return x
 }
 
-func (a *EquivalentSNPNs) GetIei() (iei uint8) { return a.Iei }
-func (a *EquivalentSNPNs) SetIei(iei uint8)    { a.Iei = iei }
-func (a *EquivalentSNPNs) GetLen() (len uint8) { return a.Len }
-func (a *EquivalentSNPNs) SetLen(len uint8) {
-	a.Len = len
+func (a *EquivalentSNPNs) GetIei() (iei uint8)    { return a.Iei }
+func (a *EquivalentSNPNs) SetIei(iei uint8)       { a.Iei = iei }
+func (a *EquivalentSNPNs) GetLen() (length uint8) { return a.Len }
+func (a *EquivalentSNPNs) SetLen(length uint8) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 

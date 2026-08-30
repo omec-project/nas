@@ -17,11 +17,11 @@ func NewPartiallyAllowedNSSAI(iei uint8) (x *PartiallyAllowedNSSAI) {
 	return x
 }
 
-func (a *PartiallyAllowedNSSAI) GetIei() (iei uint8)  { return a.Iei }
-func (a *PartiallyAllowedNSSAI) SetIei(iei uint8)     { a.Iei = iei }
-func (a *PartiallyAllowedNSSAI) GetLen() (len uint16) { return a.Len }
-func (a *PartiallyAllowedNSSAI) SetLen(len uint16) {
-	a.Len = len
+func (a *PartiallyAllowedNSSAI) GetIei() (iei uint8)     { return a.Iei }
+func (a *PartiallyAllowedNSSAI) SetIei(iei uint8)        { a.Iei = iei }
+func (a *PartiallyAllowedNSSAI) GetLen() (length uint16) { return a.Len }
+func (a *PartiallyAllowedNSSAI) SetLen(length uint16) {
+	a.Len = length
 	a.Buffer = make([]uint8, a.Len)
 }
 
