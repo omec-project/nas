@@ -45,7 +45,7 @@ func (a *LowerBoundTimerValue) SetLen(length uint8) {
 // LowerBoundTimerValue 9.11.2.5
 // UnitTimerValue Row, sBit, len = [0, 0], 8 , 3
 func (a *LowerBoundTimerValue) GetUnitTimerValue() (unitTimerValue uint8) {
-	return a.Octet & GetBitMask(8, 5) >> (5)
+	return a.Octet & GetBitMask(8, 5) >> 5
 }
 
 // LowerBoundTimerValue 9.11.2.5

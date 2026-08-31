@@ -19,7 +19,7 @@ func NewN5GCIndication(iei uint8) (n5GCIndication *N5GCIndication) {
 // N5GCIndication 9.11.3.72
 // Iei Row, sBit, len = [0, 0], 8 , 4
 func (a *N5GCIndication) GetIei() (iei uint8) {
-	return a.Octet & GetBitMask(8, 4) >> (4)
+	return a.Octet & GetBitMask(8, 4) >> 4
 }
 
 // N5GCIndication 9.11.3.72

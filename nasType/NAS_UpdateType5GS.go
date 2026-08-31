@@ -47,7 +47,7 @@ func (a *UpdateType5GS) SetLen(length uint8) {
 // UpdateType5GS 9.11.3.9A
 // NGRanRcu Row, sBit, len = [0, 0], 2 , 1
 func (a *UpdateType5GS) GetNGRanRcu() (nGRanRcu uint8) {
-	return a.Octet & GetBitMask(2, 1) >> (1)
+	return a.Octet & GetBitMask(2, 1) >> 1
 }
 
 // UpdateType5GS 9.11.3.9A

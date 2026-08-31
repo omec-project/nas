@@ -19,7 +19,7 @@ func NewControlPlaneServiceTypeAndNgksi() (controlPlaneServiceTypeAndNgksi *Cont
 // ControlPlaneServiceTypeAndNgksi 9.11.3.18D
 // ControlPlaneServiceType Row, sBit, len = [0, 0], 8 , 4
 func (a *ControlPlaneServiceTypeAndNgksi) GetControlPlaneServiceType() (controlPlaneServiceType uint8) {
-	return a.Octet & GetBitMask(8, 4) >> (4)
+	return a.Octet & GetBitMask(8, 4) >> 4
 }
 
 // ControlPlaneServiceTypeAndNgksi 9.11.3.18D
@@ -31,7 +31,7 @@ func (a *ControlPlaneServiceTypeAndNgksi) SetControlPlaneServiceType(controlPlan
 // ControlPlaneServiceTypeAndNgksi 9.11.3.32
 // TSC Row, sBit, len = [0, 0], 4 , 1
 func (a *ControlPlaneServiceTypeAndNgksi) GetTSC() (tSC uint8) {
-	return a.Octet & GetBitMask(4, 3) >> (3)
+	return a.Octet & GetBitMask(4, 3) >> 3
 }
 
 // ControlPlaneServiceTypeAndNgksi 9.11.3.32

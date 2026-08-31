@@ -25,6 +25,6 @@ func (d *Dnn) UnmarshalBinary(data []byte) error {
 // < up
 // TODO　exception check
 func GetBitMask(ub uint8, lb uint8) (bitMask uint8) {
-	bitMask = ((1<<(ub-lb) - 1) << (lb))
+	bitMask = ((1<<(ub-lb) - 1) << lb)
 	return bitMask
 }

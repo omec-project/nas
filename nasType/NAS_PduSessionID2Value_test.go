@@ -46,7 +46,7 @@ var nasTypePduSessionIdentity2ValueTable = []nasTypePDUSessionIDPduSessionID2Val
 func TestNasTypeGetSetPduSessionIdentity2Value(t *testing.T) {
 	a := nasType.NewPduSessionID2Value(nasMessage.ULNASTransportPduSessionID2ValueType)
 	for _, table := range nasTypePduSessionIdentity2ValueTable {
-		a.SetPduSessionID2Value((table.in))
+		a.SetPduSessionID2Value(table.in)
 		if !reflect.DeepEqual(table.out, a.GetPduSessionID2Value()) {
 			t.Errorf("Not equal: expected %v, got %v", table.out, a.GetPduSessionID2Value())
 		}

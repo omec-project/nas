@@ -47,7 +47,7 @@ func (a *Additional5GSecurityInformation) SetLen(n uint8) {
 // Additional5GSecurityInformation 9.11.3.12
 // RINMR Row, sBit, len = [0, 0], 2 , 1
 func (a *Additional5GSecurityInformation) GetRINMR() (rINMR uint8) {
-	return a.Octet & GetBitMask(2, 1) >> (1)
+	return a.Octet & GetBitMask(2, 1) >> 1
 }
 
 // Additional5GSecurityInformation 9.11.3.12
