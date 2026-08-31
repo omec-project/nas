@@ -61,7 +61,7 @@ func (a *DNN) GetDNN() (dNN []uint8) {
 // DNN 9.11.2.1A
 // DNN Row, sBit, len = [0, 0], 8 , INF
 func (a *DNN) SetDNN(dNN []uint8) {
-	tmp := (Dnn)(dNN)
+	tmp := Dnn(dNN)
 	dnn, err := tmp.MarshalBinary()
 	if err != nil {
 		return

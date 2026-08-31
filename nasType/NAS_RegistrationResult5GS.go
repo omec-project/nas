@@ -47,7 +47,7 @@ func (a *RegistrationResult5GS) SetLen(length uint8) {
 // RegistrationResult5GS 9.11.3.6
 // SMSAllowed Row, sBit, len = [0, 0], 4 , 1
 func (a *RegistrationResult5GS) GetSMSAllowed() (sMSAllowed uint8) {
-	return a.Octet & GetBitMask(4, 3) >> (3)
+	return a.Octet & GetBitMask(4, 3) >> 3
 }
 
 // RegistrationResult5GS 9.11.3.6

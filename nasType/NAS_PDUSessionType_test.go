@@ -76,7 +76,7 @@ type testPDUSessionTypeDataTemplate struct {
 }
 
 var pDUSessionTypeTestData = []nasType.PDUSessionType{
-	{(nasMessage.PDUSessionEstablishmentRequestPDUSessionTypeType)},
+	{nasMessage.PDUSessionEstablishmentRequestPDUSessionTypeType},
 }
 
 var pDUSessionTypeExpectedData = []nasType.PDUSessionType{

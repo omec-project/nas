@@ -19,7 +19,7 @@ func NewUERadioCapabilityIDDeletionIndicationIE(iei uint8) (x *UERadioCapability
 // UERadioCapabilityIDDeletionIndicationIE 9.11.3.69
 // Iei Row, sBit, len = [0, 0], 8 , 4
 func (a *UERadioCapabilityIDDeletionIndicationIE) GetIei() (iei uint8) {
-	return a.Octet & GetBitMask(8, 4) >> (4)
+	return a.Octet & GetBitMask(8, 4) >> 4
 }
 
 // UERadioCapabilityIDDeletionIndicationIE 9.11.3.69
