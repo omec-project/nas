@@ -160,6 +160,7 @@ func (a *PDUSessionEstablishmentRequest) DecodePDUSessionEstablishmentRequest(by
 			}
 			a.Capability5GSM.SetLen(a.Capability5GSM.GetLen())
 			if a.Capability5GSM.GetLen() > uint8(len(a.Capability5GSM.Octet)) {
+				a.Capability5GSM = nil // discard the malformed IE so a later Encode cannot re-panic on it
 				return
 			}
 			if err := binary.Read(buffer, binary.BigEndian, a.Capability5GSM.Octet[:a.Capability5GSM.GetLen()]); err != nil {

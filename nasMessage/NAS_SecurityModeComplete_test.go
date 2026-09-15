@@ -94,7 +94,8 @@ func TestNasTypeNewSecurityModeCompleteMessage(t *testing.T) {
 
 // TestNasTypeSecurityModeCompleteOverlengthIMEISV guards against a crafted
 // IMEISV IE whose declared length (10) exceeds the fixed 9-octet IMEISV
-// buffer; decoding must not panic with a slice bounds out of range error.
+// buffer; decoding must not panic with a slice bounds out of range error, and
+// the malformed IE must be discarded so re-encoding the result cannot panic either.
 func TestNasTypeSecurityModeCompleteOverlengthIMEISV(t *testing.T) {
 	data := []byte{
 		0x7e, 0x00, 0x5e, // EPD, spare/security header type, message type
@@ -103,4 +104,11 @@ func TestNasTypeSecurityModeCompleteOverlengthIMEISV(t *testing.T) {
 	}
 	b := nasMessage.NewSecurityModeComplete(0)
 	b.DecodeSecurityModeComplete(&data)
+
+	if b.IMEISV != nil {
+		t.Errorf("expected malformed IMEISV to be discarded, got %+v", b.IMEISV)
+	}
+
+	buff := new(bytes.Buffer)
+	b.EncodeSecurityModeComplete(buff)
 }
