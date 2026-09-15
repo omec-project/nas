@@ -62,6 +62,10 @@ func (a *NetworkSliceSpecificAuthenticationComplete) DecodeNetworkSliceSpecificA
 	if err := binary.Read(buffer, binary.BigEndian, &a.SNSSAI.Len); err != nil {
 		return
 	}
+	if a.SNSSAI.GetLen() > uint8(len(a.SNSSAI.Octet)) {
+		a.SNSSAI.SetLen(0) // SNSSAI is mandatory (not a pointer) - reset it so a later Encode cannot re-panic on it
+		return
+	}
 	if err := binary.Read(buffer, binary.BigEndian, a.SNSSAI.Octet[:a.SNSSAI.GetLen()]); err != nil {
 		return
 	}

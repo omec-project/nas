@@ -343,6 +343,10 @@ func (a *PDUSessionEstablishmentAccept) DecodePDUSessionEstablishmentAccept(byte
 				return
 			}
 			a.PDUAddress.SetLen(a.PDUAddress.GetLen())
+			if a.PDUAddress.GetLen() > uint8(len(a.PDUAddress.Octet)) {
+				a.PDUAddress = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.PDUAddress.Octet[:a.PDUAddress.GetLen()]); err != nil {
 				return
 			}
@@ -357,6 +361,10 @@ func (a *PDUSessionEstablishmentAccept) DecodePDUSessionEstablishmentAccept(byte
 				return
 			}
 			a.SNSSAI.SetLen(a.SNSSAI.GetLen())
+			if a.SNSSAI.GetLen() > uint8(len(a.SNSSAI.Octet)) {
+				a.SNSSAI = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.SNSSAI.Octet[:a.SNSSAI.GetLen()]); err != nil {
 				return
 			}

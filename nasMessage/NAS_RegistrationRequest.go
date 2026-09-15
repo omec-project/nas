@@ -583,6 +583,10 @@ func (a *RegistrationRequest) DecodeRegistrationRequest(byteArray *[]byte) {
 				return
 			}
 			a.Capability5GMM.SetLen(a.Capability5GMM.GetLen())
+			if a.Capability5GMM.GetLen() > uint8(len(a.Capability5GMM.Octet)) {
+				a.Capability5GMM = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.Capability5GMM.Octet[:a.Capability5GMM.GetLen()]); err != nil {
 				return
 			}
@@ -654,6 +658,10 @@ func (a *RegistrationRequest) DecodeRegistrationRequest(byteArray *[]byte) {
 				return
 			}
 			a.AdditionalGUTI.SetLen(a.AdditionalGUTI.GetLen())
+			if a.AdditionalGUTI.GetLen() > uint16(len(a.AdditionalGUTI.Octet)) {
+				a.AdditionalGUTI = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.AdditionalGUTI.Octet[:a.AdditionalGUTI.GetLen()]); err != nil {
 				return
 			}

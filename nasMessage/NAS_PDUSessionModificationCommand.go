@@ -275,6 +275,10 @@ func (a *PDUSessionModificationCommand) DecodePDUSessionModificationCommand(byte
 				return
 			}
 			a.SessionAMBR.SetLen(a.SessionAMBR.GetLen())
+			if a.SessionAMBR.GetLen() > uint8(len(a.SessionAMBR.Octet)) {
+				a.SessionAMBR = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.SessionAMBR.Octet[:a.SessionAMBR.GetLen()]); err != nil {
 				return
 			}
@@ -382,6 +386,10 @@ func (a *PDUSessionModificationCommand) DecodePDUSessionModificationCommand(byte
 				return
 			}
 			a.AlternativeSNSSAI.SetLen(a.AlternativeSNSSAI.GetLen())
+			if a.AlternativeSNSSAI.GetLen() > uint8(len(a.AlternativeSNSSAI.Octet)) {
+				a.AlternativeSNSSAI = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.AlternativeSNSSAI.Octet[:a.AlternativeSNSSAI.GetLen()]); err != nil {
 				return
 			}

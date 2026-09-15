@@ -87,6 +87,10 @@ func (a *AuthenticationFailure) DecodeAuthenticationFailure(byteArray *[]byte) {
 				return
 			}
 			a.SetLen(a.GetLen())
+			if a.GetLen() > uint8(len(a.AuthenticationFailureParameter.Octet)) {
+				a.AuthenticationFailureParameter = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.AuthenticationFailureParameter.Octet[:a.GetLen()]); err != nil {
 				return
 			}

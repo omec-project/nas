@@ -213,6 +213,10 @@ func (a *ULNASTransport) DecodeULNASTransport(byteArray *[]byte) {
 				return
 			}
 			a.SNSSAI.SetLen(a.SNSSAI.GetLen())
+			if a.SNSSAI.GetLen() > uint8(len(a.SNSSAI.Octet)) {
+				a.SNSSAI = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.SNSSAI.Octet[:a.SNSSAI.GetLen()]); err != nil {
 				return
 			}
@@ -255,6 +259,10 @@ func (a *ULNASTransport) DecodeULNASTransport(byteArray *[]byte) {
 				return
 			}
 			a.AlternativeSNSSAI.SetLen(a.AlternativeSNSSAI.GetLen())
+			if a.AlternativeSNSSAI.GetLen() > uint8(len(a.AlternativeSNSSAI.Octet)) {
+				a.AlternativeSNSSAI = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.AlternativeSNSSAI.Octet[:a.AlternativeSNSSAI.GetLen()]); err != nil {
 				return
 			}

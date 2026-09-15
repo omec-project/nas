@@ -567,6 +567,10 @@ func (a *ConfigurationUpdateCommand) DecodeConfigurationUpdateCommand(byteArray 
 				return
 			}
 			a.GUTI5G.SetLen(a.GUTI5G.GetLen())
+			if a.GUTI5G.GetLen() > uint16(len(a.GUTI5G.Octet)) {
+				a.GUTI5G = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.GUTI5G.Octet[:a.GUTI5G.GetLen()]); err != nil {
 				return
 			}

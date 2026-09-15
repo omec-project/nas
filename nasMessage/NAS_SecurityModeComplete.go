@@ -106,6 +106,10 @@ func (a *SecurityModeComplete) DecodeSecurityModeComplete(byteArray *[]byte) {
 				return
 			}
 			a.IMEISV.SetLen(a.IMEISV.GetLen())
+			if a.IMEISV.GetLen() > uint16(len(a.IMEISV.Octet)) {
+				a.IMEISV = nil // discard the malformed IE so a later Encode cannot re-panic on it
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.IMEISV.Octet[:a.IMEISV.GetLen()]); err != nil {
 				return
 			}
