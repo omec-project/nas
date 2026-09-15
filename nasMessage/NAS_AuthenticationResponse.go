@@ -93,6 +93,9 @@ func (a *AuthenticationResponse) DecodeAuthenticationResponse(byteArray *[]byte)
 				return
 			}
 			a.AuthenticationResponseParameter.SetLen(a.AuthenticationResponseParameter.GetLen())
+			if a.AuthenticationResponseParameter.GetLen() > uint8(len(a.AuthenticationResponseParameter.Octet)) {
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.AuthenticationResponseParameter.Octet[:a.AuthenticationResponseParameter.GetLen()]); err != nil {
 				return
 			}

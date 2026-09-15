@@ -159,6 +159,9 @@ func (a *PDUSessionEstablishmentRequest) DecodePDUSessionEstablishmentRequest(by
 				return
 			}
 			a.Capability5GSM.SetLen(a.Capability5GSM.GetLen())
+			if a.Capability5GSM.GetLen() > uint8(len(a.Capability5GSM.Octet)) {
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.Capability5GSM.Octet[:a.Capability5GSM.GetLen()]); err != nil {
 				return
 			}

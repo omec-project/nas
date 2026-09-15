@@ -275,6 +275,9 @@ func (a *PDUSessionModificationCommand) DecodePDUSessionModificationCommand(byte
 				return
 			}
 			a.SessionAMBR.SetLen(a.SessionAMBR.GetLen())
+			if a.SessionAMBR.GetLen() > uint8(len(a.SessionAMBR.Octet)) {
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.SessionAMBR.Octet[:a.SessionAMBR.GetLen()]); err != nil {
 				return
 			}
@@ -382,6 +385,9 @@ func (a *PDUSessionModificationCommand) DecodePDUSessionModificationCommand(byte
 				return
 			}
 			a.AlternativeSNSSAI.SetLen(a.AlternativeSNSSAI.GetLen())
+			if a.AlternativeSNSSAI.GetLen() > uint8(len(a.AlternativeSNSSAI.Octet)) {
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.AlternativeSNSSAI.Octet[:a.AlternativeSNSSAI.GetLen()]); err != nil {
 				return
 			}

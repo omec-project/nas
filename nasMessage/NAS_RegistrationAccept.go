@@ -765,6 +765,9 @@ func (a *RegistrationAccept) DecodeRegistrationAccept(byteArray *[]byte) {
 				return
 			}
 			a.GUTI5G.SetLen(a.GUTI5G.GetLen())
+			if a.GUTI5G.GetLen() > uint16(len(a.GUTI5G.Octet)) {
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.GUTI5G.Octet[:a.GUTI5G.GetLen()]); err != nil {
 				return
 			}
@@ -774,6 +777,9 @@ func (a *RegistrationAccept) DecodeRegistrationAccept(byteArray *[]byte) {
 				return
 			}
 			a.EquivalentPlmns.SetLen(a.EquivalentPlmns.GetLen())
+			if a.EquivalentPlmns.GetLen() > uint8(len(a.EquivalentPlmns.Octet)) {
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.EquivalentPlmns.Octet[:a.EquivalentPlmns.GetLen()]); err != nil {
 				return
 			}
@@ -819,6 +825,9 @@ func (a *RegistrationAccept) DecodeRegistrationAccept(byteArray *[]byte) {
 				return
 			}
 			a.NetworkFeatureSupport5GS.SetLen(a.NetworkFeatureSupport5GS.GetLen())
+			if a.NetworkFeatureSupport5GS.GetLen() > uint8(len(a.NetworkFeatureSupport5GS.Octet)) {
+				return
+			}
 			if err := binary.Read(buffer, binary.BigEndian, a.NetworkFeatureSupport5GS.Octet[:a.NetworkFeatureSupport5GS.GetLen()]); err != nil {
 				return
 			}

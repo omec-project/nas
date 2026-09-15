@@ -91,3 +91,16 @@ func TestNasTypeNewSecurityModeCompleteMessage(t *testing.T) {
 		}
 	}
 }
+
+// TestNasTypeSecurityModeCompleteOverlengthIMEISV guards against a crafted
+// IMEISV IE whose declared length (10) exceeds the fixed 9-octet IMEISV
+// buffer; decoding must not panic with a slice bounds out of range error.
+func TestNasTypeSecurityModeCompleteOverlengthIMEISV(t *testing.T) {
+	data := []byte{
+		0x7e, 0x00, 0x5e, // EPD, spare/security header type, message type
+		0x77, 0x00, 0x0a, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, // IMEISV, len=10
+		0x71, 0x01, 0x00, // NAS message container, len=1
+	}
+	b := nasMessage.NewSecurityModeComplete(0)
+	b.DecodeSecurityModeComplete(&data)
+}
