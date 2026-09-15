@@ -103,6 +103,32 @@ func TestRequestedNssaiToModels(t *testing.T) {
 			expected:    nil,
 			expectError: true,
 		},
+		{
+			// advertised Len exceeds the actual buffer length
+			name: "Test overlength requested NSSAI",
+			requestNssai: nasType.RequestedNSSAI{
+				Iei: nasMessage.RegistrationRequestRequestedNSSAIType,
+				Len: 10,
+				Buffer: []uint8{
+					0x01, 0x01,
+				},
+			},
+			expected:    nil,
+			expectError: true,
+		},
+		{
+			// buffer holds a full S-NSSAI, but the advertised Len only covers part of it
+			name: "Test Len shorter than buffer must not expose trailing bytes",
+			requestNssai: nasType.RequestedNSSAI{
+				Iei: nasMessage.RegistrationRequestRequestedNSSAIType,
+				Len: 2,
+				Buffer: []uint8{
+					0x04, 0x01, 0x01, 0x02, 0x03,
+				},
+			},
+			expected:    nil,
+			expectError: true,
+		},
 	}
 
 	for _, tc := range testCases {

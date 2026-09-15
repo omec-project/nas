@@ -21,6 +21,12 @@ func RequestedNssaiToModels(nasNssai *nasType.RequestedNSSAI) ([]models.MappingO
 
 	buf := nasNssai.GetSNSSAIValue()
 	lengthOfBuf := int(nasNssai.GetLen())
+	if lengthOfBuf > len(buf) {
+		return nil, fmt.Errorf("requested NSSAI length %d exceeds buffer length %d", lengthOfBuf, len(buf))
+	}
+	// enforce the advertised length so trailing bytes beyond it are never parsed
+	buf = buf[:lengthOfBuf]
+
 	offset := 0
 	for offset < lengthOfBuf {
 		lengthOfSnssaiContents := buf[offset]

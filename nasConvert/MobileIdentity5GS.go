@@ -113,7 +113,7 @@ func NaiToString(buf []byte) (nai string, err error) {
 
 // nasType: TS 24.501 9.11.3.4
 func GutiToString(buf []byte) (guami models.Guami, guti string) {
-	if len(buf) < 7 {
+	if len(buf) != 11 {
 		logger.ConvertLog.Errorf("invalid GUTI buffer length: %d", len(buf))
 		return
 	}
