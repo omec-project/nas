@@ -90,6 +90,19 @@ func TestRequestedNssaiToModels(t *testing.T) {
 			expected:    nil,
 			expectError: true,
 		},
+		{
+			// declared S-NSSAI contents length (0x08) exceeds the remaining buffer
+			name: "Test overlength S-NSSAI contents",
+			requestNssai: nasType.RequestedNSSAI{
+				Iei: nasMessage.RegistrationRequestRequestedNSSAIType,
+				Len: 3,
+				Buffer: []uint8{
+					0x08, 0x01, 0x02,
+				},
+			},
+			expected:    nil,
+			expectError: true,
+		},
 	}
 
 	for _, tc := range testCases {

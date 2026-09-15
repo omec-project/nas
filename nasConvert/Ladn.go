@@ -12,6 +12,10 @@ import (
 func LadnToModels(buf []uint8) (dnnValues []string) {
 	for bufOffset := 1; bufOffset < len(buf); {
 		lenOfDnn := int(buf[bufOffset])
+		// reject a zero length (would never advance bufOffset) or one that overruns buf
+		if lenOfDnn == 0 || bufOffset+lenOfDnn > len(buf) {
+			break
+		}
 		dnn := string(buf[bufOffset : bufOffset+lenOfDnn])
 		dnnValues = append(dnnValues, dnn)
 		bufOffset += lenOfDnn

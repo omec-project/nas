@@ -40,6 +40,10 @@ func RequestedNssaiToModels(nasNssai *nasType.RequestedNSSAI) ([]models.MappingO
 func snssaiToModels(lengthOfSnssaiContents uint8, buf []byte) (models.MappingOfSnssai, error) {
 	snssai := models.MappingOfSnssai{}
 
+	if int(lengthOfSnssaiContents)+1 > len(buf) {
+		return snssai, fmt.Errorf("S-NSSAI contents length %d exceeds remaining buffer", lengthOfSnssaiContents)
+	}
+
 	switch lengthOfSnssaiContents {
 	case 0x01: // SST
 		snssai.ServingSnssai = models.Snssai{
