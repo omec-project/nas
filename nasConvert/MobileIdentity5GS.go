@@ -113,6 +113,11 @@ func NaiToString(buf []byte) (nai string, err error) {
 
 // nasType: TS 24.501 9.11.3.4
 func GutiToString(buf []byte) (guami models.Guami, guti string) {
+	if len(buf) != 11 {
+		logger.ConvertLog.Errorf("invalid GUTI buffer length: %d", len(buf))
+		return
+	}
+
 	plmnID := PlmnIDToString(buf[1:4])
 	amfID := hex.EncodeToString(buf[4:7])
 	tmsi5G := hex.EncodeToString(buf[7:])

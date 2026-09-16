@@ -7,6 +7,39 @@ import (
 	"testing"
 )
 
+func TestGutiToString(t *testing.T) {
+	tests := []struct {
+		name    string
+		buf     []byte
+		wantGut string
+	}{
+		{
+			name:    "buffer too short",
+			buf:     []byte{0x01, 0x02, 0x03},
+			wantGut: "",
+		},
+		{
+			name:    "buffer too long",
+			buf:     []byte{0xf1, 0x12, 0x93, 0x11, 0x22, 0x33, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06},
+			wantGut: "",
+		},
+		{
+			name:    "valid GUTI buffer",
+			buf:     []byte{0xf1, 0x12, 0x93, 0x11, 0x22, 0x33, 0x01, 0x02, 0x03, 0x04, 0x05},
+			wantGut: "21311922330102030405",
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			_, guti := GutiToString(tc.buf)
+			if guti != tc.wantGut {
+				t.Errorf("expected %q, got %q", tc.wantGut, guti)
+			}
+		})
+	}
+}
+
 func TestNaiToString(t *testing.T) {
 	tests := []struct {
 		name        string
