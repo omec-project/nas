@@ -15,7 +15,6 @@ import (
 	"github.com/omec-project/nas/v2/logger"
 	"github.com/omec-project/nas/v2/nasMessage"
 	"github.com/omec-project/nas/v2/nasType"
-	"github.com/omec-project/openapi/v2/models"
 )
 
 func GetTypeOfIdentity(buf byte) uint8 {
@@ -109,26 +108,6 @@ func NaiToString(buf []byte) (nai string, err error) {
 	naiStr := hex.EncodeToString(naiBytes)
 	nai = strings.Join([]string{prefix, "1", naiStr}, "-")
 	return nai, nil
-}
-
-// nasType: TS 24.501 9.11.3.4
-func GutiToString(buf []byte) (guami models.Guami, guti string) {
-	if len(buf) != 11 {
-		logger.ConvertLog.Errorf("invalid GUTI buffer length: %d", len(buf))
-		return
-	}
-
-	plmnID := PlmnIDToString(buf[1:4])
-	amfID := hex.EncodeToString(buf[4:7])
-	tmsi5G := hex.EncodeToString(buf[7:])
-
-	guami.PlmnId = models.PlmnIdNid{
-		Mcc: plmnID[:3],
-		Mnc: plmnID[3:],
-	}
-	guami.AmfId = amfID
-	guti = plmnID + amfID + tmsi5G
-	return
 }
 
 func GutiToNas(guti string) nasType.GUTI5G {
