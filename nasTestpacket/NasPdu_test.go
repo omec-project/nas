@@ -11,6 +11,7 @@ import (
 
 	"github.com/omec-project/nas/v2"
 	"github.com/omec-project/nas/v2/nasMessage"
+	"github.com/omec-project/nas/v2/nasType"
 )
 
 func TestGetSecurityModeComplete(t *testing.T) {
@@ -280,5 +281,51 @@ func BenchmarkGetSecurityModeCompleteLargeContainer(b *testing.B) {
 
 	for b.Loop() {
 		GetSecurityModeComplete(largeContainer)
+	}
+}
+
+func TestUlNasTransportBuildersPreserveSNSSAI(t *testing.T) {
+	builders := []struct {
+		name  string
+		build func(uint8, uint8, string, *nasType.SNSSAI) []byte
+	}{
+		{name: "PDU session establishment", build: GetUlNasTransport_PduSessionEstablishmentRequest},
+		{name: "PDU session release complete", build: GetUlNasTransport_PduSessionReleaseComplete},
+	}
+	snssais := []struct {
+		name   string
+		snssai nasType.SNSSAI
+	}{
+		{name: "SST only", snssai: nasType.SNSSAI{Iei: 0xff, Len: 1, Octet: [8]uint8{1}}},
+		{name: "mapped HPLMN", snssai: nasType.SNSSAI{Iei: 0xff, Len: 8, Octet: [8]uint8{1, 2, 3, 4, 5, 6, 7, 8}}},
+	}
+
+	for _, builder := range builders {
+		for _, tc := range snssais {
+			t.Run(builder.name+"/"+tc.name, func(t *testing.T) {
+				original := tc.snssai
+				encoded := builder.build(10, nasMessage.ULNASTransportRequestTypeInitialRequest, "internet", &tc.snssai)
+				if tc.snssai != original {
+					t.Error("builder modified the caller's S-NSSAI")
+				}
+				message := nas.NewMessage()
+				if err := message.PlainNasDecode(&encoded); err != nil {
+					t.Fatalf("UL NAS transport does not decode: %v", err)
+				}
+				got := message.ULNASTransport.SNSSAI
+				if got == nil {
+					t.Fatal("UL NAS transport is missing S-NSSAI")
+				}
+				if got.Iei != nasMessage.ULNASTransportSNSSAIType {
+					t.Errorf("S-NSSAI IEI = 0x%02x, want 0x%02x", got.Iei, nasMessage.ULNASTransportSNSSAIType)
+				}
+				if got.Len != original.Len {
+					t.Errorf("S-NSSAI length = %d, want %d", got.Len, original.Len)
+				}
+				if got.Octet != original.Octet {
+					t.Errorf("S-NSSAI octets = %#v, want %#v", got.Octet, original.Octet)
+				}
+			})
+		}
 	}
 }
