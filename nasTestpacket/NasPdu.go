@@ -141,10 +141,9 @@ func GetUlNasTransport_PduSessionEstablishmentRequest(pduSessionId uint8, reques
 		ulNasTransport.SetDNN(dnn)
 	}
 	if sNssai != nil {
-		ulNasTransport.SNSSAI = nasType.NewSNSSAI(nasMessage.ULNASTransportSNSSAIType)
-		ulNasTransport.SNSSAI.SetLen(4)
-		ulNasTransport.SetSST(sNssai.GetSST())
-		ulNasTransport.SetSD(sNssai.GetSD())
+		snssai := *sNssai
+		snssai.SetIei(nasMessage.ULNASTransportSNSSAIType)
+		ulNasTransport.SNSSAI = &snssai
 	}
 
 	ulNasTransport.SetPayloadContainerType(nasMessage.PayloadContainerTypeN1SMInfo)
@@ -434,10 +433,9 @@ func GetUlNasTransport_PduSessionReleaseComplete(pduSessionId uint8, requestType
 		ulNasTransport.SetDNN(dnn)
 	}
 	if sNssai != nil {
-		ulNasTransport.SNSSAI = nasType.NewSNSSAI(nasMessage.ULNASTransportSNSSAIType)
-		ulNasTransport.SNSSAI.SetLen(4)
-		ulNasTransport.SetSST(sNssai.GetSST())
-		ulNasTransport.SetSD(sNssai.GetSD())
+		snssai := *sNssai
+		snssai.SetIei(nasMessage.ULNASTransportSNSSAIType)
+		ulNasTransport.SNSSAI = &snssai
 	}
 
 	ulNasTransport.SetPayloadContainerType(nasMessage.PayloadContainerTypeN1SMInfo)
