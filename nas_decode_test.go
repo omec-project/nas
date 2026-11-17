@@ -13,3 +13,14 @@ func TestGmmMessageDecodePropagatesDecodeError(t *testing.T) {
 		t.Fatal("expected error for truncated IE, got nil")
 	}
 }
+
+func TestPlainNasDecodeEmptyPayload(t *testing.T) {
+	for name, data := range map[string][]byte{"nil": nil, "empty": {}} {
+		t.Run(name, func(t *testing.T) {
+			msg := NewMessage()
+			if err := msg.PlainNasDecode(&data); err == nil {
+				t.Fatal("expected error for empty payload, got nil")
+			}
+		})
+	}
+}

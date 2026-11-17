@@ -282,6 +282,9 @@ func MessageName(code uint8) string {
 }
 
 func (a *Message) PlainNasDecode(byteArray *[]byte) error {
+	if len(*byteArray) == 0 {
+		return fmt.Errorf("empty NAS payload")
+	}
 	epd := GetEPD(*byteArray)
 	switch epd {
 	case nasMessage.Epd5GSMobilityManagementMessage:
